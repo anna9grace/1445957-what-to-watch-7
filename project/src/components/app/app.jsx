@@ -9,15 +9,19 @@ import FilmScreen from '../film-screen/film-screen';
 import AddReviewScreen from '../add-review-screen/add-review-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import filmCardProp from '../film-card/film-card.prop';
 
 function App(props) {
-  const {promoFilm} = props;
+  const {promoFilm, films} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainScreen promoFilm={promoFilm}/>
+          <MainScreen
+            promoFilm={promoFilm}
+            films={films}
+          />
         </Route>
 
         <Route exact path={AppRoute.SIGN_IN}>
@@ -54,6 +58,7 @@ App.propTypes = {
     promoFilmGenre: PropTypes.string.isRequired,
     promoFilmReleaseYear: PropTypes.number.isRequired,
   }).isRequired,
+  films: PropTypes.arrayOf(filmCardProp).isRequired,
 };
 
 export default App;

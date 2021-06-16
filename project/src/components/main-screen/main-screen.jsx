@@ -1,11 +1,11 @@
 import React from 'react';
-import FilmCard from '../film-card/film-card';
+import FilmList from '../film-list/film-list';
 import PropTypes from 'prop-types';
+import filmCardProp from '../film-card/film-card.prop';
 
 function MainScreen(props) {
   const {promoFilmName, promoFilmGenre, promoFilmReleaseYear} = props.promoFilm;
-
-  const films = new Array(20).fill(null).map((el, index) => index);
+  const films = props.films;
 
   return (
     <React.Fragment>
@@ -106,11 +106,9 @@ function MainScreen(props) {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {
-              films.map((item) => <FilmCard key={item}/>)
-            }
-          </div>
+          {
+            <FilmList films={films}/>
+          }
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -141,6 +139,7 @@ MainScreen.propTypes = {
     promoFilmGenre: PropTypes.string.isRequired,
     promoFilmReleaseYear: PropTypes.number.isRequired,
   }).isRequired,
+  films: PropTypes.arrayOf(filmCardProp).isRequired,
 };
 
 export default MainScreen;
