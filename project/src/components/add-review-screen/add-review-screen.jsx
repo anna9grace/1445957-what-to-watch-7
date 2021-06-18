@@ -1,9 +1,12 @@
 import React from 'react';
 import filmProp from '../film-screen/film.prop';
+import Logo from '../logo/logo';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 function AddReviewScreen(props) {
   const {film} = props;
-  const {name, backgroundImage} = film;
+  const {name, backgroundImage, posterImage} = film;
 
   return (
     <section className="film-card film-card--full">
@@ -15,18 +18,12 @@ function AddReviewScreen(props) {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
-          <div className="logo">
-            <a href="main.html" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo />
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">{name}</a>
+                <Link className="breadcrumbs__link" to={`${AppRoute.FILM}/${film.id}`}>{name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -37,7 +34,9 @@ function AddReviewScreen(props) {
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <Link to={AppRoute.MY_LIST}>
+                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </Link>
               </div>
             </li>
             <li className="user-block__item">

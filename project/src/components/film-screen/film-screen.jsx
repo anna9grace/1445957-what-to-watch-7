@@ -1,11 +1,17 @@
 import React from 'react';
 import filmProp from './film.prop';
 import FilmList from '../film-list/film-list';
+import Logo from '../logo/logo';
 import PropTypes from 'prop-types';
+import {useHistory} from 'react-router';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 function FilmScreen(props) {
   const {film, films} = props;
-  const {name, posterImage, backgroundImage, genre, released, rating, scoresCount, description, director, starring} = film;
+  const {name, posterImage, backgroundImage, genre, released, rating, scoresCount, description, director, starring, id} = film;
+
+  const history = useHistory();
 
   return (
     <React.Fragment>
@@ -18,18 +24,14 @@ function FilmScreen(props) {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
+            <Logo />
 
             <ul className="user-block">
               <li className="user-block__item">
                 <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                  <Link to={AppRoute.MY_LIST}>
+                    <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                  </Link>
                 </div>
               </li>
               <li className="user-block__item">
@@ -47,7 +49,11 @@ function FilmScreen(props) {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button
+                  className="btn btn--play film-card__button"
+                  type="button"
+                  onClick={() => history.push(`${AppRoute.PLAYER}/${id}`)}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -59,7 +65,7 @@ function FilmScreen(props) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link className="btn film-card__button" to={`${AppRoute.FILM}/${film.id}/review`}>Add review</Link>
               </div>
             </div>
           </div>
@@ -120,13 +126,7 @@ function FilmScreen(props) {
         </section>
 
         <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo isFooter />
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>

@@ -1,15 +1,24 @@
 import React from 'react';
 import filmProp from '../film-screen/film.prop';
+import {useHistory} from 'react-router';
 
 function PlayerScreen(props) {
   const {film} = props;
   const {name, backgroundImage, videoLink} = film;
 
+  const history = useHistory();
+
   return (
     <div className="player">
       <video src={videoLink} className="player__video" poster={backgroundImage}></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button
+        type="button"
+        className="player__exit"
+        onClick={() => history.goBack()}
+      >
+        Exit
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">

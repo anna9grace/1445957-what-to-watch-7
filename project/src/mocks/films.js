@@ -17,6 +17,7 @@ const films = [
     'genre': 'Comedy',
     'released': 2014,
     'isFavorite': false,
+    'isPromo': true,
   },
   {
     'id': 2,
