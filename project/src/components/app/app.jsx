@@ -42,7 +42,9 @@ function App(props) {
         </Route>
 
         <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReviewScreen />
+          <AddReviewScreen
+            film={films[0]}
+          />
         </Route>
 
         <Route exact path={AppRoute.PLAYER}>
