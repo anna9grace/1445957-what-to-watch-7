@@ -1,12 +1,17 @@
 import React from 'react';
-import filmCardProp from './film-card.prop';
+import filmProp from '../film-screen/film.prop';
+import PropTypes from 'prop-types';
 
 function FilmCard(props) {
-  const {film} = props;
+  const {film, mouseEnterHandler, mouseLeaveHandler} = props;
   const {name, previewImage} = film;
 
   return (
-    <article className="small-film-card catalog__films-card">
+    <article
+      className="small-film-card catalog__films-card"
+      onMouseEnter={mouseEnterHandler}
+      onMouseLeave={mouseLeaveHandler}
+    >
       <div className="small-film-card__image">
         <img src={previewImage} alt={name} width="280" height="175" />
       </div>
@@ -18,7 +23,9 @@ function FilmCard(props) {
 }
 
 FilmCard.propTypes = {
-  film: filmCardProp,
+  film: filmProp,
+  mouseEnterHandler: PropTypes.func.isRequired,
+  mouseLeaveHandler: PropTypes.func.isRequired,
 };
 
 export default FilmCard;

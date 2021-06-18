@@ -1,7 +1,7 @@
 import React from 'react';
 import FilmList from '../film-list/film-list';
 import PropTypes from 'prop-types';
-import filmCardProp from '../film-card/film-card.prop';
+import filmProp from '../film-screen/film.prop';
 
 function MainScreen(props) {
   const {promoFilmName, promoFilmGenre, promoFilmReleaseYear} = props.promoFilm;
@@ -139,7 +139,7 @@ MainScreen.propTypes = {
     promoFilmGenre: PropTypes.string.isRequired,
     promoFilmReleaseYear: PropTypes.number.isRequired,
   }).isRequired,
-  films: PropTypes.arrayOf(filmCardProp).isRequired,
+  films: PropTypes.arrayOf(filmProp).isRequired,
 };
 
 export default MainScreen;

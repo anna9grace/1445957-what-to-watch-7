@@ -1,9 +1,13 @@
 import React from 'react';
+import filmProp from '../film-screen/film.prop';
 
-function PlayerScreen() {
+function PlayerScreen(props) {
+  const {film} = props;
+  const {name, backgroundImage, videoLink} = film;
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={videoLink} className="player__video" poster={backgroundImage}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -23,7 +27,7 @@ function PlayerScreen() {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -36,5 +40,9 @@ function PlayerScreen() {
     </div>
   );
 }
+
+PlayerScreen.propTypes = {
+  film: filmProp,
+};
 
 export default PlayerScreen;

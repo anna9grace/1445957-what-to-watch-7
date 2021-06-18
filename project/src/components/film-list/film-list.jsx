@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import FilmCard from '../film-card/film-card';
 import PropTypes from 'prop-types';
-import filmCardProp from '../film-card/film-card.prop';
+import filmProp from '../film-screen/film.prop';
 
 function FilmList(props) {
   const {films} = props;
+  const [activeCard, setActiveCard] = useState(null);
 
   return (
-    <div className="catalog__films-list">
+    <div className='catalog__films-list'>
       {
         films.map((film) => {
           const filmId = film.id;
@@ -16,6 +17,13 @@ function FilmList(props) {
             <FilmCard
               key={filmId}
               film={film}
+              mouseEnterHandler={() => {
+                setActiveCard(filmId);
+              }}
+              mouseLeaveHandler={() => {
+                setActiveCard(null);
+              }}
+              isActive={film.id === activeCard}
             />
           );
         })
@@ -25,7 +33,7 @@ function FilmList(props) {
 }
 
 FilmList.propTypes = {
-  films: PropTypes.arrayOf(filmCardProp).isRequired,
+  films: PropTypes.arrayOf(filmProp).isRequired,
 };
 
 export default FilmList;
