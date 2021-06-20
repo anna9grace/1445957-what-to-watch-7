@@ -5,3 +5,5 @@ export const AppRoute = {
   FILM: '/films',
   PLAYER: '/player',
 };
+
+export const MAX_RATING = 10;

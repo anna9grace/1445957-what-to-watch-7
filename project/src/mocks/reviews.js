@@ -1,4 +1,4 @@
-const comments = [
+const reviews = [
   {
     'id': 1,
     'user': {
@@ -61,4 +61,16 @@ const comments = [
   },
 ];
 
-export default comments;
+
+const adaptToClient = (review) => (
+  {
+    id: review.id,
+    userId: review.user.id,
+    userName: review.user.name,
+    rating: review.rating,
+    comment: review.comment,
+    date: review.date,
+  }
+);
+
+export default reviews.map((review) => adaptToClient(review));
