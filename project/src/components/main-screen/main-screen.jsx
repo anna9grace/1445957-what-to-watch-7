@@ -1,17 +1,22 @@
 import React from 'react';
-import FilmCard from '../film-card/film-card';
+import FilmList from '../film-list/film-list';
 import PropTypes from 'prop-types';
+import filmProp from '../film-screen/film.prop';
+import {useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 function MainScreen(props) {
-  const {promoFilmName, promoFilmGenre, promoFilmReleaseYear} = props.promoFilm;
+  const films = props.films;
+  const promoFilm = films.find((film) => film.isPromo);
 
-  const films = new Array(20).fill(null).map((el, index) => index);
+  const history = useHistory();
 
   return (
     <React.Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -28,7 +33,9 @@ function MainScreen(props) {
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <Link to={AppRoute.MY_LIST}>
+                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </Link>
               </div>
             </li>
             <li className="user-block__item">
@@ -40,18 +47,22 @@ function MainScreen(props) {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={`${promoFilm.posterImage} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promoFilmName}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promoFilmGenre}</span>
-                <span className="film-card__year">{promoFilmReleaseYear}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button
+                  className="btn btn--play film-card__button"
+                  type="button"
+                  onClick={() => history.push(`${AppRoute.PLAYER}/${promoFilm.id}`)}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -106,11 +117,9 @@ function MainScreen(props) {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {
-              films.map((item) => <FilmCard key={item}/>)
-            }
-          </div>
+          {
+            <FilmList films={films}/>
+          }
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -136,11 +145,7 @@ function MainScreen(props) {
 }
 
 MainScreen.propTypes = {
-  promoFilm: PropTypes.shape({
-    promoFilmName: PropTypes.string.isRequired,
-    promoFilmGenre: PropTypes.string.isRequired,
-    promoFilmReleaseYear: PropTypes.number.isRequired,
-  }).isRequired,
+  films: PropTypes.arrayOf(filmProp).isRequired,
 };
 
 export default MainScreen;

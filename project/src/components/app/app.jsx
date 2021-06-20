@@ -9,15 +9,19 @@ import FilmScreen from '../film-screen/film-screen';
 import AddReviewScreen from '../add-review-screen/add-review-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import filmProp from '../film-screen/film.prop';
+import {getFilm} from '../../utils/utils';
 
 function App(props) {
-  const {promoFilm} = props;
+  const {films} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainScreen promoFilm={promoFilm}/>
+          <MainScreen
+            films={films}
+          />
         </Route>
 
         <Route exact path={AppRoute.SIGN_IN}>
@@ -25,20 +29,36 @@ function App(props) {
         </Route>
 
         <Route exact path={AppRoute.MY_LIST}>
-          <MyListScreen />
+          <MyListScreen
+            films={films}
+          />
         </Route>
 
-        <Route exact path={AppRoute.FILM}>
-          <FilmScreen />
-        </Route>
+        <Route
+          exact path={`${AppRoute.FILM}/:id`}
+          render={(data) => (
+            <FilmScreen
+              film={getFilm(films, data.match.params.id)}
+              films={films}
+            />)}
+        />
 
-        <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReviewScreen />
-        </Route>
+        <Route
+          exact path={`${AppRoute.FILM}/:id/review`}
+          render={(data) => (
+            <AddReviewScreen
+              film={getFilm(films, data.match.params.id)}
+            />)}
+        />
 
-        <Route exact path={AppRoute.PLAYER}>
-          <PlayerScreen />
-        </Route>
+        <Route
+          exact path={`${AppRoute.PLAYER}/:id`}
+          render={(data) => (
+            <PlayerScreen
+              film={getFilm(films, data.match.params.id)}
+            />
+          )}
+        />
 
         <Route>
           <NotFoundScreen />
@@ -49,11 +69,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  promoFilm: PropTypes.shape({
-    promoFilmName: PropTypes.string.isRequired,
-    promoFilmGenre: PropTypes.string.isRequired,
-    promoFilmReleaseYear: PropTypes.number.isRequired,
-  }).isRequired,
+  films: PropTypes.arrayOf(filmProp).isRequired,
 };
 
 export default App;
