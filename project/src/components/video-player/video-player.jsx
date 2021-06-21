@@ -1,10 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
+import { previewVideoSizes, PREVIEW_VIDEO_DELAY } from '../../const';
 
-const videoSizes = {
-  WIDTH: 280,
-  HEIGHT: 175,
-};
 
 function VideoPlayer({src, posterUrl, isPlaying}) {
   const videoRef = useRef();
@@ -16,7 +13,7 @@ function VideoPlayer({src, posterUrl, isPlaying}) {
     if (currentPlayer && isPlaying) {
       playTimeout = setTimeout(() => {
         currentPlayer.play();
-      }, 1000);
+      }, PREVIEW_VIDEO_DELAY);
     }
 
     return (() => {
@@ -32,8 +29,8 @@ function VideoPlayer({src, posterUrl, isPlaying}) {
       poster={posterUrl}
       ref={videoRef}
       muted
-      width={videoSizes.WIDTH}
-      height={videoSizes.HEIGHT}
+      width={previewVideoSizes.WIDTH}
+      height={previewVideoSizes.HEIGHT}
     />
   );
 }

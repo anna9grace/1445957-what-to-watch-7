@@ -7,3 +7,10 @@ export const AppRoute = {
 };
 
 export const MAX_RATING = 10;
+
+export const PREVIEW_VIDEO_DELAY = 1000;
+
+export const previewVideoSizes = {
+  WIDTH: 280,
+  HEIGHT: 175,
+};
