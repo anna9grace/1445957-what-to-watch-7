@@ -5,7 +5,7 @@ import filmProp from '../film-screen/film.prop';
 
 function FilmList(props) {
   const {films} = props;
-  const [activeCard, setActiveCard] = useState(null);
+  const [activeCardId, setActiveCardId] = useState(null);
 
   return (
     <div className='catalog__films-list'>
@@ -18,12 +18,12 @@ function FilmList(props) {
               key={filmId}
               film={film}
               mouseEnterHandler={() => {
-                setActiveCard(filmId);
+                setActiveCardId(filmId);
               }}
               mouseLeaveHandler={() => {
-                setActiveCard(null);
+                setActiveCardId(null);
               }}
-              isActive={film.id === activeCard}
+              isActive={film.id === activeCardId}
             />
           );
         })

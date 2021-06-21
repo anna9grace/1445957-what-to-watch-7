@@ -1,12 +1,14 @@
 import React from 'react';
 import filmProp from '../film-screen/film.prop';
+import VideoPlayer from '../video-player/video-player';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
+
 function FilmCard(props) {
-  const {film, mouseEnterHandler, mouseLeaveHandler} = props;
-  const {name, previewImage, id} = film;
+  const {film, mouseEnterHandler, mouseLeaveHandler, isActive} = props;
+  const {name, previewImage, id, previewVideoLink} = film;
 
   return (
     <article
@@ -16,7 +18,11 @@ function FilmCard(props) {
     >
       <Link to={`${AppRoute.FILM}/${film.id}`}>
         <div className="small-film-card__image">
-          <img src={previewImage} alt={name} width="280" height="175" />
+          <VideoPlayer
+            src={previewVideoLink}
+            posterUrl={previewImage}
+            isPlaying={isActive}
+          />
         </div>
       </Link>
       <h3 className="small-film-card__title">
@@ -30,6 +36,7 @@ FilmCard.propTypes = {
   film: filmProp,
   mouseEnterHandler: PropTypes.func.isRequired,
   mouseLeaveHandler: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
 };
 
 export default FilmCard;
