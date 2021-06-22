@@ -14,3 +14,9 @@ export const previewVideoSizes = {
   WIDTH: 280,
   HEIGHT: 175,
 };
+
+export const FilmTabsNames = {
+  OVERVIEW: 'Overview',
+  DETAILS: 'Details',
+  REVIEWS: 'Reviews',
+};

@@ -2,6 +2,7 @@ import React from 'react';
 import filmProp from './film.prop';
 import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
+import FilmTabs from '../film-tabs/film-tabs';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router';
 import {Link} from 'react-router-dom';
@@ -77,7 +78,9 @@ function FilmScreen(props) {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
+            <FilmTabs film={film}/>
+
+            {/* <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
@@ -112,7 +115,7 @@ function FilmScreen(props) {
 
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
