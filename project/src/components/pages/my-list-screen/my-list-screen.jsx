@@ -1,6 +1,6 @@
 import React from 'react';
-import FilmList from '../film-list/film-list';
-import Logo from '../logo/logo';
+import FilmList from '../../ui/film-list/film-list';
+import Logo from '../../ui/logo/logo';
 import PropTypes from 'prop-types';
 import filmProp from '../film-screen/film.prop';
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import FilmList from '../film-list/film-list';
+import FilmList from '../../ui/film-list/film-list';
 import PropTypes from 'prop-types';
 import filmProp from '../film-screen/film.prop';
 import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../../const';
 
 function MainScreen(props) {
   const films = props.films;

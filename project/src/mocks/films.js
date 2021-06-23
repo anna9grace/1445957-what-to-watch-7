@@ -1,3 +1,5 @@
+import { humanizeDuration } from '../utils/utils';
+
 const films = [
   {
     'id': 1,
@@ -110,7 +112,7 @@ const films = [
     'director': 'Ethan Coen',
     'starring': ['Tommy Lee Jones', 'Javier Bardem', 'Josh Brolin'],
     'run_time': 122,
-    'genre': 'Crime',
+    'genre': 'Drama',
     'released': 2014,
     'is_favorite': true,
   },
@@ -129,7 +131,7 @@ const films = [
     'director': 'Steven Spielberg',
     'starring': ['Tom Cruise', 'Dakota Fanning', 'Tim Robbins'],
     'run_time': 116,
-    'genre': 'Sci-Fi',
+    'genre': 'Drama',
     'released': 2005,
     'is_favorite': true,
   },
@@ -169,7 +171,7 @@ const adaptToClient = (film) => (
     scoresCount: film.scores_count,
     director: film.director,
     starring: film.starring,
-    runTime: film.run_time,
+    runTime: humanizeDuration(film.run_time),
     genre: film.genre,
     released: film.released,
     isFavorite: film.is_favorite,

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import FilmCard from '../film-card/film-card';
 import PropTypes from 'prop-types';
-import filmProp from '../film-screen/film.prop';
+import filmProp from '../../pages/film-screen/film.prop';
 
 function FilmList(props) {
   const {films} = props;
