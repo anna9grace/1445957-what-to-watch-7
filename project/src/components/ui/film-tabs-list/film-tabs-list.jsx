@@ -1,6 +1,7 @@
 import React from 'react';
-import { FilmTabsNames } from '../../../const';
 import PropTypes from 'prop-types';
+
+import { FilmTabsNames } from '../../../const';
 
 function FilmTabsList(props) {
   const {activeTab, tabClickHandler} = props;

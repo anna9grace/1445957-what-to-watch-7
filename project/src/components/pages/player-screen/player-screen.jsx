@@ -1,6 +1,7 @@
 import React from 'react';
-import filmProp from '../film-screen/film.prop';
 import {useHistory} from 'react-router';
+
+import filmProp from '../film-screen/film.prop';
 
 function PlayerScreen(props) {
   const {film} = props;

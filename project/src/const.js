@@ -6,6 +6,8 @@ export const AppRoute = {
   PLAYER: '/player',
 };
 
+export const genres = ['Comedies', 'Crime', 'Documentary', 'Dramas', 'Horror', 'Kids & Family', 'Romance', 'Sci-Fi', 'Thrillers'];
+
 export const MAX_ACTORS_COUNT = 4;
 
 export const MAX_SIMILAR_FILMS_COUNT = 4;
@@ -31,4 +33,9 @@ export const RatingLevels = {
   '8': 'Good',
   '10': 'Very good',
   '10.1': 'Awesome',
+};
+
+export const DateFormats = {
+  HUMANIZED: 'MMMM DD, YYYY',
+  DATE_TIME: 'YYYY-MM-DD',
 };

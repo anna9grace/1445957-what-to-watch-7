@@ -1,8 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {AppRoute} from '../../const';
-import {getFilm} from '../../utils/utils';
 import PropTypes from 'prop-types';
+
 import MainScreen from '../pages/main-screen/main-screen';
 import SignInScreen from '../pages/sign-in-screen/sign-in-screen';
 import MyListScreen from '../pages/my-list-screen/my-list-screen';
@@ -12,6 +11,8 @@ import PlayerScreen from '../pages/player-screen/player-screen';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import filmProp from '../pages/film-screen/film.prop';
 import reviewProp from '../ui/review/review.prop';
+import {getFilm} from '../../utils/utils';
+import {AppRoute} from '../../const';
 
 function App(props) {
   const {films, reviews} = props;
