@@ -1,3 +1,5 @@
+import { humanizeDuration } from '../utils/utils';
+
 const films = [
   {
     'id': 1,
@@ -169,7 +171,7 @@ const adaptToClient = (film) => (
     scoresCount: film.scores_count,
     director: film.director,
     starring: film.starring,
-    runTime: film.run_time,
+    runTime: humanizeDuration(film.run_time),
     genre: film.genre,
     released: film.released,
     isFavorite: film.is_favorite,

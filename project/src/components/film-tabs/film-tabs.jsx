@@ -1,27 +1,41 @@
 import React, { useState } from 'react';
 import filmProp from '../film-screen/film.prop';
+import reviewProp from '../review/review.prop';
 import { FilmTabsNames } from '../../const';
+import PropTypes from 'prop-types';
 import FilmTabsList from './film-tabs-list';
+import FilmTabOverview from '../film-tabs/film-tab-overview';
+import FilmTabDetails from './film-tab-details';
+import FilmTabReviews from './film-tab-reviews';
 
-
-const renderFilmTabs = (film, activeTab) => {
+const renderFilmTabs = (film, reviews, activeTab) => {
   switch(activeTab) {
     case FilmTabsNames.DETAILS:
-      console.log(FilmTabsNames.DETAILS);
-      break;
+      return (
+        <FilmTabDetails
+          film={film}
+        />
+      );
 
     case FilmTabsNames.REVIEWS:
-      console.log(FilmTabsNames.REVIEWS);
-      break;
+      return (
+        <FilmTabReviews
+          reviews={reviews}
+        />
+      );
 
     default:
-      console.log(FilmTabsNames.OVERVIEW);
+      return (
+        <FilmTabOverview
+          film={film}
+        />
+      );
   }
 };
 
 function FilmTabs(props) {
   const [activeTab, setAtiveTab] = useState(FilmTabsNames.OVERVIEW);
-  const {film}  = props;
+  const {film, reviews}  = props;
 
   return (
     <div className="film-card__desc">
@@ -35,7 +49,7 @@ function FilmTabs(props) {
         />
       </nav>
 
-      {renderFilmTabs(film, activeTab)}
+      {renderFilmTabs(film, reviews, activeTab)}
 
     </div>
   );
@@ -43,6 +57,7 @@ function FilmTabs(props) {
 
 FilmTabs.propTypes = {
   film: filmProp,
+  reviews: PropTypes.arrayOf(reviewProp).isRequired,
 };
 
 export default FilmTabs;

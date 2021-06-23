@@ -10,10 +10,11 @@ import AddReviewScreen from '../add-review-screen/add-review-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import filmProp from '../film-screen/film.prop';
+import reviewProp from '../review/review.prop';
 import {getFilm} from '../../utils/utils';
 
 function App(props) {
-  const {films} = props;
+  const {films, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -40,6 +41,7 @@ function App(props) {
             <FilmScreen
               film={getFilm(films, data.match.params.id)}
               films={films}
+              reviews={reviews}
             />)}
         />
 
@@ -70,6 +72,7 @@ function App(props) {
 
 App.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
+  reviews: PropTypes.arrayOf(reviewProp).isRequired,
 };
 
 export default App;
