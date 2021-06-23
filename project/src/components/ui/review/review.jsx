@@ -1,7 +1,6 @@
 import React from 'react';
 import reviewProp from './review.prop';
-import { transformRating } from '../../utils/utils';
-import { humanizeDate } from '../../utils/utils';
+import { transformRating, humanizeDate } from '../../../utils/utils';
 
 function Review(props) {
   const {userName, rating, comment, date} = props.review;

@@ -1,5 +1,5 @@
 import React from 'react';
-import filmProp from '../film-screen/film.prop';
+import filmProp from '../../pages/film-screen/film.prop';
 
 const renderActors = (actors) => (
   actors.map((actor, index) => {

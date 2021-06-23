@@ -1,7 +1,7 @@
 import React from 'react';
-import filmProp from '../film-screen/film.prop';
-import { MAX_ACTORS_SHOWN, RatingLevels } from '../../const';
-import { transformRating } from '../../utils/utils';
+import filmProp from '../../pages/film-screen/film.prop';
+import { MAX_ACTORS_COUNT, RatingLevels } from '../../../const';
+import { transformRating } from '../../../utils/utils';
 
 
 const getRatingLevel = (rating) => {
@@ -12,10 +12,10 @@ const getRatingLevel = (rating) => {
 };
 
 const renderActors = (actors) => {
-  if (actors.length <= MAX_ACTORS_SHOWN) {
+  if (actors.length <= MAX_ACTORS_COUNT) {
     return actors.join(', ');
   }
-  return `${actors.slice(0, MAX_ACTORS_SHOWN).join(', ')} and others`;
+  return `${actors.slice(0, MAX_ACTORS_COUNT).join(', ')} and others`;
 };
 
 

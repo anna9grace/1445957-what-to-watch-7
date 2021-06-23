@@ -1,9 +1,9 @@
 import React from 'react';
 import filmProp from '../film-screen/film.prop';
-import Logo from '../logo/logo';
-import AddReviewForm from '../add-review-form/add-review-form';
+import Logo from '../../ui/logo/logo';
+import AddReviewForm from '../../ui/add-review-form/add-review-form';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../../const';
 
 function AddReviewScreen(props) {
   const { film } = props;

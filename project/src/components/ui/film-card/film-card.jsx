@@ -1,9 +1,9 @@
 import React from 'react';
-import filmProp from '../film-screen/film.prop';
+import filmProp from '../../pages/film-screen/film.prop';
 import VideoPlayer from '../video-player/video-player';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../../const';
 
 
 function FilmCard(props) {

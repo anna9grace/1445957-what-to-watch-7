@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import filmProp from '../film-screen/film.prop';
+import filmProp from '../../pages/film-screen/film.prop';
 import reviewProp from '../review/review.prop';
-import { FilmTabsNames } from '../../const';
+import { FilmTabsNames } from '../../../const';
 import PropTypes from 'prop-types';
-import FilmTabsList from './film-tabs-list';
-import FilmTabOverview from '../film-tabs/film-tab-overview';
-import FilmTabDetails from './film-tab-details';
-import FilmTabReviews from './film-tab-reviews';
+import FilmTabsList from '../film-tabs-list/film-tabs-list';
+import FilmTabOverview from '../film-tab-overview/film-tab-overview';
+import FilmTabDetails from '../film-tab-details/film-tab-details';
+import FilmTabReviews from '../film-tab-reviews/film-tab-reviews';
 
 const renderFilmTabs = (film, reviews, activeTab) => {
   switch(activeTab) {

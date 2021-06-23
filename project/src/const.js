@@ -6,7 +6,9 @@ export const AppRoute = {
   PLAYER: '/player',
 };
 
-export const MAX_ACTORS_SHOWN = 4;
+export const MAX_ACTORS_COUNT = 4;
+
+export const MAX_SIMILAR_FILMS_COUNT = 4;
 
 export const MAX_RATING = 10;
 

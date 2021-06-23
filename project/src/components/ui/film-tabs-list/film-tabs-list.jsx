@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilmTabsNames } from '../../const';
+import { FilmTabsNames } from '../../../const';
 import PropTypes from 'prop-types';
 
 function FilmTabsList(props) {

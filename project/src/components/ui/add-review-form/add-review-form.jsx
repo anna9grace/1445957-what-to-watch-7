@@ -1,5 +1,5 @@
 import React from 'react';
-import {MAX_RATING} from '../../const';
+import {MAX_RATING} from '../../../const';
 
 function AddReviewForm() {
   const [review, setReview] = React.useState({

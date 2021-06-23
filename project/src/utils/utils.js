@@ -2,10 +2,12 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 dayjs.extend(duration);
 
-export const getFilm = (films, id) => {
-  const selectedFilm = films.find((film) => +film.id === (+id));
-  return selectedFilm;
-};
+export const getFilm = (films, id) => films.find((film) => +film.id === (+id));
+
+export const getSimilarFilms = (films, currentFilm) => (
+  films
+    .filter((filmItem) => filmItem.genre === currentFilm.genre && filmItem.name !== currentFilm.name)
+);
 
 export const humanizeDuration = (minutes) => {
   const durationData = dayjs.duration(minutes, 'minutes');
