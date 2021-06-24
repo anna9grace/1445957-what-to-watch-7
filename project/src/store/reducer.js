@@ -1,10 +1,11 @@
-// import { genres } from '../const';
 import { ActionType } from './action';
+import { INITIAL_GENRE } from '../const';
 import films from '../mocks/films';
 
 const initialState = {
-  activeGenre: 'All genres',
+  activeGenre: INITIAL_GENRE,
   filteredFilms: films,
+  films: films,
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,9 +19,9 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_FILMS_LIST:
       return {
         ...state,
-        filteredFilms: state.activeGenre === 'All genres'
-          ? initialState.filteredFilms
-          : initialState.films.filter((film) => film.genre === state.activeGenre),
+        filteredFilms: state.activeGenre === INITIAL_GENRE
+          ? state.films
+          : state.films.filter((film) => film.genre === state.activeGenre),
       };
 
     default:

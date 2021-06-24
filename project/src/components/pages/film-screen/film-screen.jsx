@@ -93,12 +93,13 @@ function FilmScreen(props) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          {
-            <FilmList films={getSimilarFilms(films, film).slice(0, MAX_SIMILAR_FILMS_COUNT)}/>
-          }
+
+          <FilmList films={getSimilarFilms(films, film).slice(0, MAX_SIMILAR_FILMS_COUNT)}/>
+
         </section>
 
         <footer className="page-footer">
+
           <Logo isFooter />
 
           <div className="copyright">

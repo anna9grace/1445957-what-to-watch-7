@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import filmProp from '../film-screen/film.prop';
-import FilmList from '../../ui/film-list/film-list';
+import FilmListMain from '../../ui/film-list-main/film-list-main';
 import GenresList from '../../ui/genres-list/genres-list';
 import {AppRoute} from '../../../const';
 
 function MainScreen(props) {
-  const films = props.films;
+  const {films} = props;
   const promoFilm = films.find((film) => film.isPromo);
 
   const history = useHistory();
@@ -86,13 +87,9 @@ function MainScreen(props) {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          {
-            <GenresList films={films}/>
-          }
+          <GenresList/>
 
-          {
-            <FilmList films={films}/>
-          }
+          <FilmListMain/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -121,4 +118,9 @@ MainScreen.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
 };
 
-export default MainScreen;
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export {MainScreen};
+export default connect(mapStateToProps, null)(MainScreen);

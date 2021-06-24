@@ -21,9 +21,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainScreen
-            films={films}
-          />
+          <MainScreen />
         </Route>
 
         <Route exact path={AppRoute.SIGN_IN}>

@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import filmProp from '../../pages/film-screen/film.prop';
 import { makeItemsUnique } from '../../../utils/utils';
+import { INITIAL_GENRE } from '../../../const';
+import { ActionCreator } from '../../../store/action';
 
 
 export const getUniqueGenres = (films) => {
@@ -12,26 +15,51 @@ export const getUniqueGenres = (films) => {
 
 
 function GenresList(props) {
-  const {films} = props;
-  const genres = getUniqueGenres(films);
+  const {films, activeGenre, onGenreChange} = props;
+  const genres = [INITIAL_GENRE, ...getUniqueGenres(films)];
 
   return (
     <ul className="catalog__genres-list">
-      <li className="catalog__genres-item catalog__genres-item--active">
-        <a href="link/href" className="catalog__genres-link">All genres</a>
-      </li>
 
       {genres.map((genre) => (
-        <li className="catalog__genres-item" key={genre}>
-          <a href="link/href" className="catalog__genres-link">{genre}</a>
+        <li
+          className={`catalog__genres-item ${activeGenre === genre ? 'catalog__genres-item--active' : ''}`}
+          key={genre}
+        >
+          <a
+            href="link/href"
+            className="catalog__genres-link"
+            onClick={(evt) => {
+              evt.preventDefault();
+              onGenreChange(genre);
+            }}
+          >
+            {genre}
+          </a>
         </li>
       ))}
+
     </ul>
   );
 }
 
 GenresList.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
+  activeGenre: PropTypes.string.isRequired,
+  onGenreChange: PropTypes.func.isRequired,
 };
 
-export default GenresList;
+const mapStateToProps = (state) => ({
+  films: state.films,
+  activeGenre: state.activeGenre,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onGenreChange(genre) {
+    dispatch(ActionCreator.changeActiveGenre(genre));
+    dispatch(ActionCreator.getFilmsList());
+  },
+});
+
+export {GenresList};
+export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
