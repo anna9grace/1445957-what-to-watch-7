@@ -6,8 +6,6 @@ export const AppRoute = {
   PLAYER: '/player',
 };
 
-export const genres = ['Comedies', 'Crime', 'Documentary', 'Dramas', 'Horror', 'Kids & Family', 'Romance', 'Sci-Fi', 'Thrillers'];
-
 export const MAX_ACTORS_COUNT = 4;
 
 export const MAX_SIMILAR_FILMS_COUNT = 4;

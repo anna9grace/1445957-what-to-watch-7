@@ -27,3 +27,5 @@ export const transformRating = (rating) => {
   }
   return changedRating.join('');
 };
+
+export const makeItemsUnique = (items) => [...new Set(items)];

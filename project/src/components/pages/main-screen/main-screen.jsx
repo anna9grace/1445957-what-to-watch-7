@@ -5,7 +5,8 @@ import {Link} from 'react-router-dom';
 
 import filmProp from '../film-screen/film.prop';
 import FilmList from '../../ui/film-list/film-list';
-import {AppRoute, genres} from '../../../const';
+import GenresList from '../../ui/genres-list/genres-list';
+import {AppRoute} from '../../../const';
 
 function MainScreen(props) {
   const films = props.films;
@@ -85,17 +86,9 @@ function MainScreen(props) {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="link/href" className="catalog__genres-link">All genres</a>
-            </li>
-
-            {genres.map((genre) => (
-              <li className="catalog__genres-item" key={genre}>
-                <a href="link/href" className="catalog__genres-link">{genre}</a>
-              </li>
-            ))}
-          </ul>
+          {
+            <GenresList films={films}/>
+          }
 
           {
             <FilmList films={films}/>
