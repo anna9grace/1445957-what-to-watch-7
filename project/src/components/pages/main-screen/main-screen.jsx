@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
@@ -8,12 +8,15 @@ import filmProp from '../film-screen/film.prop';
 import FilmListMain from '../../ui/film-list-main/film-list-main';
 import GenresList from '../../ui/genres-list/genres-list';
 import {AppRoute} from '../../../const';
+import { ActionCreator } from '../../../store/action';
 
 function MainScreen(props) {
-  const {films} = props;
+  const {films, onPageLeave} = props;
   const promoFilm = films.find((film) => film.isPromo);
 
   const history = useHistory();
+
+  useEffect(() => onPageLeave);
 
   return (
     <React.Fragment>
@@ -91,9 +94,6 @@ function MainScreen(props) {
 
           <FilmListMain/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
         </section>
 
         <footer className="page-footer">
@@ -116,11 +116,20 @@ function MainScreen(props) {
 
 MainScreen.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
+  onPageLeave: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   films: state.films,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onPageLeave() {
+    dispatch(ActionCreator.resetActiveGenre());
+    dispatch(ActionCreator.getFilmsList());
+    dispatch(ActionCreator.resetFilmsRenderedCount());
+  },
+});
+
 export {MainScreen};
-export default connect(mapStateToProps, null)(MainScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
