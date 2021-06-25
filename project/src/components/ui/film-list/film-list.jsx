@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import FilmCard from '../film-card/film-card';
 import PropTypes from 'prop-types';
+
+import FilmCard from '../film-card/film-card';
 import filmProp from '../../pages/film-screen/film.prop';
 
 function FilmList(props) {

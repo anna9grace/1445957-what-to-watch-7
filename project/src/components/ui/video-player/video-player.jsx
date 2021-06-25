@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
+
 import { PreviewVideoSizes, PREVIEW_VIDEO_DELAY } from '../../../const';
 
 

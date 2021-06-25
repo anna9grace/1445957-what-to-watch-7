@@ -1,4 +1,5 @@
 import React from 'react';
+
 import filmProp from '../../pages/film-screen/film.prop';
 
 const renderActors = (actors) => (
@@ -6,7 +7,7 @@ const renderActors = (actors) => (
     if (index !== (actors.length - 1)) {
       return (
         <React.Fragment key={actor}>
-          {`${actor},`} <br />
+          {actor}, <br />
         </React.Fragment>
       );
     }

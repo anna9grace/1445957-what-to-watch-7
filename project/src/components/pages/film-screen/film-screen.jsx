@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {useHistory} from 'react-router';
+import {Link} from 'react-router-dom';
+
 import filmProp from './film.prop';
 import reviewProp from '../../ui/review/review.prop';
 import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
 import FilmTabs from '../../ui/film-tabs/film-tabs';
-import PropTypes from 'prop-types';
-import {useHistory} from 'react-router';
-import {Link} from 'react-router-dom';
 import {AppRoute, MAX_SIMILAR_FILMS_COUNT} from '../../../const';
 import { getSimilarFilms } from '../../../utils/utils';
 
@@ -92,12 +93,13 @@ function FilmScreen(props) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          {
-            <FilmList films={getSimilarFilms(films, film).slice(0, MAX_SIMILAR_FILMS_COUNT)}/>
-          }
+
+          <FilmList films={getSimilarFilms(films, film).slice(0, MAX_SIMILAR_FILMS_COUNT)}/>
+
         </section>
 
         <footer className="page-footer">
+
           <Logo isFooter />
 
           <div className="copyright">

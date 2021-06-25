@@ -1,4 +1,5 @@
 import React from 'react';
+
 import filmProp from '../../pages/film-screen/film.prop';
 import { MAX_ACTORS_COUNT, RatingLevels } from '../../../const';
 import { transformRating } from '../../../utils/utils';
@@ -20,7 +21,7 @@ const renderActors = (actors) => {
 
 
 function FilmTabOverview(props) {
-  const {rating, scoresCount, description, director, starring} = props.film;
+  const { rating, scoresCount, description, director, starring } = props.film;
 
   return (
     <React.Fragment>
@@ -28,18 +29,18 @@ function FilmTabOverview(props) {
         <div className="film-rating__score">{transformRating(rating)}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">{getRatingLevel(rating)}</span>
-          <span className="film-rating__count">{`${scoresCount} ratings`}</span>
+          <span className="film-rating__count">{scoresCount} ratings</span>
         </p>
       </div>
 
       <div className="film-card__text">
         <p>{description}</p>
 
-        <p className="film-card__director"><strong>{`Director: ${director}`}</strong></p>
+        <p className="film-card__director"><strong>Director: {director}</strong></p>
 
         <p className="film-card__starring">
           <strong>
-            {`Starring: ${renderActors(starring)}`}
+            Starring: {renderActors(starring)}
           </strong>
 
         </p>

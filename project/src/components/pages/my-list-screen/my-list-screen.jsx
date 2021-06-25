@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import filmProp from '../film-screen/film.prop';
 import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
-import PropTypes from 'prop-types';
-import filmProp from '../film-screen/film.prop';
 
 function MyListScreen(props) {
   const {films} = props;
@@ -28,9 +29,9 @@ function MyListScreen(props) {
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        {
-          <FilmList films={films}/>
-        }
+
+        <FilmList films={films}/>
+
       </section>
 
       <footer className="page-footer">

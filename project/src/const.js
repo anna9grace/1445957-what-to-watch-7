@@ -32,3 +32,10 @@ export const RatingLevels = {
   '10': 'Very good',
   '10.1': 'Awesome',
 };
+
+export const DateFormats = {
+  HUMANIZED: 'MMMM DD, YYYY',
+  DATE_TIME: 'YYYY-MM-DD',
+};
+
+export const INITIAL_GENRE = 'All genres';

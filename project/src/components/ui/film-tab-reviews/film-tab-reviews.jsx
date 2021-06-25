@@ -1,6 +1,7 @@
 import React from 'react';
-import reviewProp from '../review/review.prop';
 import PropTypes from 'prop-types';
+
+import reviewProp from '../review/review.prop';
 import Review from '../review/review';
 
 function FilmTabReviews(props) {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {MAX_RATING} from '../../../const';
 
 function AddReviewForm() {
@@ -43,7 +44,7 @@ function AddReviewForm() {
                     checked={value === +rating}
                     onChange={ratingChangeHandler}
                   />
-                  <label className="rating__label" htmlFor={`star-${value}`}>{`Rating ${value}`}</label>
+                  <label className="rating__label" htmlFor={`star-${value}`}>Rating {value}</label>
                 </React.Fragment>
               ))
             }
