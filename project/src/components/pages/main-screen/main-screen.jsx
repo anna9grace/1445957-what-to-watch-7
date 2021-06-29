@@ -1,18 +1,18 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import filmProp from '../film-screen/film.prop';
 import FilmListMain from '../../ui/film-list-main/film-list-main';
 import GenresList from '../../ui/genres-list/genres-list';
+import UserAvatar from '../../ui/user-avatar/user-avatar';
 import {AppRoute} from '../../../const';
 import { ActionCreator } from '../../../store/action';
 
 function MainScreen(props) {
   const {films, onPageLeave} = props;
-  const promoFilm = films.find((film) => film.isPromo);
+  const promoFilm = films[0];
 
   const history = useHistory();
 
@@ -38,11 +38,7 @@ function MainScreen(props) {
 
           <ul className="user-block">
             <li className="user-block__item">
-              <div className="user-block__avatar">
-                <Link to={AppRoute.MY_LIST}>
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </Link>
-              </div>
+              <UserAvatar />
             </li>
             <li className="user-block__item">
               <a className="user-block__link">Sign out</a>

@@ -1,21 +1,31 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import MainScreen from '../pages/main-screen/main-screen';
 import SignInScreen from '../pages/sign-in-screen/sign-in-screen';
 import MyListScreen from '../pages/my-list-screen/my-list-screen';
-import FilmScreen from '../pages/film-screen/film-screen';
-import AddReviewScreen from '../pages/add-review-screen/add-review-screen';
-import PlayerScreen from '../pages/player-screen/player-screen';
+// import FilmScreen from '../pages/film-screen/film-screen';
+// import AddReviewScreen from '../pages/add-review-screen/add-review-screen';
+// import PlayerScreen from '../pages/player-screen/player-screen';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
-import filmProp from '../pages/film-screen/film.prop';
-import reviewProp from '../ui/review/review.prop';
-import {getFilm} from '../../utils/utils';
+import LoadingScreen from '../pages/loading-screen/loading-screen';
+// import reviewProp from '../ui/review/review.prop';
+// import {getFilm} from '../../utils/utils';
 import {AppRoute} from '../../const';
 
 function App(props) {
-  const {films, reviews} = props;
+  // const {reviews} = props;
+
+  const {isDataLoaded} = props;
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
 
   return (
     <BrowserRouter>
@@ -29,37 +39,35 @@ function App(props) {
         </Route>
 
         <Route exact path={AppRoute.MY_LIST}>
-          <MyListScreen
-            films={films}
-          />
+          {(!isDataLoaded && <LoadingScreen />) || <MyListScreen />}
         </Route>
 
-        <Route
+        {/* <Route
           exact path={`${AppRoute.FILM}/:id`}
           render={(data) => (
             <FilmScreen
-              film={getFilm(films, data.match.params.id)}
-              films={films}
+              // film={getFilm(films, data.match.params.id)}
+              // films={films}
               reviews={reviews}
             />)}
-        />
+        /> */}
 
-        <Route
+        {/* <Route
           exact path={`${AppRoute.FILM}/:id/review`}
           render={(data) => (
             <AddReviewScreen
-              film={getFilm(films, data.match.params.id)}
+              // film={getFilm(films, data.match.params.id)}
             />)}
-        />
+        /> */}
 
-        <Route
+        {/* <Route
           exact path={`${AppRoute.PLAYER}/:id`}
           render={(data) => (
             <PlayerScreen
-              film={getFilm(films, data.match.params.id)}
+              // film={getFilm(films, data.match.params.id)}
             />
           )}
-        />
+        /> */}
 
         <Route>
           <NotFoundScreen />
@@ -70,8 +78,13 @@ function App(props) {
 }
 
 App.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired,
-  reviews: PropTypes.arrayOf(reviewProp).isRequired,
+  // reviews: PropTypes.arrayOf(reviewProp).isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  isDataLoaded: state.isDataLoaded,
+});
+
+export {App};
+export default connect(mapStateToProps, null)(App);
