@@ -8,6 +8,7 @@ import reviewProp from '../../ui/review/review.prop';
 import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
 import FilmTabs from '../../ui/film-tabs/film-tabs';
+import UserAvatar from '../../ui/user-avatar/user-avatar';
 import {AppRoute, MAX_SIMILAR_FILMS_COUNT} from '../../../const';
 import { getSimilarFilms } from '../../../utils/utils';
 
@@ -33,9 +34,7 @@ function FilmScreen(props) {
             <ul className="user-block">
               <li className="user-block__item">
                 <div className="user-block__avatar">
-                  <Link to={AppRoute.MY_LIST}>
-                    <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                  </Link>
+                  <UserAvatar />
                 </div>
               </li>
               <li className="user-block__item">

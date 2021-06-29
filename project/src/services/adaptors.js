@@ -1,6 +1,6 @@
 import { humanizeDuration } from '../utils/utils';
 
-const adaptFilmToClient = (filmData) => (
+export const adaptFilmToClient = (filmData) => (
   {
     id: filmData.id,
     name: filmData.name,
@@ -24,7 +24,6 @@ const adaptFilmToClient = (filmData) => (
 
 export const adaptFilmsToClient = (filmsData) => {
   const adaptedFilms = filmsData.map((film) => adaptFilmToClient(film));
-  console.log(adaptedFilms);
   return adaptedFilms;
 };
 // export default films.map((film) => adaptToClient(film));

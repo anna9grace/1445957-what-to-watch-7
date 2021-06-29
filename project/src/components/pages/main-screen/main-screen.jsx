@@ -11,8 +11,7 @@ import {AppRoute} from '../../../const';
 import { ActionCreator } from '../../../store/action';
 
 function MainScreen(props) {
-  const {films, onPageLeave} = props;
-  const promoFilm = films[0];
+  const {promoFilm, onPageLeave} = props;
 
   const history = useHistory();
 
@@ -111,12 +110,12 @@ function MainScreen(props) {
 }
 
 MainScreen.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired,
+  promoFilm: filmProp.isRequired,
   onPageLeave: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  promoFilm: state.promoFilm,
 });
 
 const mapDispatchToProps = (dispatch) => ({

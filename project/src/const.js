@@ -8,7 +8,7 @@ export const AppRoute = {
 
 export const APIRoute = {
   FILMS: '/films',
-  PROMO_FILM: ' /promo',
+  PROMO_FILM: '/promo',
   FAVORITE_FILMS: '/favorite',
   // /films/: id
   // /films/: id/similar

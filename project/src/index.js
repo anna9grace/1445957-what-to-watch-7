@@ -10,37 +10,26 @@ import App from './components/app/app';
 import reviews from './mocks/reviews';
 import { reducer } from './store/reducer';
 import {createAPI} from './services/api';
-import {fetchFilmsList} from './store/api-actions';
+import {fetchFilmsList, fetchPromoFilm} from './store/api-actions';
 
 const api = createAPI(
-  // () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
+
 );
 
 const store = createStore(
   reducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
-    // applyMiddleware(redirect),
   ),
 );
 
 store.dispatch(fetchFilmsList());
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Provider store={store}>
-//       <App />
-//     </Provider>
-//   </React.StrictMode>,
-//   document.getElementById('root'),
-// );
-
+store.dispatch(fetchPromoFilm());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App
-        // films={films}
         reviews={reviews}
       />
     </Provider>

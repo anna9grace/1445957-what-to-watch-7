@@ -18,14 +18,13 @@ import {AppRoute} from '../../const';
 function App(props) {
   // const {reviews} = props;
 
-  const {isDataLoaded} = props;
+  const {isDataLoaded, isPromoDataLoaded} = props;
 
-  if (!isDataLoaded) {
+  if (!isDataLoaded || !isPromoDataLoaded) {
     return (
       <LoadingScreen />
     );
   }
-
 
   return (
     <BrowserRouter>
@@ -39,7 +38,7 @@ function App(props) {
         </Route>
 
         <Route exact path={AppRoute.MY_LIST}>
-          {(!isDataLoaded && <LoadingScreen />) || <MyListScreen />}
+          <MyListScreen />
         </Route>
 
         {/* <Route
@@ -80,10 +79,12 @@ function App(props) {
 App.propTypes = {
   // reviews: PropTypes.arrayOf(reviewProp).isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
+  isPromoDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isDataLoaded: state.isDataLoaded,
+  isPromoDataLoaded: state.isPromoDataLoaded,
 });
 
 export {App};
