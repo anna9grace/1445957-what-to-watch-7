@@ -6,6 +6,18 @@ export const AppRoute = {
   PLAYER: '/player',
 };
 
+export const APIRoute = {
+  FILMS: '/films',
+  PROMO_FILM: ' /promo',
+  FAVORITE_FILMS: '/favorite',
+  // /films/: id
+  // /films/: id/similar
+  // /comments/: film_id
+  // /favorite/: film_id/: status
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
 export const MAX_ACTORS_COUNT = 4;
 
 export const MAX_SIMILAR_FILMS_COUNT = 4;

@@ -1,12 +1,14 @@
 import { ActionType } from './action';
-import { INITIAL_GENRE, MAX_FILMS_COUNT} from '../const';
-import films from '../mocks/films';
+import { INITIAL_GENRE, MAX_FILMS_COUNT } from '../const';
+// import films from '../mocks/films';
 
 const initialState = {
   activeGenre: INITIAL_GENRE,
-  filteredFilms: films,
-  films: films,
+  films: [],
+  filteredFilms: [],
+  favoriteFilms: [],
   renderedFilmsCount: MAX_FILMS_COUNT,
+  isDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -43,10 +45,31 @@ const reducer = (state = initialState, action) => {
         renderedFilmsCount: MAX_FILMS_COUNT,
       };
 
+    case ActionType.LOAD_FILMS:
+      return {
+        ...state,
+        films: action.payload,
+        filteredFilms: action.payload,
+        isDataLoaded: true,
+      };
+
+    case ActionType.LOAD_FAVORITE_FILMS:
+      return {
+        ...state,
+        favoriteFilms: action.payload,
+        isDataLoaded: true,
+      };
+
+    case ActionType.RESET_IS_DATA_LOADED:
+      return {
+        ...state,
+        isDataLoaded: false,
+      };
+
     default:
       return state;
   }
 };
 
-export {reducer};
+export { reducer };
 

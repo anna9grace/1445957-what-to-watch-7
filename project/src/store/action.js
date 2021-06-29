@@ -4,6 +4,9 @@ export const ActionType = {
   GET_FILMS_LIST: 'filter/getFilmsList',
   GET_FILMS_RENDERED_COUNT: 'filter/getFilmsRenderedCount',
   RESET_FILMS_RENDERED_COUNT: 'filter/resetFilmsRenderedCount',
+  LOAD_FILMS: 'data/loadFilms',
+  LOAD_FAVORITE_FILMS: 'data/loadFavoriteFilms',
+  RESET_IS_DATA_LOADED: 'data/resetIsDataLoaded',
 };
 
 export const ActionCreator = {
@@ -22,5 +25,16 @@ export const ActionCreator = {
   }),
   resetFilmsRenderedCount: () => ({
     type: ActionType.RESET_FILMS_RENDERED_COUNT,
+  }),
+  loadFilms: (films) => ({
+    type: ActionType.LOAD_FILMS,
+    payload: films,
+  }),
+  loadFavoriteFilms: (films) => ({
+    type: ActionType.LOAD_FAVORITE_FILMS,
+    payload: films,
+  }),
+  resetIsDataLoaded: () => ({
+    type: ActionType.RESET_IS_DATA_LOADED,
   }),
 };
