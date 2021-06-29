@@ -14,6 +14,28 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.LOAD_FILMS:
+      return {
+        ...state,
+        films: action.payload,
+        filteredFilms: action.payload,
+        isDataLoaded: true,
+      };
+
+    case ActionType.LOAD_PROMO_FILM:
+      return {
+        ...state,
+        promoFilm: action.payload,
+        isPromoDataLoaded: true,
+      };
+
+    case ActionType.LOAD_FAVORITE_FILMS:
+      return {
+        ...state,
+        favoriteFilms: action.payload,
+        isDataLoaded: true,
+      };
+
     case ActionType.CHANGE_ACTIVE_GENRE:
       return {
         ...state,
@@ -44,28 +66,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         renderedFilmsCount: MAX_FILMS_COUNT,
-      };
-
-    case ActionType.LOAD_FILMS:
-      return {
-        ...state,
-        films: action.payload,
-        filteredFilms: action.payload,
-        isDataLoaded: true,
-      };
-
-    case ActionType.LOAD_PROMO_FILM:
-      return {
-        ...state,
-        promoFilm: action.payload,
-        isPromoDataLoaded: true,
-      };
-
-    case ActionType.LOAD_FAVORITE_FILMS:
-      return {
-        ...state,
-        favoriteFilms: action.payload,
-        isDataLoaded: true,
       };
 
     case ActionType.RESET_IS_DATA_LOADED:

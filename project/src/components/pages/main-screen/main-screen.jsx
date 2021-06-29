@@ -110,7 +110,7 @@ function MainScreen(props) {
 }
 
 MainScreen.propTypes = {
-  promoFilm: filmProp.isRequired,
+  promoFilm: filmProp,
   onPageLeave: PropTypes.func.isRequired,
 };
 

@@ -8,11 +8,10 @@ import SignInScreen from '../pages/sign-in-screen/sign-in-screen';
 import MyListScreen from '../pages/my-list-screen/my-list-screen';
 // import FilmScreen from '../pages/film-screen/film-screen';
 // import AddReviewScreen from '../pages/add-review-screen/add-review-screen';
-// import PlayerScreen from '../pages/player-screen/player-screen';
+import PlayerScreen from '../pages/player-screen/player-screen';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import LoadingScreen from '../pages/loading-screen/loading-screen';
 // import reviewProp from '../ui/review/review.prop';
-// import {getFilm} from '../../utils/utils';
 import {AppRoute} from '../../const';
 
 function App(props) {
@@ -59,14 +58,14 @@ function App(props) {
             />)}
         /> */}
 
-        {/* <Route
+        <Route
           exact path={`${AppRoute.PLAYER}/:id`}
           render={(data) => (
             <PlayerScreen
-              // film={getFilm(films, data.match.params.id)}
+              filmId={data.match.params.id}
             />
           )}
-        /> */}
+        />
 
         <Route>
           <NotFoundScreen />
