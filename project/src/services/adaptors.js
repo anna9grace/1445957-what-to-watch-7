@@ -22,8 +22,4 @@ export const adaptFilmToClient = (filmData) => (
   }
 );
 
-export const adaptFilmsToClient = (filmsData) => {
-  const adaptedFilms = filmsData.map((film) => adaptFilmToClient(film));
-  return adaptedFilms;
-};
-// export default films.map((film) => adaptToClient(film));
+export const adaptFilmsToClient = (filmsData) => (filmsData.map((film) => adaptFilmToClient(film)));
