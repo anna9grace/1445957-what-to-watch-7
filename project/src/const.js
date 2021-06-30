@@ -10,10 +10,6 @@ export const APIRoute = {
   FILMS: '/films',
   PROMO_FILM: '/promo',
   FAVORITE_FILMS: '/favorite',
-  // /films/: id
-  // /films/: id/similar
-  // /comments/: film_id
-  // /favorite/: film_id/: status
   LOGIN: '/login',
   LOGOUT: '/logout',
 };

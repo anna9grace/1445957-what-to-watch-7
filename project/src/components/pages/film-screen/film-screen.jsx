@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useHistory} from 'react-router';
-import {Link} from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import filmProp from './film.prop';
 import reviewProp from '../../ui/review/review.prop';
@@ -9,12 +10,13 @@ import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
 import FilmTabs from '../../ui/film-tabs/film-tabs';
 import UserAvatar from '../../ui/user-avatar/user-avatar';
-import {AppRoute, MAX_SIMILAR_FILMS_COUNT} from '../../../const';
+import { AppRoute, MAX_SIMILAR_FILMS_COUNT } from '../../../const';
 import { getSimilarFilms } from '../../../utils/utils';
 
 function FilmScreen(props) {
-  const {film, films, reviews} = props;
-  const {name, posterImage, backgroundImage, genre, released, id} = film;
+  const { filmId, films, reviews } = props;
+  const film = films.find((filmTtem) => filmTtem.id === +filmId);
+  const { name, posterImage, backgroundImage, genre, released} = film;
 
   const history = useHistory();
 
@@ -55,7 +57,7 @@ function FilmScreen(props) {
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => history.push(`${AppRoute.PLAYER}/${id}`)}
+                  onClick={() => history.push(`${AppRoute.PLAYER}/${filmId}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -93,7 +95,7 @@ function FilmScreen(props) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={getSimilarFilms(films, film).slice(0, MAX_SIMILAR_FILMS_COUNT)}/>
+          <FilmList films={getSimilarFilms(films, film).slice(0, MAX_SIMILAR_FILMS_COUNT)} />
 
         </section>
 
@@ -111,9 +113,14 @@ function FilmScreen(props) {
 }
 
 FilmScreen.propTypes = {
-  film: filmProp,
+  filmId: PropTypes.string.isRequired,
   films: PropTypes.arrayOf(filmProp).isRequired,
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
 };
 
-export default FilmScreen;
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export { FilmScreen };
+export default connect(mapStateToProps, null)(FilmScreen);

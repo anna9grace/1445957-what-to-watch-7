@@ -10,6 +10,7 @@ const initialState = {
   renderedFilmsCount: MAX_FILMS_COUNT,
   isDataLoaded: false,
   isPromoDataLoaded: false,
+  dataError: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -68,10 +69,10 @@ const reducer = (state = initialState, action) => {
         renderedFilmsCount: MAX_FILMS_COUNT,
       };
 
-    case ActionType.RESET_IS_DATA_LOADED:
+    case ActionType.GET_DATA_LOAD_ERROR:
       return {
         ...state,
-        isDataLoaded: false,
+        dataError: action.payload,
       };
 
     default:
