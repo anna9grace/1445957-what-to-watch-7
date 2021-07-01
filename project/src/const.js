@@ -49,3 +49,7 @@ export const DateFormats = {
 };
 
 export const INITIAL_GENRE = 'All genres';
+
+export const ToastIDs = {
+  DATA_GET_ERROR: 'dataGetError',
+};

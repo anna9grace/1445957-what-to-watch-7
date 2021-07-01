@@ -8,7 +8,6 @@ export const ActionType = {
   GET_FILMS_RENDERED_COUNT: 'filter/getFilmsRenderedCount',
   RESET_FILMS_RENDERED_COUNT: 'filter/resetFilmsRenderedCount',
   RESET_IS_DATA_LOADED: 'data/resetIsDataLoaded',
-  GET_DATA_LOAD_ERROR: 'data/getDataLoadError',
 };
 
 export const ActionCreator = {
@@ -42,9 +41,5 @@ export const ActionCreator = {
   }),
   resetIsDataLoaded: () => ({
     type: ActionType.RESET_IS_DATA_LOADED,
-  }),
-  getDataLoadError: (error) => ({
-    type: ActionType.GET_DATA_LOAD_ERROR,
-    payload: error,
   }),
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 import MainScreen from '../pages/main-screen/main-screen';
 import SignInScreen from '../pages/sign-in-screen/sign-in-screen';
@@ -13,6 +14,7 @@ import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import LoadingScreen from '../pages/loading-screen/loading-screen';
 import reviewProp from '../ui/review/review.prop';
 import { AppRoute } from '../../const';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App(props) {
   const { reviews } = props;
@@ -21,7 +23,12 @@ function App(props) {
 
   if (!isDataLoaded || !isPromoDataLoaded) {
     return (
-      <LoadingScreen />
+      <React.Fragment>
+        <LoadingScreen />
+        <ToastContainer
+          autoClose={false}
+        />
+      </React.Fragment>
     );
   }
 
@@ -70,6 +77,9 @@ function App(props) {
           <NotFoundScreen />
         </Route>
       </Switch>
+      <ToastContainer
+        autoClose={false}
+      />
     </BrowserRouter>
   );
 }
