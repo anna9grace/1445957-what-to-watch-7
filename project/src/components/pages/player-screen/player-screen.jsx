@@ -1,11 +1,13 @@
 import React from 'react';
 import {useHistory} from 'react-router';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import filmProp from '../film-screen/film.prop';
 
 function PlayerScreen(props) {
-  const {film} = props;
-  const {name, backgroundImage, videoLink} = film;
+  const {filmId, films} = props;
+  const {name, backgroundImage, videoLink} = films.find((film) => film.id === +filmId);
 
   const history = useHistory();
 
@@ -52,7 +54,14 @@ function PlayerScreen(props) {
 }
 
 PlayerScreen.propTypes = {
-  film: filmProp,
+  filmId: PropTypes.string.isRequired,
+  films: PropTypes.arrayOf(filmProp).isRequired,
 };
 
-export default PlayerScreen;
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+
+export {PlayerScreen};
+export default connect(mapStateToProps, null)(PlayerScreen);

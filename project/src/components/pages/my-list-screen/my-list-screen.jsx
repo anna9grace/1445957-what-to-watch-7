@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import filmProp from '../film-screen/film.prop';
 import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
+import UserAvatar from '../../ui/user-avatar/user-avatar';
 
 function MyListScreen(props) {
-  const {films} = props;
+  const {favoriteFilms} = props;
 
   return (
     <div className="user-page">
@@ -17,9 +19,7 @@ function MyListScreen(props) {
 
         <ul className="user-block">
           <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
+            <UserAvatar />
           </li>
           <li className="user-block__item">
             <a className="user-block__link">Sign out</a>
@@ -30,7 +30,7 @@ function MyListScreen(props) {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmList films={films}/>
+        <FilmList films={favoriteFilms}/>
 
       </section>
 
@@ -46,7 +46,12 @@ function MyListScreen(props) {
 }
 
 MyListScreen.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired,
+  favoriteFilms: PropTypes.arrayOf(filmProp).isRequired,
 };
 
-export default MyListScreen;
+const mapStateToProps = (state) => ({
+  favoriteFilms: state.favoriteFilms,
+});
+
+export {MyListScreen};
+export default connect(mapStateToProps, null)(MyListScreen);
