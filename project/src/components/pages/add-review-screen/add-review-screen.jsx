@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import filmProp from '../film-screen/film.prop';
 import Logo from '../../ui/logo/logo';
 import AddReviewForm from '../../ui/add-review-form/add-review-form';
+import UserBlock from '../../ui/user-block/user-block';
 import { AppRoute } from '../../../const';
 
 function AddReviewScreen(props) {
@@ -36,18 +37,7 @@ function AddReviewScreen(props) {
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <Link to={AppRoute.MY_LIST}>
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </Link>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
 
         <div className="film-card__poster film-card__poster--small">

@@ -11,6 +11,7 @@ const initialState = {
   isDataLoaded: false,
   isPromoDataLoaded: false,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
+  authInfo: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -72,7 +73,8 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQUIRED_AUTHORIZATION :
       return {
         ...state,
-        authorizationStatus: action.payload,
+        authorizationStatus: action.payload.authStatus,
+        authInfo: action.payload.authInfo,
       };
 
     case ActionType.LOGOUT:

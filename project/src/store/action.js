@@ -44,9 +44,12 @@ export const ActionCreator = {
   resetIsDataLoaded: () => ({
     type: ActionType.RESET_IS_DATA_LOADED,
   }),
-  requireAuthorization: (status) => ({
+  requireAuthorization: (status, data) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
+    payload: {
+      authStatus: status,
+      authInfo: data,
+    },
   }),
   logout: () => ({
     type: ActionType.LOGOUT,

@@ -13,9 +13,10 @@ import PlayerScreen from '../pages/player-screen/player-screen';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import LoadingScreen from '../pages/loading-screen/loading-screen';
 import reviewProp from '../ui/review/review.prop';
+import PrivateRoute from '../private-route/private-route';
 import { AppRoute } from '../../const';
-import 'react-toastify/dist/ReactToastify.css';
 import { isCheckedAuth } from '../../utils/utils';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const renderLoadingScreen = () => <LoadingScreen />;
@@ -31,9 +32,9 @@ const renderAppScreen = (reviews) => (
         <SignInScreen />
       </Route>
 
-      <Route exact path={AppRoute.MY_LIST}>
-        <MyListScreen />
-      </Route>
+      <PrivateRoute exact path={AppRoute.MY_LIST}
+        render={() => <MyListScreen />}
+      />
 
       <Route
         exact path={`${AppRoute.FILM}/:id`}
@@ -44,7 +45,7 @@ const renderAppScreen = (reviews) => (
           />)}
       />
 
-      <Route
+      <PrivateRoute
         exact path={`${AppRoute.FILM}/:id/review`}
         render={(data) => (
           <AddReviewScreen

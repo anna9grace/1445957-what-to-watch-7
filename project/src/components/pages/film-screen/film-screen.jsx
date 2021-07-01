@@ -9,7 +9,7 @@ import reviewProp from '../../ui/review/review.prop';
 import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
 import FilmTabs from '../../ui/film-tabs/film-tabs';
-import UserAvatar from '../../ui/user-avatar/user-avatar';
+import UserBlock from '../../ui/user-block/user-block';
 import { AppRoute, MAX_SIMILAR_FILMS_COUNT } from '../../../const';
 import { getSimilarFilms } from '../../../utils/utils';
 
@@ -31,18 +31,9 @@ function FilmScreen(props) {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <Logo />
+            <Logo isLink/>
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <UserAvatar />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            <UserBlock />
           </header>
 
           <div className="film-card__wrap">
@@ -101,7 +92,7 @@ function FilmScreen(props) {
 
         <footer className="page-footer">
 
-          <Logo isFooter />
+          <Logo isFooter isLink/>
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>

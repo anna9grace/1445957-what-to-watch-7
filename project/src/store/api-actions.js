@@ -29,7 +29,7 @@ export const fetchFavoriteFilmsList = () => (dispatch, _getState, api) => (
 
 export const chekAuth = (isInitial) => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data}) => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH, data)))
     .catch((error) => {
       if (!isInitial) {
         toast(error.message);
@@ -40,7 +40,7 @@ export const chekAuth = (isInitial) => (dispatch, _getState, api) => (
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => localStorage.setItem('token', data.token))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data}) => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH, data)))
     .catch((error) => toast(error.message))
 );
 
