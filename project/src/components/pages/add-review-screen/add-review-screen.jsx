@@ -24,7 +24,7 @@ function AddReviewScreen(props) {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
-          <Logo />
+          <Logo isLink/>
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">

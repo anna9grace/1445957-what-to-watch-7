@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { shape } from 'prop-types';
 
 function FormMessage(props) {
   const {formErrors} = props;
@@ -14,7 +14,10 @@ function FormMessage(props) {
 }
 
 FormMessage.propTypes = {
-  formErrors: PropTypes.string.isRequired,
+  formErrors: PropTypes.arrayOf(shape({
+    field: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+  })),
 };
 
 export default FormMessage;

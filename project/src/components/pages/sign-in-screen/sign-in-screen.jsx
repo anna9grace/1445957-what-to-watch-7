@@ -1,25 +1,61 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Logo from '../../ui/logo/logo';
+import FormMessage from '../../ui/form-message/form-message';
 import { login } from '../../../store/api-actions';
-import { AuthorizationStatus } from '../../../const';
-import { AppRoutes } from '../../../const';
+import { AuthorizationStatus, AppRoutes } from '../../../const';
+
+
+const validationRules = {
+  email: {
+    validate: (value) => value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i),
+    message: 'Please enter a valid email address',
+  },
+
+  password: {
+    validate: (value) => value.trim().length !== 0,
+    message: 'Password field cannot be empty',
+  },
+};
+
+const validateFields = (formData) => {
+  const errors = [];
+
+  Object.keys(formData).forEach((fieldName) => {
+    const fieldValidation = validationRules[fieldName];
+    const isValid = fieldValidation.validate(formData[fieldName]);
+
+    if (!isValid) {
+      errors.push({
+        field: fieldName,
+        message: fieldValidation.message,
+      });
+    }
+  });
+  return errors;
+};
 
 function SignInScreen(props) {
   const {onSubmit, authorizationStatus} = props;
+  const [formErrors, setFormErrors] = useState([]);
 
   const emailRef = useRef();
   const passwordRef = useRef();
 
   const handleSubmit = (evt) => {
-    evt.preventDefault();
-    onSubmit({
+    const formData = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
-    });
+    };
+
+    evt.preventDefault();
+    const errors = validateFields(formData);
+
+    (errors.length === 0) && onSubmit(formData);
+    setFormErrors(errors);
   };
 
   if (authorizationStatus === AuthorizationStatus.AUTH) {
@@ -40,12 +76,15 @@ function SignInScreen(props) {
           className="sign-in__form"
           onSubmit={handleSubmit}
         >
+
+          {formErrors && <FormMessage formErrors={formErrors} />}
+
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
                 ref={emailRef}
                 className="sign-in__input"
-                type="email"
+                type="text"
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
