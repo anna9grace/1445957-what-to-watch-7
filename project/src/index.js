@@ -9,9 +9,13 @@ import App from './components/app/app';
 import reviews from './mocks/reviews';
 import { reducer } from './store/reducer';
 import {createAPI} from './services/api';
-import {fetchFilmsList, fetchPromoFilm} from './store/api-actions';
+import {fetchFilmsList, fetchPromoFilm, chekAuth} from './store/api-actions';
+import { AuthorizationStatus } from './const';
+import { ActionCreator } from './store/action';
 
-const api = createAPI();
+const api = createAPI(
+  () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
+);
 
 const store = createStore(
   reducer,
@@ -20,6 +24,7 @@ const store = createStore(
   ),
 );
 
+store.dispatch(chekAuth(true));
 store.dispatch(fetchFilmsList());
 store.dispatch(fetchPromoFilm());
 

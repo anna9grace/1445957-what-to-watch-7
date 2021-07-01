@@ -1,5 +1,5 @@
 import { ActionType } from './action';
-import { INITIAL_GENRE, MAX_FILMS_COUNT } from '../const';
+import { INITIAL_GENRE, MAX_FILMS_COUNT, AuthorizationStatus } from '../const';
 
 const initialState = {
   activeGenre: INITIAL_GENRE,
@@ -10,6 +10,7 @@ const initialState = {
   renderedFilmsCount: MAX_FILMS_COUNT,
   isDataLoaded: false,
   isPromoDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
 const reducer = (state = initialState, action) => {
@@ -66,6 +67,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         renderedFilmsCount: MAX_FILMS_COUNT,
+      };
+
+    case ActionType.REQUIRED_AUTHORIZATION :
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
+
+    case ActionType.LOGOUT:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
 
     default:

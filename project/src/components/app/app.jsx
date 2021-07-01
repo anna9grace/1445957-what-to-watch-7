@@ -15,72 +15,74 @@ import LoadingScreen from '../pages/loading-screen/loading-screen';
 import reviewProp from '../ui/review/review.prop';
 import { AppRoute } from '../../const';
 import 'react-toastify/dist/ReactToastify.css';
+import { isCheckedAuth } from '../../utils/utils';
+
+
+const renderLoadingScreen = () => <LoadingScreen />;
+
+const renderAppScreen = (reviews) => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path={AppRoute.ROOT}>
+        <MainScreen />
+      </Route>
+
+      <Route exact path={AppRoute.SIGN_IN}>
+        <SignInScreen />
+      </Route>
+
+      <Route exact path={AppRoute.MY_LIST}>
+        <MyListScreen />
+      </Route>
+
+      <Route
+        exact path={`${AppRoute.FILM}/:id`}
+        render={(data) => (
+          <FilmScreen
+            filmId={data.match.params.id}
+            reviews={reviews}
+          />)}
+      />
+
+      <Route
+        exact path={`${AppRoute.FILM}/:id/review`}
+        render={(data) => (
+          <AddReviewScreen
+            filmId={data.match.params.id}
+          />)}
+      />
+
+      <Route
+        exact path={`${AppRoute.PLAYER}/:id`}
+        render={(data) => (
+          <PlayerScreen
+            filmId={data.match.params.id}
+          />
+        )}
+      />
+
+      <Route>
+        <NotFoundScreen />
+      </Route>
+    </Switch>
+  </BrowserRouter>
+);
+
 
 function App(props) {
   const { reviews } = props;
+  const { authorizationStatus, isDataLoaded, isPromoDataLoaded } = props;
 
-  const { isDataLoaded, isPromoDataLoaded } = props;
-
-  if (!isDataLoaded || !isPromoDataLoaded) {
-    return (
-      <React.Fragment>
-        <LoadingScreen />
-        <ToastContainer
-          autoClose={false}
-        />
-      </React.Fragment>
-    );
-  }
+  const isPageSuccess = isCheckedAuth(authorizationStatus) && isDataLoaded && isPromoDataLoaded;
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path={AppRoute.ROOT}>
-          <MainScreen />
-        </Route>
+    <React.Fragment>
+      {(isPageSuccess && renderAppScreen(reviews)) || renderLoadingScreen()}
 
-        <Route exact path={AppRoute.SIGN_IN}>
-          <SignInScreen />
-        </Route>
-
-        <Route exact path={AppRoute.MY_LIST}>
-          <MyListScreen />
-        </Route>
-
-        <Route
-          exact path={`${AppRoute.FILM}/:id`}
-          render={(data) => (
-            <FilmScreen
-              filmId={data.match.params.id}
-              reviews={reviews}
-            />)}
-        />
-
-        <Route
-          exact path={`${AppRoute.FILM}/:id/review`}
-          render={(data) => (
-            <AddReviewScreen
-              filmId={data.match.params.id}
-            />)}
-        />
-
-        <Route
-          exact path={`${AppRoute.PLAYER}/:id`}
-          render={(data) => (
-            <PlayerScreen
-              filmId={data.match.params.id}
-            />
-          )}
-        />
-
-        <Route>
-          <NotFoundScreen />
-        </Route>
-      </Switch>
       <ToastContainer
         autoClose={false}
       />
-    </BrowserRouter>
+    </React.Fragment>
   );
 }
 
@@ -88,11 +90,13 @@ App.propTypes = {
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   isPromoDataLoaded: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isDataLoaded: state.isDataLoaded,
   isPromoDataLoaded: state.isPromoDataLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export { App };

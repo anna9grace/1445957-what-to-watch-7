@@ -14,16 +14,6 @@ export const APIRoute = {
   LOGOUT: '/logout',
 };
 
-export const MAX_ACTORS_COUNT = 4;
-
-export const MAX_SIMILAR_FILMS_COUNT = 4;
-
-export const MAX_FILMS_COUNT = 8;
-
-export const MAX_RATING = 10;
-
-export const PREVIEW_VIDEO_DELAY = 1000;
-
 export const PreviewVideoSizes = {
   WIDTH: 280,
   HEIGHT: 175,
@@ -48,8 +38,24 @@ export const DateFormats = {
   DATE_TIME: 'YYYY-MM-DD',
 };
 
-export const INITIAL_GENRE = 'All genres';
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
 
 export const ToastIDs = {
   DATA_GET_ERROR: 'dataGetError',
 };
+
+export const MAX_ACTORS_COUNT = 4;
+
+export const MAX_SIMILAR_FILMS_COUNT = 4;
+
+export const MAX_FILMS_COUNT = 8;
+
+export const MAX_RATING = 10;
+
+export const PREVIEW_VIDEO_DELAY = 1000;
+
+export const INITIAL_GENRE = 'All genres';

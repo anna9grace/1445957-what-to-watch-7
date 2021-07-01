@@ -8,6 +8,8 @@ export const ActionType = {
   GET_FILMS_RENDERED_COUNT: 'filter/getFilmsRenderedCount',
   RESET_FILMS_RENDERED_COUNT: 'filter/resetFilmsRenderedCount',
   RESET_IS_DATA_LOADED: 'data/resetIsDataLoaded',
+  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOGOUT: 'user/logout',
 };
 
 export const ActionCreator = {
@@ -41,5 +43,12 @@ export const ActionCreator = {
   }),
   resetIsDataLoaded: () => ({
     type: ActionType.RESET_IS_DATA_LOADED,
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
   }),
 };
