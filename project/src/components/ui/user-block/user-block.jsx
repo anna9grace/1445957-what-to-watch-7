@@ -6,14 +6,14 @@ import {useHistory} from 'react-router-dom';
 
 import {AppRoute, AuthorizationStatus} from '../../../const';
 
-const renderUserBlockAuthorized = (history) => (
+const renderUserBlockAuthorized = (history, userData) => (
   <React.Fragment>
     <li className="user-block__item">
       <div
         className="user-block__avatar"
         onClick={() => history.push(`${AppRoute.MY_LIST}`)}
       >
-        <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+        <img src={userData.avatar_url} alt="User avatar" width="63" height="63" />
       </div>
     </li>
     <li className="user-block__item">
@@ -36,13 +36,12 @@ function UserBlock(props) {
   const {authorizationStatus, authInfo} = props;
 
   const history = useHistory();
-  console.log(authInfo);
 
   return (
     <ul className="user-block">
       {
         authorizationStatus === AuthorizationStatus.AUTH
-          ? renderUserBlockAuthorized(history)
+          ? renderUserBlockAuthorized(history, authInfo)
           : renderUserBlockUnauthorized()
       }
     </ul>
