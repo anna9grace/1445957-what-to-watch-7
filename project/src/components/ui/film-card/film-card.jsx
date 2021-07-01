@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 import VideoPlayer from '../video-player/video-player';
 import filmProp from '../../pages/film-screen/film.prop';
-import {AppRoute} from '../../../const';
+import {AppRoutes} from '../../../const';
 
 
 function FilmCard(props) {
@@ -17,7 +17,7 @@ function FilmCard(props) {
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
     >
-      <Link to={`${AppRoute.FILM}/${film.id}`}>
+      <Link to={`${AppRoutes.FILM}/${film.id}`}>
         <div className="small-film-card__image">
           <VideoPlayer
             src={previewVideoLink}
@@ -27,7 +27,7 @@ function FilmCard(props) {
         </div>
       </Link>
       <h3 className="small-film-card__title">
-        <Link to={`${AppRoute.FILM}/${id}`} className="small-film-card__link">{name}</Link>
+        <Link to={`${AppRoutes.FILM}/${id}`} className="small-film-card__link">{name}</Link>
       </h3>
     </article>
   );

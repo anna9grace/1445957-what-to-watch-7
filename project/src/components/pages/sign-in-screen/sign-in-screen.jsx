@@ -1,24 +1,30 @@
 import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import Logo from '../../ui/logo/logo';
 import { login } from '../../../store/api-actions';
+import { AuthorizationStatus } from '../../../const';
+import { AppRoutes } from '../../../const';
 
-function SignInScreen({onSubmit}) {
+function SignInScreen(props) {
+  const {onSubmit, authorizationStatus} = props;
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log(emailRef.current.value);
-    console.log(passwordRef.current.value);
-
     onSubmit({
       email: emailRef.current.value,
       password: passwordRef.current.value,
     });
   };
+
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return <Redirect to={AppRoutes.ROOT} />;
+  }
 
   return (
     <div className="user-page">
@@ -77,14 +83,18 @@ function SignInScreen({onSubmit}) {
 
 SignInScreen.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
-    console.log(authData);
     dispatch(login(authData));
   },
 });
 
 export {SignInScreen};
-export default connect(null, mapDispatchToProps)(SignInScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);

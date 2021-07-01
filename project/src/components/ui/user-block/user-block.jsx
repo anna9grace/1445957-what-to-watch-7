@@ -4,20 +4,31 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
-import {AppRoute, AuthorizationStatus} from '../../../const';
+import {AppRoutes, AuthorizationStatus} from '../../../const';
+import { logout } from '../../../store/api-actions';
 
-const renderUserBlockAuthorized = (history, userData) => (
+const renderUserBlockAuthorized = (history, userData, onLogout) => (
   <React.Fragment>
     <li className="user-block__item">
       <div
         className="user-block__avatar"
-        onClick={() => history.push(`${AppRoute.MY_LIST}`)}
+        onClick={() => history.push(`${AppRoutes.MY_LIST}`)}
       >
         <img src={userData.avatar_url} alt="User avatar" width="63" height="63" />
       </div>
     </li>
     <li className="user-block__item">
-      <a className="user-block__link">Sign out</a>
+
+      <Link
+        className="user-block__link"
+        onClick={(evt) => {
+          evt.preventDefault();
+          onLogout();
+        }}
+        to='/'
+      >
+        Sign out
+      </Link>
     </li>
   </React.Fragment>
 );
@@ -25,7 +36,7 @@ const renderUserBlockAuthorized = (history, userData) => (
 const renderUserBlockUnauthorized = () => (
   <Link
     className="user-block__link"
-    to={AppRoute.SIGN_IN}
+    to={AppRoutes.SIGN_IN}
   >
     Sign in
   </Link>
@@ -33,7 +44,7 @@ const renderUserBlockUnauthorized = () => (
 
 
 function UserBlock(props) {
-  const {authorizationStatus, authInfo} = props;
+  const {authorizationStatus, authInfo, onLogout} = props;
 
   const history = useHistory();
 
@@ -41,7 +52,7 @@ function UserBlock(props) {
     <ul className="user-block">
       {
         authorizationStatus === AuthorizationStatus.AUTH
-          ? renderUserBlockAuthorized(history, authInfo)
+          ? renderUserBlockAuthorized(history, authInfo, onLogout)
           : renderUserBlockUnauthorized()
       }
     </ul>
@@ -51,6 +62,7 @@ function UserBlock(props) {
 UserBlock.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   authInfo: PropTypes.object,
+  onLogout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -58,6 +70,11 @@ const mapStateToProps = (state) => ({
   authInfo: state.authInfo,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLogout() {
+    dispatch(logout());
+  },
+});
 
 export {UserBlock};
-export default connect(mapStateToProps, null)(UserBlock);
+export default connect(mapStateToProps, mapDispatchToProps)(UserBlock);

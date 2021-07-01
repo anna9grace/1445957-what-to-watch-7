@@ -7,7 +7,7 @@ import filmProp from '../film-screen/film.prop';
 import Logo from '../../ui/logo/logo';
 import AddReviewForm from '../../ui/add-review-form/add-review-form';
 import UserBlock from '../../ui/user-block/user-block';
-import { AppRoute } from '../../../const';
+import { AppRoutes } from '../../../const';
 
 function AddReviewScreen(props) {
   const { filmId, films } = props;
@@ -29,7 +29,7 @@ function AddReviewScreen(props) {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link className="breadcrumbs__link" to={`${AppRoute.FILM}/${film.id}`}>{name}</Link>
+                <Link className="breadcrumbs__link" to={`${AppRoutes.FILM}/${film.id}`}>{name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>

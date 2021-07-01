@@ -8,7 +8,7 @@ import FilmListMain from '../../ui/film-list-main/film-list-main';
 import GenresList from '../../ui/genres-list/genres-list';
 import UserBlock from '../../ui/user-block/user-block';
 import Logo from '../../ui/logo/logo';
-import {AppRoute} from '../../../const';
+import {AppRoutes} from '../../../const';
 import { ActionCreator } from '../../../store/action';
 
 function MainScreen(props) {
@@ -50,7 +50,7 @@ function MainScreen(props) {
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => history.push(`${AppRoute.PLAYER}/${promoFilm.id}`)}
+                  onClick={() => history.push(`${AppRoutes.PLAYER}/${promoFilm.id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>

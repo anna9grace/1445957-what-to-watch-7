@@ -14,7 +14,7 @@ import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import LoadingScreen from '../pages/loading-screen/loading-screen';
 import reviewProp from '../ui/review/review.prop';
 import PrivateRoute from '../private-route/private-route';
-import { AppRoute } from '../../const';
+import { AppRoutes } from '../../const';
 import { isCheckedAuth } from '../../utils/utils';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -24,20 +24,20 @@ const renderLoadingScreen = () => <LoadingScreen />;
 const renderAppScreen = (reviews) => (
   <BrowserRouter>
     <Switch>
-      <Route exact path={AppRoute.ROOT}>
+      <Route exact path={AppRoutes.ROOT}>
         <MainScreen />
       </Route>
 
-      <Route exact path={AppRoute.SIGN_IN}>
+      <Route exact path={AppRoutes.SIGN_IN}>
         <SignInScreen />
       </Route>
 
-      <PrivateRoute exact path={AppRoute.MY_LIST}
+      <PrivateRoute exact path={AppRoutes.MY_LIST}
         render={() => <MyListScreen />}
       />
 
       <Route
-        exact path={`${AppRoute.FILM}/:id`}
+        exact path={`${AppRoutes.FILM}/:id`}
         render={(data) => (
           <FilmScreen
             filmId={data.match.params.id}
@@ -46,7 +46,7 @@ const renderAppScreen = (reviews) => (
       />
 
       <PrivateRoute
-        exact path={`${AppRoute.FILM}/:id/review`}
+        exact path={`${AppRoutes.FILM}/:id/review`}
         render={(data) => (
           <AddReviewScreen
             filmId={data.match.params.id}
@@ -54,7 +54,7 @@ const renderAppScreen = (reviews) => (
       />
 
       <Route
-        exact path={`${AppRoute.PLAYER}/:id`}
+        exact path={`${AppRoutes.PLAYER}/:id`}
         render={(data) => (
           <PlayerScreen
             filmId={data.match.params.id}

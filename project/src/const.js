@@ -1,4 +1,4 @@
-export const AppRoute = {
+export const AppRoutes = {
   ROOT: '/',
   SIGN_IN: '/login',
   MY_LIST: '/mylist',
@@ -46,6 +46,11 @@ export const AuthorizationStatus = {
 
 export const ToastIDs = {
   DATA_GET_ERROR: 'dataGetError',
+};
+
+export const ResponseCode = {
+  UNAUTHORIZED: 401,
+  BAD_REQUEST: 400,
 };
 
 export const MAX_ACTORS_COUNT = 4;

@@ -10,7 +10,7 @@ import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
 import FilmTabs from '../../ui/film-tabs/film-tabs';
 import UserBlock from '../../ui/user-block/user-block';
-import { AppRoute, MAX_SIMILAR_FILMS_COUNT } from '../../../const';
+import { AppRoutes, MAX_SIMILAR_FILMS_COUNT } from '../../../const';
 import { getSimilarFilms } from '../../../utils/utils';
 
 function FilmScreen(props) {
@@ -48,7 +48,7 @@ function FilmScreen(props) {
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => history.push(`${AppRoute.PLAYER}/${filmId}`)}
+                  onClick={() => history.push(`${AppRoutes.PLAYER}/${filmId}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -61,7 +61,7 @@ function FilmScreen(props) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link className="btn film-card__button" to={`${AppRoute.FILM}/${film.id}/review`}>Add review</Link>
+                <Link className="btn film-card__button" to={`${AppRoutes.FILM}/${film.id}/review`}>Add review</Link>
               </div>
             </div>
           </div>
