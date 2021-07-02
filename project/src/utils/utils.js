@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import { AuthorizationStatus } from '../const';
 dayjs.extend(duration);
 
 export const getFilm = (films, id) => films.find((film) => +film.id === (+id));
@@ -29,3 +30,5 @@ export const transformRating = (rating) => {
 };
 
 export const makeItemsUnique = (items) => [...new Set(items)];
+
+export const isCheckedAuth = (authorizationStatus) => authorizationStatus !== AuthorizationStatus.UNKNOWN;

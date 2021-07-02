@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import filmProp from '../film-screen/film.prop';
 import Logo from '../../ui/logo/logo';
 import AddReviewForm from '../../ui/add-review-form/add-review-form';
-import { AppRoute } from '../../../const';
+import UserBlock from '../../ui/user-block/user-block';
+import { AppRoutes } from '../../../const';
 
 function AddReviewScreen(props) {
   const { filmId, films } = props;
@@ -23,12 +24,12 @@ function AddReviewScreen(props) {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
-          <Logo />
+          <Logo isLink/>
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link className="breadcrumbs__link" to={`${AppRoute.FILM}/${film.id}`}>{name}</Link>
+                <Link className="breadcrumbs__link" to={`${AppRoutes.FILM}/${film.id}`}>{name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -36,18 +37,7 @@ function AddReviewScreen(props) {
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <Link to={AppRoute.MY_LIST}>
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </Link>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
 
         <div className="film-card__poster film-card__poster--small">

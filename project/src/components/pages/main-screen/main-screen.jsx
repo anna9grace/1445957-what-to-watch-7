@@ -6,8 +6,9 @@ import {connect} from 'react-redux';
 import filmProp from '../film-screen/film.prop';
 import FilmListMain from '../../ui/film-list-main/film-list-main';
 import GenresList from '../../ui/genres-list/genres-list';
-import UserAvatar from '../../ui/user-avatar/user-avatar';
-import {AppRoute} from '../../../const';
+import UserBlock from '../../ui/user-block/user-block';
+import Logo from '../../ui/logo/logo';
+import {AppRoutes} from '../../../const';
 import { ActionCreator } from '../../../store/action';
 
 function MainScreen(props) {
@@ -27,22 +28,9 @@ function MainScreen(props) {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo />
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <UserAvatar />
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
 
         <div className="film-card__wrap">
@@ -62,7 +50,7 @@ function MainScreen(props) {
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => history.push(`${AppRoute.PLAYER}/${promoFilm.id}`)}
+                  onClick={() => history.push(`${AppRoutes.PLAYER}/${promoFilm.id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -92,13 +80,7 @@ function MainScreen(props) {
         </section>
 
         <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo isFooter/>
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>

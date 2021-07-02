@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 import MainScreen from '../pages/main-screen/main-screen';
 import SignInScreen from '../pages/sign-in-screen/sign-in-screen';
@@ -12,65 +13,77 @@ import PlayerScreen from '../pages/player-screen/player-screen';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import LoadingScreen from '../pages/loading-screen/loading-screen';
 import reviewProp from '../ui/review/review.prop';
-import { AppRoute } from '../../const';
+import PrivateRoute from '../private-route/private-route';
+import { AppRoutes } from '../../const';
+import { isCheckedAuth } from '../../utils/utils';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+const renderLoadingScreen = () => <LoadingScreen />;
+
+const renderAppScreen = (reviews) => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path={AppRoutes.ROOT}>
+        <MainScreen />
+      </Route>
+
+      <Route exact path={AppRoutes.SIGN_IN}>
+        <SignInScreen />
+      </Route>
+
+      <PrivateRoute exact path={AppRoutes.MY_LIST}
+        render={() => <MyListScreen />}
+      />
+
+      <Route
+        exact path={`${AppRoutes.FILM}/:id`}
+        render={(data) => (
+          <FilmScreen
+            filmId={data.match.params.id}
+            reviews={reviews}
+          />)}
+      />
+
+      <PrivateRoute
+        exact path={`${AppRoutes.FILM}/:id/review`}
+        render={(data) => (
+          <AddReviewScreen
+            filmId={data.match.params.id}
+          />)}
+      />
+
+      <Route
+        exact path={`${AppRoutes.PLAYER}/:id`}
+        render={(data) => (
+          <PlayerScreen
+            filmId={data.match.params.id}
+          />
+        )}
+      />
+
+      <Route>
+        <NotFoundScreen />
+      </Route>
+    </Switch>
+  </BrowserRouter>
+);
+
 
 function App(props) {
   const { reviews } = props;
+  const { authorizationStatus, isDataLoaded, isPromoDataLoaded } = props;
 
-  const { isDataLoaded, isPromoDataLoaded } = props;
-
-  if (!isDataLoaded || !isPromoDataLoaded) {
-    return (
-      <LoadingScreen />
-    );
-  }
+  const isPageSuccess = isCheckedAuth(authorizationStatus) && isDataLoaded && isPromoDataLoaded;
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path={AppRoute.ROOT}>
-          <MainScreen />
-        </Route>
+    <React.Fragment>
+      {(isPageSuccess && renderAppScreen(reviews)) || renderLoadingScreen()}
 
-        <Route exact path={AppRoute.SIGN_IN}>
-          <SignInScreen />
-        </Route>
-
-        <Route exact path={AppRoute.MY_LIST}>
-          <MyListScreen />
-        </Route>
-
-        <Route
-          exact path={`${AppRoute.FILM}/:id`}
-          render={(data) => (
-            <FilmScreen
-              filmId={data.match.params.id}
-              reviews={reviews}
-            />)}
-        />
-
-        <Route
-          exact path={`${AppRoute.FILM}/:id/review`}
-          render={(data) => (
-            <AddReviewScreen
-              filmId={data.match.params.id}
-            />)}
-        />
-
-        <Route
-          exact path={`${AppRoute.PLAYER}/:id`}
-          render={(data) => (
-            <PlayerScreen
-              filmId={data.match.params.id}
-            />
-          )}
-        />
-
-        <Route>
-          <NotFoundScreen />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+      <ToastContainer
+        autoClose={false}
+      />
+    </React.Fragment>
   );
 }
 
@@ -78,11 +91,13 @@ App.propTypes = {
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   isPromoDataLoaded: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isDataLoaded: state.isDataLoaded,
   isPromoDataLoaded: state.isPromoDataLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export { App };

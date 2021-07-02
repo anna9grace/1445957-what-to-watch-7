@@ -1,29 +1,105 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-function SignInScreen() {
+import Logo from '../../ui/logo/logo';
+import FormMessage from '../../ui/form-message/form-message';
+import { login } from '../../../store/api-actions';
+import { AuthorizationStatus, AppRoutes } from '../../../const';
+
+
+const validationRules = {
+  email: {
+    validate: (value) => value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i),
+    message: 'Please enter a valid email address',
+  },
+
+  password: {
+    validate: (value) => value.trim().length !== 0,
+    message: 'Password field cannot be empty',
+  },
+};
+
+const validateFields = (formData) => {
+  const errors = [];
+
+  Object.keys(formData).forEach((fieldName) => {
+    const fieldValidation = validationRules[fieldName];
+    const isValid = fieldValidation.validate(formData[fieldName]);
+
+    if (!isValid) {
+      errors.push({
+        field: fieldName,
+        message: fieldValidation.message,
+      });
+    }
+  });
+  return errors;
+};
+
+function SignInScreen(props) {
+  const {onSubmit, authorizationStatus} = props;
+  const [formErrors, setFormErrors] = useState([]);
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const handleSubmit = (evt) => {
+    const formData = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    evt.preventDefault();
+    const errors = validateFields(formData);
+
+    (errors.length === 0) && onSubmit(formData);
+    setFormErrors(errors);
+  };
+
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return <Redirect to={AppRoutes.ROOT} />;
+  }
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
-        <div className="logo">
-          <a href="main.html" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
+        <Logo isLink />
 
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form
+          action="#"
+          className="sign-in__form"
+          onSubmit={handleSubmit}
+        >
+
+          {formErrors && <FormMessage formErrors={formErrors} />}
+
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
+              <input
+                ref={emailRef}
+                className="sign-in__input"
+                type="text"
+                placeholder="Email address"
+                name="user-email"
+                id="user-email"
+              />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
+              <input
+                ref={passwordRef}
+                className="sign-in__input"
+                type="password"
+                placeholder="Password"
+                name="user-password"
+                id="user-password"
+              />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
@@ -34,13 +110,7 @@ function SignInScreen() {
       </div>
 
       <footer className="page-footer">
-        <div className="logo">
-          <a href="main.html" className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
+        <Logo isFooter isLink/>
 
         <div className="copyright">
           <p>© 2019 What to watch Ltd.</p>
@@ -50,4 +120,20 @@ function SignInScreen() {
   );
 }
 
-export default SignInScreen;
+SignInScreen.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(authData) {
+    dispatch(login(authData));
+  },
+});
+
+export {SignInScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
