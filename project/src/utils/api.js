@@ -5,7 +5,7 @@ import {ResponseCode } from '../const';
 
 
 export const fetchFilmInfo = (url, onSuccess, onNotFound) => (
-  api.get(`${url}`)
+  api.get(url)
     .then(({ data }) => onSuccess(data))
     .catch((error) => {
       if (onNotFound && error.response.status === ResponseCode.NOT_FOUND) {
@@ -13,5 +13,15 @@ export const fetchFilmInfo = (url, onSuccess, onNotFound) => (
         return;
       }
       toast(error.message);
+    })
+);
+
+export const postComment = (url, comment, onSuccess) => (
+  api.post(url, {...comment})
+    .then(({data}) => onSuccess(data))
+    .catch((error) => {
+
+      toast(error.message);
+      throw error;
     })
 );
