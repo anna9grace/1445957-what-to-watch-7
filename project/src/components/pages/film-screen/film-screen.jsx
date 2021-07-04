@@ -11,11 +11,11 @@ import UserBlock from '../../ui/user-block/user-block';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { adaptFilmToClient, adaptFilmsToClient, adaptReviewsToClient } from '../../../services/adaptors';
-import { AppRoutes, APIRoute, MAX_SIMILAR_FILMS_COUNT } from '../../../const';
+import { AppRoutes, APIRoute, MAX_SIMILAR_FILMS_COUNT, AuthorizationStatus } from '../../../const';
 import { fetchFilmInfo } from '../../../utils/api';
 
 function FilmScreen(props) {
-  const { filmId } = props;
+  const { filmId, authorizationStatus } = props;
 
   const history = useHistory();
 
@@ -117,7 +117,11 @@ function FilmScreen(props) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link className="btn film-card__button" to={`${AppRoutes.FILM}/${currentFilm.id}/review`}>Add review</Link>
+                {
+                  authorizationStatus === AuthorizationStatus.AUTH
+                    && <Link className="btn film-card__button" to={`${AppRoutes.FILM}/${currentFilm.id}/review`}>Add review</Link>
+                }
+
               </div>
             </div>
           </div>
@@ -161,10 +165,11 @@ function FilmScreen(props) {
 
 FilmScreen.propTypes = {
   filmId: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export { FilmScreen };
