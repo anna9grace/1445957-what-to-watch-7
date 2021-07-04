@@ -12,6 +12,8 @@ export const APIRoute = {
   FAVORITE_FILMS: '/favorite',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  SIMILAR_FILMS: '/similar',
+  REVIEWS: '/comments',
 };
 
 export const PreviewVideoSizes = {
@@ -51,6 +53,7 @@ export const ToastIDs = {
 export const ResponseCode = {
   UNAUTHORIZED: 401,
   BAD_REQUEST: 400,
+  NOT_FOUND: 404,
 };
 
 export const MAX_ACTORS_COUNT = 4;
