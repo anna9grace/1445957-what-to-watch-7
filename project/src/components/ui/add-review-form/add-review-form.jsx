@@ -14,22 +14,17 @@ function AddReviewForm(props) {
 
   const history = useHistory();
 
+  const [isSending, setIsSending] = useState(false);
+  const [isValid, setIsValid] = useState(false);
   const [review, setReview] = useState({
     rating: null,
     comment: '',
   });
   const {comment, rating} = review;
 
-  const [formState, setFormState] = useState({
-    isSending: false,
-    isValid: false,
-  });
-  const {isSending, isValid} = formState;
-
-  useEffect(() => setFormState({
-    ...formState,
-    isValid: rating && comment.trim().length > ReviewLength.MIN && comment.trim().length < ReviewLength.MAX,
-  }), [comment, rating]);
+  useEffect(() => setIsValid(
+    rating && comment.trim().length > ReviewLength.MIN && comment.trim().length < ReviewLength.MAX,
+  ), [comment, rating]);
 
   const textChangeHandler = (evt) => {
     setReview({
@@ -49,10 +44,14 @@ function AddReviewForm(props) {
     history.goBack();
   };
 
+  const onCommentPostError = () => {
+    setIsSending(false);
+  };
+
   const onFormSubmit = (evt) => {
     evt.preventDefault();
-    // setIsSending(true);
-    postComment(`${APIRoute.REVIEWS}/${filmId}`, review, onCommentPostSuccess);
+    setIsSending(true);
+    postComment(`${APIRoute.REVIEWS}/${filmId}`, review, onCommentPostSuccess, onCommentPostError);
   };
 
 
@@ -98,8 +97,15 @@ function AddReviewForm(props) {
             onChange={textChangeHandler}
             disabled={isSending}
           />
+
           <div className="add-review__submit">
-            <button className="add-review__btn" disabled={isSending || !isValid} type="submit">Post</button>
+            <button
+              className="add-review__btn"
+              disabled={isSending || !isValid}
+              type="submit"
+            >
+              Post
+            </button>
           </div>
 
         </div>

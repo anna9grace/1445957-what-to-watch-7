@@ -16,12 +16,11 @@ export const fetchFilmInfo = (url, onSuccess, onNotFound) => (
     })
 );
 
-export const postComment = (url, comment, onSuccess) => (
+export const postComment = (url, comment, onSuccess, onError) => (
   api.post(url, {...comment})
     .then(({data}) => onSuccess(data))
     .catch((error) => {
-
+      onError();
       toast(error.message);
-      throw error;
     })
 );
