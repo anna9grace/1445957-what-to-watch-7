@@ -67,3 +67,8 @@ export const MAX_RATING = 10;
 export const PREVIEW_VIDEO_DELAY = 1000;
 
 export const INITIAL_GENRE = 'All genres';
+
+export const ReviewLength = {
+  MIN: 50,
+  MAX: 401,
+};

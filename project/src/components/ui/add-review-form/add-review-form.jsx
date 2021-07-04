@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router';
 
 import {MAX_RATING} from '../../../const';
 import { postComment } from '../../../utils/api';
-import { APIRoute } from '../../../const';
+import { APIRoute, ReviewLength } from '../../../const';
+
+
+const ratingValues = new Array(MAX_RATING).fill().map((el, index) => index + 1).reverse();
 
 function AddReviewForm(props) {
   const {filmId} = props;
@@ -17,7 +20,16 @@ function AddReviewForm(props) {
   });
   const {comment, rating} = review;
 
-  const ratingValues = new Array(MAX_RATING).fill().map((el, index) => index + 1).reverse();
+  const [formState, setFormState] = useState({
+    isSending: false,
+    isValid: false,
+  });
+  const {isSending, isValid} = formState;
+
+  useEffect(() => setFormState({
+    ...formState,
+    isValid: rating && comment.trim().length > ReviewLength.MIN && comment.trim().length < ReviewLength.MAX,
+  }), [comment, rating]);
 
   const textChangeHandler = (evt) => {
     setReview({
@@ -39,8 +51,10 @@ function AddReviewForm(props) {
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
+    // setIsSending(true);
     postComment(`${APIRoute.REVIEWS}/${filmId}`, review, onCommentPostSuccess);
   };
+
 
   return (
     <div className="add-review">
@@ -48,6 +62,7 @@ function AddReviewForm(props) {
         action="#"
         className="add-review__form"
         onSubmit={onFormSubmit}
+        disabled
       >
         <div className="rating">
           <div className="rating__stars">
@@ -63,6 +78,7 @@ function AddReviewForm(props) {
                     value={`${value}`}
                     checked={value === +rating}
                     onChange={ratingChangeHandler}
+                    disabled={isSending}
                   />
                   <label className="rating__label" htmlFor={`star-${value}`}>Rating {value}</label>
                 </React.Fragment>
@@ -80,11 +96,10 @@ function AddReviewForm(props) {
             placeholder="Review text"
             value={comment}
             onChange={textChangeHandler}
-          >
-
-          </textarea>
+            disabled={isSending}
+          />
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button className="add-review__btn" disabled={isSending || !isValid} type="submit">Post</button>
           </div>
 
         </div>
