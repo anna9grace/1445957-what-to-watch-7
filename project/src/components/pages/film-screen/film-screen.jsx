@@ -12,7 +12,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { adaptFilmToClient, adaptFilmsToClient, adaptReviewsToClient } from '../../../services/adaptors';
 import { AppRoutes, APIRoute, MAX_SIMILAR_FILMS_COUNT, AuthorizationStatus } from '../../../const';
-import { fetchFilmInfo } from '../../../utils/api';
+import { fetchFilmInfo } from '../../../store/film-api-actions';
 
 function FilmScreen(props) {
   const { filmId, authorizationStatus } = props;
@@ -25,7 +25,7 @@ function FilmScreen(props) {
     similarFilms: null,
     isDataLoaded: false,
   });
-  const {currentFilm, reviews, similarFilms, isDataLoaded} = filmState;
+  const { currentFilm, reviews, similarFilms, isDataLoaded } = filmState;
 
 
   const getFilm = (data) => setFilmState((prevState) => (
@@ -74,7 +74,7 @@ function FilmScreen(props) {
     return <NotFoundScreen />;
   }
 
-  const { name, posterImage, backgroundImage, genre, released} = currentFilm;
+  const { name, posterImage, backgroundImage, genre, released } = currentFilm;
 
   return (
     <React.Fragment>
@@ -87,7 +87,7 @@ function FilmScreen(props) {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <Logo isLink/>
+            <Logo isLink />
 
             <UserBlock />
           </header>
@@ -119,7 +119,7 @@ function FilmScreen(props) {
                 </button>
                 {
                   authorizationStatus === AuthorizationStatus.AUTH
-                    && <Link className="btn film-card__button" to={`${AppRoutes.FILM}/${currentFilm.id}/review`}>Add review</Link>
+                  && <Link className="btn film-card__button" to={`${AppRoutes.FILM}/${currentFilm.id}/review`}>Add review</Link>
                 }
 
               </div>
@@ -152,7 +152,7 @@ function FilmScreen(props) {
 
         <footer className="page-footer">
 
-          <Logo isFooter isLink/>
+          <Logo isFooter isLink />
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
