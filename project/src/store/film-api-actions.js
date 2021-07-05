@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 
 import { api } from '../index';
-import {ResponseCode } from '../const';
+import { ResponseCode } from '../const';
 
 
 export const fetchFilmInfo = (url, onSuccess, onNotFound) => (
@@ -17,8 +17,8 @@ export const fetchFilmInfo = (url, onSuccess, onNotFound) => (
 );
 
 export const postComment = (url, comment, onSuccess, onError) => (
-  api.post(url, {...comment})
-    .then(({data}) => onSuccess(data))
+  api.post(url, { ...comment })
+    .then(({ data }) => onSuccess(data))
     .catch((error) => {
       onError();
       toast(error.message);

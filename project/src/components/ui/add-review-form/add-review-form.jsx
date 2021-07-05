@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {useHistory} from 'react-router';
+import { useHistory } from 'react-router';
 
-import {MAX_RATING} from '../../../const';
-import { postComment } from '../../../utils/api';
+import { MAX_RATING } from '../../../const';
+import { postComment } from '../../../store/film-api-actions';
 import { APIRoute, ReviewLength } from '../../../const';
 
 
 const ratingValues = new Array(MAX_RATING).fill().map((el, index) => index + 1).reverse();
 
 function AddReviewForm(props) {
-  const {filmId} = props;
+  const { filmId } = props;
 
   const history = useHistory();
 
@@ -20,7 +20,7 @@ function AddReviewForm(props) {
     rating: null,
     comment: '',
   });
-  const {comment, rating} = review;
+  const { comment, rating } = review;
 
   useEffect(() => setIsValid(
     rating && comment.trim().length > ReviewLength.MIN && comment.trim().length < ReviewLength.MAX,

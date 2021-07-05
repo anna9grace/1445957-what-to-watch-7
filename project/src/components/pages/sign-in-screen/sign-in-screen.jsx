@@ -1,6 +1,6 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Logo from '../../ui/logo/logo';
@@ -39,7 +39,7 @@ const validateFields = (formData) => {
 };
 
 function SignInScreen(props) {
-  const {onSubmit, authorizationStatus} = props;
+  const { onSubmit, authorizationStatus } = props;
   const [formErrors, setFormErrors] = useState([]);
 
   const emailRef = useRef();
@@ -110,7 +110,7 @@ function SignInScreen(props) {
       </div>
 
       <footer className="page-footer">
-        <Logo isFooter isLink/>
+        <Logo isFooter isLink />
 
         <div className="copyright">
           <p>© 2019 What to watch Ltd.</p>
@@ -135,5 +135,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export {SignInScreen};
+export { SignInScreen };
 export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
