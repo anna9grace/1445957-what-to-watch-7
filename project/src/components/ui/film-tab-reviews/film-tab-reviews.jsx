@@ -23,7 +23,7 @@ function FilmTabReviews(props) {
 
       <div className='film-card__reviews-col'>
         {
-          reviews.slice(middleIndex, reviews.length - 1).map((review) => (
+          reviews.slice(middleIndex, reviews.length).map((review) => (
             <Review
               key={review.id}
               review={review}

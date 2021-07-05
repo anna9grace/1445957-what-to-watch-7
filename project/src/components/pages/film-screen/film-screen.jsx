@@ -1,24 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import filmProp from './film.prop';
-import reviewProp from '../../ui/review/review.prop';
 import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
 import FilmTabs from '../../ui/film-tabs/film-tabs';
 import UserBlock from '../../ui/user-block/user-block';
-import { AppRoutes, MAX_SIMILAR_FILMS_COUNT } from '../../../const';
-import { getSimilarFilms } from '../../../utils/utils';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import LoadingScreen from '../loading-screen/loading-screen';
+import { adaptFilmToClient, adaptFilmsToClient, adaptReviewsToClient } from '../../../services/adaptors';
+import { AppRoutes, APIRoute, MAX_SIMILAR_FILMS_COUNT, AuthorizationStatus } from '../../../const';
+import { fetchFilmInfo } from '../../../utils/api';
 
 function FilmScreen(props) {
-  const { filmId, films, reviews } = props;
-  const film = films.find((filmTtem) => filmTtem.id === +filmId);
-  const { name, posterImage, backgroundImage, genre, released} = film;
+  const { filmId, authorizationStatus } = props;
 
   const history = useHistory();
+
+  const [filmState, setFilmState] = useState({
+    currentFilm: null,
+    reviews: [],
+    similarFilms: null,
+    isDataLoaded: false,
+  });
+  const {currentFilm, reviews, similarFilms, isDataLoaded} = filmState;
+
+
+  const getFilm = (data) => setFilmState((prevState) => (
+    {
+      ...prevState,
+      currentFilm: adaptFilmToClient(data),
+      isDataLoaded: true,
+    }
+  ));
+
+  const getSimilarFilms = (data) => setFilmState((prevState) => (
+    {
+      ...prevState,
+      similarFilms: adaptFilmsToClient(data)
+        .filter((film) => film.id !== +filmId)
+        .slice(0, MAX_SIMILAR_FILMS_COUNT),
+    }
+  ));
+
+  const getReviews = (data) => setFilmState((prevState) => (
+    {
+      ...prevState,
+      reviews: adaptReviewsToClient(data),
+    }
+  ));
+
+  const redirectToNotFound = () => setFilmState((prevState) => (
+    {
+      ...prevState,
+      isDataLoaded: true,
+    }
+  ));
+
+  useEffect(() => {
+    fetchFilmInfo(`${APIRoute.FILMS}/${filmId}`, getFilm, redirectToNotFound);
+    fetchFilmInfo(`${APIRoute.REVIEWS}/${filmId}`, getReviews);
+    fetchFilmInfo(`${APIRoute.FILMS}/${filmId}${APIRoute.SIMILAR_FILMS}`, getSimilarFilms);
+  }, [filmId]);
+
+
+  if (!isDataLoaded) {
+    return <LoadingScreen />;
+  }
+
+  if (!currentFilm) {
+    return <NotFoundScreen />;
+  }
+
+  const { name, posterImage, backgroundImage, genre, released} = currentFilm;
 
   return (
     <React.Fragment>
@@ -61,7 +117,11 @@ function FilmScreen(props) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link className="btn film-card__button" to={`${AppRoutes.FILM}/${film.id}/review`}>Add review</Link>
+                {
+                  authorizationStatus === AuthorizationStatus.AUTH
+                    && <Link className="btn film-card__button" to={`${AppRoutes.FILM}/${currentFilm.id}/review`}>Add review</Link>
+                }
+
               </div>
             </div>
           </div>
@@ -74,7 +134,7 @@ function FilmScreen(props) {
             </div>
 
             <FilmTabs
-              film={film}
+              film={currentFilm}
               reviews={reviews}
             />
 
@@ -86,7 +146,7 @@ function FilmScreen(props) {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={getSimilarFilms(films, film).slice(0, MAX_SIMILAR_FILMS_COUNT)} />
+          {similarFilms && <FilmList films={similarFilms} />}
 
         </section>
 
@@ -105,12 +165,11 @@ function FilmScreen(props) {
 
 FilmScreen.propTypes = {
   filmId: PropTypes.string.isRequired,
-  films: PropTypes.arrayOf(filmProp).isRequired,
-  reviews: PropTypes.arrayOf(reviewProp).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export { FilmScreen };

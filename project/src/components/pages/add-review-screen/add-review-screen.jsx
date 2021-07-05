@@ -45,7 +45,9 @@ function AddReviewScreen(props) {
         </div>
       </div>
 
-      <AddReviewForm />
+      <AddReviewForm
+        filmId={filmId}
+      />
 
     </section>
   );

@@ -12,7 +12,6 @@ import AddReviewScreen from '../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../pages/player-screen/player-screen';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import LoadingScreen from '../pages/loading-screen/loading-screen';
-import reviewProp from '../ui/review/review.prop';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoutes } from '../../const';
 import { isCheckedAuth } from '../../utils/utils';
@@ -21,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const renderLoadingScreen = () => <LoadingScreen />;
 
-const renderAppScreen = (reviews) => (
+const renderAppScreen = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path={AppRoutes.ROOT}>
@@ -41,7 +40,6 @@ const renderAppScreen = (reviews) => (
         render={(data) => (
           <FilmScreen
             filmId={data.match.params.id}
-            reviews={reviews}
           />)}
       />
 
@@ -71,14 +69,13 @@ const renderAppScreen = (reviews) => (
 
 
 function App(props) {
-  const { reviews } = props;
   const { authorizationStatus, isDataLoaded, isPromoDataLoaded } = props;
 
   const isPageSuccess = isCheckedAuth(authorizationStatus) && isDataLoaded && isPromoDataLoaded;
 
   return (
     <React.Fragment>
-      {(isPageSuccess && renderAppScreen(reviews)) || renderLoadingScreen()}
+      {(isPageSuccess && renderAppScreen()) || renderLoadingScreen()}
 
       <ToastContainer
         autoClose={false}
@@ -88,7 +85,6 @@ function App(props) {
 }
 
 App.propTypes = {
-  reviews: PropTypes.arrayOf(reviewProp).isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   isPromoDataLoaded: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,

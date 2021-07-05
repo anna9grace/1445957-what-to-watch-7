@@ -6,14 +6,13 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import App from './components/app/app';
-import reviews from './mocks/reviews';
 import { reducer } from './store/reducer';
 import {createAPI} from './services/api';
 import {fetchFilmsList, fetchPromoFilm, chekAuth} from './store/api-actions';
 import { AuthorizationStatus } from './const';
 import { ActionCreator } from './store/action';
 
-const api = createAPI(
+export const api = createAPI(
   () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
 );
 
@@ -31,9 +30,7 @@ store.dispatch(fetchPromoFilm());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        reviews={reviews}
-      />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

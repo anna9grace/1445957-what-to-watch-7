@@ -1,5 +1,16 @@
 import { humanizeDuration } from '../utils/utils';
 
+const adaptReviewToClient = (reviewData) => (
+  {
+    id: reviewData.id,
+    userId: reviewData.user.id,
+    userName: reviewData.user.name,
+    rating: reviewData.rating,
+    comment: reviewData.comment,
+    date: reviewData.date,
+  }
+);
+
 export const adaptFilmToClient = (filmData) => (
   {
     id: filmData.id,
@@ -23,3 +34,4 @@ export const adaptFilmToClient = (filmData) => (
 );
 
 export const adaptFilmsToClient = (filmsData) => (filmsData.map((film) => adaptFilmToClient(film)));
+export const adaptReviewsToClient = (reviewsData) => (reviewsData.map((review) => adaptReviewToClient(review)));
