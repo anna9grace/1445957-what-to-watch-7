@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import filmProp from '../film-screen/film.prop';
+import { getFilms } from '../../../store/main-data/selectors';
 
 function PlayerScreen(props) {
   const {filmId, films} = props;
@@ -58,8 +59,8 @@ PlayerScreen.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  films: DATA.films,
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
 });
 
 

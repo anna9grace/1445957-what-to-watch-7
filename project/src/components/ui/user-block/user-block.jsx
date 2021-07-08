@@ -6,6 +6,7 @@ import {useHistory} from 'react-router-dom';
 
 import {AppRoutes, AuthorizationStatus} from '../../../const';
 import { systemLogout } from '../../../store/api-actions';
+import { getAuthInfo, getAuthStatus } from '../../../store/user/selectors';
 
 const renderUserBlockAuthorized = (history, userData, onLogout) => (
   <React.Fragment>
@@ -65,9 +66,9 @@ UserBlock.propTypes = {
   onLogout: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  authInfo: USER.authInfo,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthStatus(state),
+  authInfo: getAuthInfo(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

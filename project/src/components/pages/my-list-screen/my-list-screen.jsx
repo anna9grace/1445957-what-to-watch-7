@@ -6,6 +6,7 @@ import filmProp from '../film-screen/film.prop';
 import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
 import UserBlock from '../../ui/user-block/user-block';
+import { getFavoriteFilms } from '../../../store/additional-data/selectors';
 
 function MyListScreen(props) {
   const {favoriteFilms} = props;
@@ -42,8 +43,8 @@ MyListScreen.propTypes = {
   favoriteFilms: PropTypes.arrayOf(filmProp).isRequired,
 };
 
-const mapStateToProps = ({ADDITIONAL}) => ({
-  favoriteFilms: ADDITIONAL.favoriteFilms,
+const mapStateToProps = (state) => ({
+  favoriteFilms: getFavoriteFilms(state),
 });
 
 export {MyListScreen};

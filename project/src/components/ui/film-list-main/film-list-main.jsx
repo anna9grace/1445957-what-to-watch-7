@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import filmProp from '../../pages/film-screen/film.prop';
 import FilmList from '../film-list/film-list';
 import LoadMoreButton from '../load-more-botton/load-more-button';
+import { getFilteredFilms, getFilmsCount } from '../../../store/main-data/selectors';
 
 function FilmListMain(props) {
   const {filteredFilms, renderedFilmsCount} = props;
@@ -26,9 +27,9 @@ FilmListMain.propTypes = {
   renderedFilmsCount: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  filteredFilms: DATA.filteredFilms,
-  renderedFilmsCount: DATA.renderedFilmsCount,
+const mapStateToProps = (state) => ({
+  filteredFilms: getFilteredFilms(state),
+  renderedFilmsCount: getFilmsCount(state),
 });
 
 export {FilmListMain};

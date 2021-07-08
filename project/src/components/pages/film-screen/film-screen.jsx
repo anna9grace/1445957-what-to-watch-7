@@ -13,6 +13,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import { adaptFilmToClient, adaptFilmsToClient, adaptReviewsToClient } from '../../../services/adaptors';
 import { AppRoutes, APIRoute, MAX_SIMILAR_FILMS_COUNT, AuthorizationStatus } from '../../../const';
 import { fetchFilmInfo } from '../../../store/film-api-actions';
+import { getAuthStatus } from '../../../store/user/selectors';
 
 function FilmScreen(props) {
   const { filmId, authorizationStatus } = props;
@@ -168,8 +169,8 @@ FilmScreen.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthStatus(state),
 });
 
 export { FilmScreen };

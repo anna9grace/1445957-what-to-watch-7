@@ -10,6 +10,7 @@ import UserBlock from '../../ui/user-block/user-block';
 import Logo from '../../ui/logo/logo';
 import {AppRoutes} from '../../../const';
 import { resetActiveGenre, getFilmsList, resetFilmsRenderedCount } from '../../../store/action';
+import { getPromoFilm } from '../../../store/additional-data/selectors';
 
 
 function MainScreen(props) {
@@ -97,8 +98,8 @@ MainScreen.propTypes = {
   onPageLeave: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ADDITIONAL}) => ({
-  promoFilm: ADDITIONAL.promoFilm,
+const mapStateToProps = (state) => ({
+  promoFilm: getPromoFilm(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

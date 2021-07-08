@@ -8,6 +8,7 @@ import Logo from '../../ui/logo/logo';
 import AddReviewForm from '../../ui/add-review-form/add-review-form';
 import UserBlock from '../../ui/user-block/user-block';
 import { AppRoutes } from '../../../const';
+import { getFilms } from '../../../store/main-data/selectors';
 
 function AddReviewScreen(props) {
   const { filmId, films } = props;
@@ -58,8 +59,8 @@ AddReviewScreen.propTypes = {
   films: PropTypes.arrayOf(filmProp).isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  films: DATA.films,
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
 });
 
 export { AddReviewScreen };

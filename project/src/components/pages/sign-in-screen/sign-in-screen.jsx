@@ -7,6 +7,7 @@ import Logo from '../../ui/logo/logo';
 import FormMessage from '../../ui/form-message/form-message';
 import { login } from '../../../store/api-actions';
 import { AuthorizationStatus, AppRoutes } from '../../../const';
+import { getAuthStatus } from '../../../store/user/selectors';
 
 
 const validationRules = {
@@ -125,8 +126,8 @@ SignInScreen.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = ({state}) => ({
+  authorizationStatus: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

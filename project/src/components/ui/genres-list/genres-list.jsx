@@ -6,7 +6,7 @@ import filmProp from '../../pages/film-screen/film.prop';
 import { makeItemsUnique } from '../../../utils/utils';
 import { INITIAL_GENRE } from '../../../const';
 import { changeActiveGenre, getFilmsList, resetFilmsRenderedCount } from '../../../store/action';
-
+import { getActiveGenre, getFilms } from '../../../store/main-data/selectors';
 
 export const getUniqueGenres = (films) => {
   const genres = films.map((film) => film.genre);
@@ -49,9 +49,9 @@ GenresList.propTypes = {
   onGenreChange: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  films: DATA.films,
-  activeGenre: DATA.activeGenre,
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
+  activeGenre: getActiveGenre(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
