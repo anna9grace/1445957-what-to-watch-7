@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   LOAD_FILMS: 'data/loadFilms',
   LOAD_PROMO_FILM: 'data/loadPromoFilm',
@@ -11,54 +13,37 @@ export const ActionType = {
   LOGOUT: 'user/logout',
 };
 
-export const loadFilms = (films) => ({
-  type: ActionType.LOAD_FILMS,
-  payload: films,
-});
 
-export const  loadPromoFilm = (film) => ({
-  type: ActionType.LOAD_PROMO_FILM,
+export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
+  payload: films,
+}));
+
+export const  loadPromoFilm = createAction(ActionType.LOAD_PROMO_FILM, (film) => ({
   payload: film,
-});
+}));
 
-export const loadFavoriteFilms = (films) => ({
-  type: ActionType.LOAD_FAVORITE_FILMS,
+export const loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (films) =>({
   payload: films,
-});
+}));
 
-
-export const changeActiveGenre = (genre) => ({
-  type: ActionType.CHANGE_ACTIVE_GENRE,
+export const changeActiveGenre = createAction(ActionType.CHANGE_ACTIVE_GENRE, (genre) => ({
   payload: genre,
-});
+}));
 
-export const resetActiveGenre = () => ({
-  type: ActionType.RESET_ACTIVE_GENRE,
-});
+export const resetActiveGenre = createAction(ActionType.RESET_ACTIVE_GENRE);
 
+export const getFilmsList = createAction(ActionType.GET_FILMS_LIST);
 
-export const getFilmsList = () => ({
-  type: ActionType.GET_FILMS_LIST,
-});
+export const getFilmsRenderedCount = createAction(ActionType.GET_FILMS_RENDERED_COUNT);
 
-export const getFilmsRenderedCount = () => ({
-  type: ActionType.GET_FILMS_RENDERED_COUNT,
-});
+export const resetFilmsRenderedCount = createAction(ActionType.RESET_FILMS_RENDERED_COUNT);
 
-export const resetFilmsRenderedCount = () => ({
-  type: ActionType.RESET_FILMS_RENDERED_COUNT,
-});
-
-
-export const requireAuthorization = (status, data) => ({
-  type: ActionType.REQUIRED_AUTHORIZATION,
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status, data) => ({
   payload: {
     authStatus: status,
     authInfo: data ? data : {},
   },
-});
+}));
 
-export const logout = () => ({
-  type: ActionType.LOGOUT,
-});
+export const logout = createAction(ActionType.LOGOUT);
 

@@ -1,4 +1,6 @@
-import { ActionType } from '../action';
+import {createReducer} from '@reduxjs/toolkit';
+
+import { loadFavoriteFilms, loadPromoFilm } from '../action';
 
 const initialState = {
   favoriteFilms: [],
@@ -7,25 +9,16 @@ const initialState = {
   isPromoDataLoaded: false,
 };
 
-const additionalData = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.LOAD_FAVORITE_FILMS:
-      return {
-        ...state,
-        favoriteFilms: action.payload,
-        isFavoriteDataLoaded: true,
-      };
-
-    case ActionType.LOAD_PROMO_FILM:
-      return {
-        ...state,
-        promoFilm: action.payload,
-        isPromoDataLoaded: true,
-      };
-
-    default:
-      return state;
-  }
-};
+const additionalData = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
+      state.isFavoriteDataLoaded = true;
+    })
+    .addCase(loadPromoFilm, (state, action) => {
+      state.promoFilm = action.payload;
+      state.isPromoDataLoaded = true;
+    });
+});
 
 export {additionalData};
