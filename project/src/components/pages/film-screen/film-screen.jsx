@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
@@ -10,64 +10,31 @@ import FilmTabs from '../../ui/film-tabs/film-tabs';
 import UserBlock from '../../ui/user-block/user-block';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { adaptFilmToClient, adaptFilmsToClient, adaptReviewsToClient } from '../../../services/adaptors';
-import { AppRoutes, APIRoute, MAX_SIMILAR_FILMS_COUNT, AuthorizationStatus } from '../../../const';
-import { fetchFilmInfo } from '../../../store/film-api-actions';
+import { AppRoutes, AuthorizationStatus } from '../../../const';
 import { getAuthStatus } from '../../../store/user/selectors';
+import { fetchFilmInfo, fetchSimilarFilms, fetchReviews } from '../../../store/api-actions';
+import { getCurrentFilm, getReviews, getSimilarFilms, getFilmDataStatus } from '../../../store/film-data/selectors';
 
 function FilmScreen(props) {
-  const { filmId, authorizationStatus } = props;
+  const { filmId } = props;
 
   const history = useHistory();
 
-  const [filmState, setFilmState] = useState({
-    currentFilm: null,
-    reviews: [],
-    similarFilms: null,
-    isDataLoaded: false,
-  });
-  const { currentFilm, reviews, similarFilms, isDataLoaded } = filmState;
-
-
-  const getFilm = (data) => setFilmState((prevState) => (
-    {
-      ...prevState,
-      currentFilm: adaptFilmToClient(data),
-      isDataLoaded: true,
-    }
-  ));
-
-  const getSimilarFilms = (data) => setFilmState((prevState) => (
-    {
-      ...prevState,
-      similarFilms: adaptFilmsToClient(data)
-        .filter((film) => film.id !== +filmId)
-        .slice(0, MAX_SIMILAR_FILMS_COUNT),
-    }
-  ));
-
-  const getReviews = (data) => setFilmState((prevState) => (
-    {
-      ...prevState,
-      reviews: adaptReviewsToClient(data),
-    }
-  ));
-
-  const redirectToNotFound = () => setFilmState((prevState) => (
-    {
-      ...prevState,
-      isDataLoaded: true,
-    }
-  ));
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchFilmInfo(`${APIRoute.FILMS}/${filmId}`, getFilm, redirectToNotFound);
-    fetchFilmInfo(`${APIRoute.REVIEWS}/${filmId}`, getReviews);
-    fetchFilmInfo(`${APIRoute.FILMS}/${filmId}${APIRoute.SIMILAR_FILMS}`, getSimilarFilms);
+    dispatch(fetchFilmInfo(filmId));
+    dispatch(fetchSimilarFilms(filmId));
+    dispatch(fetchReviews(filmId));
   }, [filmId]);
 
+  const authorizationStatus = useSelector(getAuthStatus);
+  const currentFilm = useSelector(getCurrentFilm);
+  const reviews = useSelector(getReviews);
+  const similarFilms = useSelector(getSimilarFilms);
+  const isFilmDataLoaded = useSelector(getFilmDataStatus);
 
-  if (!isDataLoaded) {
+  if (!isFilmDataLoaded) {
     return <LoadingScreen />;
   }
 
@@ -166,12 +133,6 @@ function FilmScreen(props) {
 
 FilmScreen.propTypes = {
   filmId: PropTypes.string.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthStatus(state),
-});
-
-export { FilmScreen };
-export default connect(mapStateToProps, null)(FilmScreen);
+export default FilmScreen;

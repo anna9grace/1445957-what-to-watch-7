@@ -15,8 +15,7 @@ import LoadingScreen from '../pages/loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoutes } from '../../const';
 import { isCheckedAuth } from '../../utils/utils';
-import { getDataStatus } from '../../store/main-data/selectors';
-import { getPromoDataStatus } from '../../store/additional-data/selectors';
+import { getDataStatus, getPromoDataStatus } from '../../store/main-data/selectors';
 import { getAuthStatus } from '../../store/user/selectors';
 
 

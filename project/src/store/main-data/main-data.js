@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 
-import { loadFilms, changeActiveGenre, resetActiveGenre, getFilmsList, getFilmsRenderedCount, resetFilmsRenderedCount } from '../action';
+import { loadFilms, changeActiveGenre, resetActiveGenre, getFilmsList, getFilmsRenderedCount, resetFilmsRenderedCount,loadFavoriteFilms, loadPromoFilm } from '../action';
 import { INITIAL_GENRE, MAX_FILMS_COUNT } from '../../const';
 
 const initialState = {
@@ -9,6 +9,10 @@ const initialState = {
   filteredFilms: [],
   renderedFilmsCount: MAX_FILMS_COUNT,
   isDataLoaded: false,
+  favoriteFilms: [],
+  isFavoriteDataLoaded: false,
+  promoFilm: {},
+  isPromoDataLoaded: false,
 };
 
 const mainData = createReducer(initialState, (builder) => {
@@ -36,6 +40,14 @@ const mainData = createReducer(initialState, (builder) => {
     })
     .addCase(resetFilmsRenderedCount, (state) => {
       state.renderedFilmsCount = MAX_FILMS_COUNT;
+    })
+    .addCase(loadFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
+      state.isFavoriteDataLoaded = true;
+    })
+    .addCase(loadPromoFilm, (state, action) => {
+      state.promoFilm = action.payload;
+      state.isPromoDataLoaded = true;
     });
 });
 

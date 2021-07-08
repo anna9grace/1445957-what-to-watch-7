@@ -5,6 +5,11 @@ export const ActionType = {
   LOAD_PROMO_FILM: 'data/loadPromoFilm',
   LOAD_FAVORITE_FILMS: 'data/loadFavoriteFilms',
   GET_FILMS_LIST: 'data/getFilmsList',
+  LOAD_FILM: 'film/loadFilm',
+  LOAD_REVIEWS: 'film/loadReviews',
+  LOAD_SIMILAR_FILMS: 'film/loadSimilarFilms',
+  SET_IS_LOADED: 'film/setIsLoaded',
+  SET_IS_SENDING: 'film/setIsCommentSending',
   CHANGE_ACTIVE_GENRE: 'filter/changeActiveGenre',
   RESET_ACTIVE_GENRE: 'filter/resetActiveGenre',
   GET_FILMS_RENDERED_COUNT: 'filter/getFilmsRenderedCount',
@@ -22,8 +27,26 @@ export const  loadPromoFilm = createAction(ActionType.LOAD_PROMO_FILM, (film) =>
   payload: film,
 }));
 
-export const loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (films) =>({
+export const loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (films) => ({
   payload: films,
+}));
+
+export const loadFilm = createAction(ActionType.LOAD_FILM, (film) => ({
+  payload: film,
+}));
+
+export const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews) => ({
+  payload: reviews,
+}));
+
+export const loadSimilarFilms = createAction(ActionType.LOAD_SIMILAR_FILMS, (films) => ({
+  payload: films,
+}));
+
+export const setIsLoaded = createAction(ActionType.SET_IS_LOADED);
+
+export const setCommentIsSending = createAction(ActionType.SET_IS_SENDING, (isSending) => ({
+  payload: isSending,
 }));
 
 export const changeActiveGenre = createAction(ActionType.CHANGE_ACTIVE_GENRE, (genre) => ({

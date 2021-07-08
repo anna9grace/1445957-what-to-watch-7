@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
+import {useSelector, useDispatch} from 'react-redux';
 
-import { MAX_RATING } from '../../../const';
-import { postComment } from '../../../store/film-api-actions';
-import { APIRoute, ReviewLength } from '../../../const';
-
+import { postComment } from '../../../store/api-actions';
+import { setCommentIsSending } from '../../../store/action';
+import { getCommentSendingStatus } from '../../../store/film-data/selectors';
+import { MAX_RATING, ReviewLength } from '../../../const';
 
 const ratingValues = new Array(MAX_RATING).fill().map((el, index) => index + 1).reverse();
 
@@ -13,14 +14,16 @@ function AddReviewForm(props) {
   const { filmId } = props;
 
   const history = useHistory();
+  const dispatch = useDispatch();
+  const isCommentSending = useSelector(getCommentSendingStatus);
 
-  const [isSending, setIsSending] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [review, setReview] = useState({
     rating: null,
     comment: '',
   });
   const { comment, rating } = review;
+
 
   useEffect(() => setIsValid(
     rating && comment.trim().length > ReviewLength.MIN && comment.trim().length < ReviewLength.MAX,
@@ -44,14 +47,10 @@ function AddReviewForm(props) {
     history.goBack();
   };
 
-  const onCommentPostError = () => {
-    setIsSending(false);
-  };
-
   const onFormSubmit = (evt) => {
     evt.preventDefault();
-    setIsSending(true);
-    postComment(`${APIRoute.REVIEWS}/${filmId}`, review, onCommentPostSuccess, onCommentPostError);
+    dispatch(setCommentIsSending(true));
+    dispatch(postComment(filmId, review, onCommentPostSuccess));
   };
 
 
@@ -77,7 +76,7 @@ function AddReviewForm(props) {
                     value={`${value}`}
                     checked={value === +rating}
                     onChange={ratingChangeHandler}
-                    disabled={isSending}
+                    disabled={isCommentSending}
                   />
                   <label className="rating__label" htmlFor={`star-${value}`}>Rating {value}</label>
                 </React.Fragment>
@@ -95,13 +94,13 @@ function AddReviewForm(props) {
             placeholder="Review text"
             value={comment}
             onChange={textChangeHandler}
-            disabled={isSending}
+            disabled={isCommentSending}
           />
 
           <div className="add-review__submit">
             <button
               className="add-review__btn"
-              disabled={isSending || !isValid}
+              disabled={isCommentSending || !isValid}
               type="submit"
             >
               Post

@@ -17,13 +17,6 @@ export const api = createAPI(
   () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
 );
 
-// const store = createStore(
-//   rootReducer,
-//   composeWithDevTools(
-//     applyMiddleware(thunk.withExtraArgument(api)),
-//   ),
-// );
-
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
-import filmProp from '../film-screen/film.prop';
 import Logo from '../../ui/logo/logo';
 import AddReviewForm from '../../ui/add-review-form/add-review-form';
 import UserBlock from '../../ui/user-block/user-block';
@@ -11,7 +10,10 @@ import { AppRoutes } from '../../../const';
 import { getFilms } from '../../../store/main-data/selectors';
 
 function AddReviewScreen(props) {
-  const { filmId, films } = props;
+  const { filmId } = props;
+
+  const films = useSelector(getFilms);
+
   const film = films.find((filmTtem) => filmTtem.id === +filmId);
   const { name, backgroundImage, posterImage } = film;
 
@@ -49,19 +51,12 @@ function AddReviewScreen(props) {
       <AddReviewForm
         filmId={filmId}
       />
-
     </section>
   );
 }
 
 AddReviewScreen.propTypes = {
   filmId: PropTypes.string.isRequired,
-  films: PropTypes.arrayOf(filmProp).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  films: getFilms(state),
-});
-
-export { AddReviewScreen };
-export default connect(mapStateToProps, null)(AddReviewScreen);
+export default AddReviewScreen;

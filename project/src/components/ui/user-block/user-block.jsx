@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
 import {AppRoutes, AuthorizationStatus} from '../../../const';
@@ -44,8 +43,14 @@ const renderUserBlockUnauthorized = () => (
 );
 
 
-function UserBlock(props) {
-  const {authorizationStatus, authInfo, onLogout} = props;
+function UserBlock() {
+  const authorizationStatus = useSelector(getAuthStatus);
+  const authInfo = useSelector(getAuthInfo);
+
+  const dispatch = useDispatch();
+  const onLogout = () => {
+    dispatch(systemLogout());
+  };
 
   const history = useHistory();
 
@@ -60,22 +65,4 @@ function UserBlock(props) {
   );
 }
 
-UserBlock.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  authInfo: PropTypes.object,
-  onLogout: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthStatus(state),
-  authInfo: getAuthInfo(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLogout() {
-    dispatch(systemLogout());
-  },
-});
-
-export {UserBlock};
-export default connect(mapStateToProps, mapDispatchToProps)(UserBlock);
+export default UserBlock;

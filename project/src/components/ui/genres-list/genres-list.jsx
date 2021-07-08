@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
-import filmProp from '../../pages/film-screen/film.prop';
 import { makeItemsUnique } from '../../../utils/utils';
 import { INITIAL_GENRE } from '../../../const';
 import { changeActiveGenre, getFilmsList, resetFilmsRenderedCount } from '../../../store/action';
@@ -14,8 +12,17 @@ export const getUniqueGenres = (films) => {
 };
 
 
-function GenresList(props) {
-  const {films, activeGenre, onGenreChange} = props;
+function GenresList() {
+  const activeGenre = useSelector(getActiveGenre);
+  const films = useSelector(getFilms);
+
+  const dispatch = useDispatch();
+  const onGenreChange = (genre) => {
+    dispatch(changeActiveGenre(genre));
+    dispatch(getFilmsList());
+    dispatch(resetFilmsRenderedCount());
+  };
+
   const genres = [INITIAL_GENRE, ...getUniqueGenres(films)];
 
   return (
@@ -43,24 +50,4 @@ function GenresList(props) {
   );
 }
 
-GenresList.propTypes = {
-  films: PropTypes.arrayOf(filmProp).isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  onGenreChange: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  films: getFilms(state),
-  activeGenre: getActiveGenre(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onGenreChange(genre) {
-    dispatch(changeActiveGenre(genre));
-    dispatch(getFilmsList());
-    dispatch(resetFilmsRenderedCount());
-  },
-});
-
-export {GenresList};
-export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
+export default GenresList;
