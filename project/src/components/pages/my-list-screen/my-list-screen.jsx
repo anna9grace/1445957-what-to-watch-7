@@ -42,8 +42,8 @@ MyListScreen.propTypes = {
   favoriteFilms: PropTypes.arrayOf(filmProp).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  favoriteFilms: state.favoriteFilms,
+const mapStateToProps = ({ADDITIONAL}) => ({
+  favoriteFilms: ADDITIONAL.favoriteFilms,
 });
 
 export {MyListScreen};

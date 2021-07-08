@@ -97,8 +97,8 @@ MainScreen.propTypes = {
   onPageLeave: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  promoFilm: state.promoFilm,
+const mapStateToProps = ({ADDITIONAL}) => ({
+  promoFilm: ADDITIONAL.promoFilm,
 });
 
 const mapDispatchToProps = (dispatch) => ({

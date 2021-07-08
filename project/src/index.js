@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import App from './components/app/app';
-import { reducer } from './store/reducer';
+import rootReducer from './store/root-reducer';
 import {createAPI} from './services/api';
 import {fetchFilmsList, fetchPromoFilm, chekAuth} from './store/api-actions';
 import { AuthorizationStatus } from './const';
@@ -17,7 +17,7 @@ export const api = createAPI(
 );
 
 const store = createStore(
-  reducer,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
   ),

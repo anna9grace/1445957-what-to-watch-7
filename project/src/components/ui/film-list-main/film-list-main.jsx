@@ -26,9 +26,9 @@ FilmListMain.propTypes = {
   renderedFilmsCount: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  filteredFilms: state.filteredFilms,
-  renderedFilmsCount: state.renderedFilmsCount,
+const mapStateToProps = ({DATA}) => ({
+  filteredFilms: DATA.filteredFilms,
+  renderedFilmsCount: DATA.renderedFilmsCount,
 });
 
 export {FilmListMain};

@@ -49,9 +49,9 @@ GenresList.propTypes = {
   onGenreChange: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-  activeGenre: state.activeGenre,
+const mapStateToProps = ({DATA}) => ({
+  films: DATA.films,
+  activeGenre: DATA.activeGenre,
 });
 
 const mapDispatchToProps = (dispatch) => ({
