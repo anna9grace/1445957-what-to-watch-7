@@ -9,7 +9,8 @@ import GenresList from '../../ui/genres-list/genres-list';
 import UserBlock from '../../ui/user-block/user-block';
 import Logo from '../../ui/logo/logo';
 import {AppRoutes} from '../../../const';
-import { ActionCreator } from '../../../store/action';
+import { resetActiveGenre, getFilmsList, resetFilmsRenderedCount } from '../../../store/action';
+
 
 function MainScreen(props) {
   const {promoFilm, onPageLeave} = props;
@@ -102,9 +103,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onPageLeave() {
-    dispatch(ActionCreator.resetActiveGenre());
-    dispatch(ActionCreator.getFilmsList());
-    dispatch(ActionCreator.resetFilmsRenderedCount());
+    dispatch(resetActiveGenre());
+    dispatch(getFilmsList());
+    dispatch(resetFilmsRenderedCount());
   },
 });
 

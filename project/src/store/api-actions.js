@@ -1,4 +1,4 @@
-import { ActionCreator } from './action';
+import { loadFilms, loadPromoFilm, loadFavoriteFilms, requireAuthorization, logout } from './action';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { adaptFilmsToClient, adaptFilmToClient } from '../services/adaptors';
 import { toast } from 'react-toastify';
@@ -6,7 +6,7 @@ import { ToastIDs } from '../const';
 
 export const fetchFilmsList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.FILMS)
-    .then(({ data }) => dispatch(ActionCreator.loadFilms(adaptFilmsToClient(data))))
+    .then(({ data }) => dispatch(loadFilms(adaptFilmsToClient(data))))
     .catch((error) => toast(error.message, {
       toastId: ToastIDs.DATA_GET_ERROR,
     }))
@@ -14,7 +14,7 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => (
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => (
   api.get(APIRoute.PROMO_FILM)
-    .then(({ data }) => dispatch(ActionCreator.loadPromoFilm(adaptFilmToClient(data))))
+    .then(({ data }) => dispatch(loadPromoFilm(adaptFilmToClient(data))))
     .catch((error) => toast(error.message, {
       toastId: ToastIDs.DATA_GET_ERROR,
     }))
@@ -22,13 +22,13 @@ export const fetchPromoFilm = () => (dispatch, _getState, api) => (
 
 export const fetchFavoriteFilmsList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.FAVORITE_FILMS)
-    .then(({ data }) => dispatch(ActionCreator.loadFavoriteFilms(adaptFilmsToClient(data))))
+    .then(({ data }) => dispatch(loadFavoriteFilms(adaptFilmsToClient(data))))
     .catch((error) => toast(error.message))
 );
 
 export const chekAuth = (isInitial) => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(({ data }) => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH, data)))
+    .then(({ data }) => dispatch(requireAuthorization(AuthorizationStatus.AUTH, data)))
     .catch((error) => {
       if (!isInitial) {
         toast(error.message);
@@ -42,13 +42,13 @@ export const login = (authData) => (dispatch, _getState, api) => (
       localStorage.setItem('token', data.token);
       return data;
     })
-    .then((data) => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH, data)))
+    .then((data) => dispatch(requireAuthorization(AuthorizationStatus.AUTH, data)))
     .catch((err) => toast(err))
 );
 
-export const logout = () => (dispatch, _getState, api) => (
+export const systemLogout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
-    .then(() => dispatch(ActionCreator.logout()))
+    .then(() => dispatch(logout()))
     .catch((error) => toast(error.message))
 );

@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import filmProp from '../../pages/film-screen/film.prop';
 import { makeItemsUnique } from '../../../utils/utils';
 import { INITIAL_GENRE } from '../../../const';
-import { ActionCreator } from '../../../store/action';
+import { changeActiveGenre, getFilmsList, resetFilmsRenderedCount } from '../../../store/action';
 
 
 export const getUniqueGenres = (films) => {
@@ -56,9 +56,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onGenreChange(genre) {
-    dispatch(ActionCreator.changeActiveGenre(genre));
-    dispatch(ActionCreator.getFilmsList());
-    dispatch(ActionCreator.resetFilmsRenderedCount());
+    dispatch(changeActiveGenre(genre));
+    dispatch(getFilmsList());
+    dispatch(resetFilmsRenderedCount());
   },
 });
 

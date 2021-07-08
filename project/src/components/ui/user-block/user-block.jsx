@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
 import {AppRoutes, AuthorizationStatus} from '../../../const';
-import { logout } from '../../../store/api-actions';
+import { systemLogout } from '../../../store/api-actions';
 
 const renderUserBlockAuthorized = (history, userData, onLogout) => (
   <React.Fragment>
@@ -72,7 +72,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLogout() {
-    dispatch(logout());
+    dispatch(systemLogout());
   },
 });
 

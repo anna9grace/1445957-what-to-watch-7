@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { ActionCreator } from '../../../store/action';
+import { getFilmsRenderedCount } from '../../../store/action';
 
 function LoadMoreButton(props) {
   const {onShowMoreClick} = props;
@@ -26,7 +26,7 @@ LoadMoreButton.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onShowMoreClick() {
-    dispatch(ActionCreator.getFilmsRenderedCount());
+    dispatch(getFilmsRenderedCount());
   },
 });
 
