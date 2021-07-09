@@ -56,6 +56,12 @@ export const ResponseCode = {
   NOT_FOUND: 404,
 };
 
+export const VideoStatus = {
+  PLAYING: 'playing',
+  PAUSED: 'paused',
+  STOPPED: 'stopped',
+};
+
 export const MAX_ACTORS_COUNT = 4;
 
 export const MAX_SIMILAR_FILMS_COUNT = 4;

@@ -1,28 +1,62 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { PreviewVideoSizes, PREVIEW_VIDEO_DELAY } from '../../../const';
+import { PreviewVideoSizes, PREVIEW_VIDEO_DELAY, VideoStatus } from '../../../const';
 
 
-function VideoPlayer({src, posterUrl, isPlaying, playerClass}) {
+function VideoPlayer({ src, posterUrl, playingStatus, isPreview, playerClass, isFullMode, onFullModeEnter, onPlaying, onPause }) {
   const videoRef = useRef();
+
+  useEffect(() => {
+    if (!isPreview) {
+      videoRef.current.addEventListener('playing', () => {
+        onPlaying();
+      });
+
+      videoRef.current.addEventListener('pause', () => {
+        onPause();
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const currentPlayer = videoRef.current;
     let playTimeout = null;
 
-    if (currentPlayer && isPlaying) {
-      playTimeout = setTimeout(() => {
-        currentPlayer.play();
-      }, PREVIEW_VIDEO_DELAY);
+    if (!currentPlayer) {
+      return;
     }
 
-    return (() => {
-      clearTimeout(playTimeout);
-      currentPlayer.load();
-    });
+    if (isPreview) {
+      if (playingStatus === VideoStatus.PLAYING) {
+        playTimeout = setTimeout(() => {
+          currentPlayer.play();
+        }, PREVIEW_VIDEO_DELAY);
+      }
 
-  }, [isPlaying]);
+      return (() => {
+        clearTimeout(playTimeout);
+        currentPlayer.load();
+      });
+    }
+
+    if (playingStatus === VideoStatus.PLAYING) {
+      currentPlayer.play();
+    }
+
+    if (playingStatus === VideoStatus.PAUSED) {
+      currentPlayer.pause();
+    }
+
+  }, [playingStatus]);
+
+
+  useEffect(() => {
+    if (isFullMode && onFullModeEnter) {
+      videoRef.current.requestFullscreen();
+      onFullModeEnter();
+    }
+  }, [isFullMode]);
 
   return (
     <video
@@ -40,8 +74,13 @@ function VideoPlayer({src, posterUrl, isPlaying, playerClass}) {
 VideoPlayer.propTypes = {
   src: PropTypes.string.isRequired,
   posterUrl: PropTypes.string.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
+  playingStatus: PropTypes.string.isRequired,
+  isPreview: PropTypes.bool.isRequired,
   playerClass: PropTypes.string,
+  isFullMode: PropTypes.bool,
+  onFullModeEnter: PropTypes.func,
+  onPlaying: PropTypes.func,
+  onPause: PropTypes.func,
 };
 
 

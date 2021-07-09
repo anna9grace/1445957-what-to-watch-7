@@ -1,28 +1,41 @@
-import React, {useState} from 'react';
-import {useHistory} from 'react-router';
-import {useSelector} from 'react-redux';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getFilms } from '../../../store/main-data/selectors';
 import VideoPlayer from '../../ui/video-player/video-player';
 import PlayButton from '../../ui/play-button/play-button';
 import PauseButton from '../../ui/pause-button/pause-button';
+import { VideoStatus } from '../../../const';
 
 function PlayerScreen(props) {
-  const {filmId} = props;
+  const { filmId } = props;
   const films = useSelector(getFilms);
-  const {name, backgroundImage, videoLink} = films.find((film) => film.id === +filmId);
+  const { name, backgroundImage, videoLink } = films.find((film) => film.id === +filmId);
 
   const history = useHistory();
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [playingStatus, setPlayingStatus] = useState(VideoStatus.STOPPED);
+  const [isFullMode, setIsFullMode] = useState(false);
 
   return (
     <div className="player">
       <VideoPlayer
         src={videoLink}
         posterUrl={backgroundImage}
-        isPlaying={isPlaying}
+        playingStatus={playingStatus}
+        isPreview={false}
         playerClass='player__video'
+        isFullMode={isFullMode}
+        onFullModeEnter={() => {
+          setIsFullMode(false);
+        }}
+        onPlaying={() => {
+          playingStatus !== VideoStatus.PLAYING && setPlayingStatus(VideoStatus.PLAYING);
+        }}
+        onPause={() => {
+          playingStatus !== VideoStatus.PAUSED && setPlayingStatus(VideoStatus.PAUSED);
+        }}
       />
       <button
         type="button"
@@ -36,7 +49,7 @@ function PlayerScreen(props) {
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
+            <div className="player__toggler" style={{ left: '30%' }}>Toggler</div>
           </div>
           <div className="player__time-value">1:30:29</div>
         </div>
@@ -44,18 +57,20 @@ function PlayerScreen(props) {
         <div className="player__controls-row">
 
           {
-            isPlaying
-              ? <PauseButton onPause={() => {
-                setIsPlaying(false);
-              }}/>
-              : <PlayButton onPlay={() => {
-                setIsPlaying(true);
-              }}/>
+            playingStatus === VideoStatus.PLAYING
+              ? <PauseButton onPause={() => setPlayingStatus(VideoStatus.PAUSED)} />
+              : <PlayButton onPlay={() => setPlayingStatus(VideoStatus.PLAYING)} />
           }
 
           <div className="player__name">{name}</div>
 
-          <button type="button" className="player__full-screen">
+          <button
+            type="button"
+            className="player__full-screen"
+            onClick={() => {
+              setIsFullMode(true);
+            }}
+          >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>
