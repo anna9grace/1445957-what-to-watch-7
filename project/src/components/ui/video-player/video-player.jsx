@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { PreviewVideoSizes, PREVIEW_VIDEO_DELAY } from '../../../const';
 
 
-function VideoPlayer({src, posterUrl, isPlaying}) {
+function VideoPlayer({src, posterUrl, isPlaying, playerClass}) {
   const videoRef = useRef();
 
   useEffect(() => {
@@ -32,6 +32,7 @@ function VideoPlayer({src, posterUrl, isPlaying}) {
       muted
       width={PreviewVideoSizes.WIDTH}
       height={PreviewVideoSizes.HEIGHT}
+      className={playerClass ?? ''}
     />
   );
 }
@@ -40,6 +41,7 @@ VideoPlayer.propTypes = {
   src: PropTypes.string.isRequired,
   posterUrl: PropTypes.string.isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  playerClass: PropTypes.string,
 };
 
 

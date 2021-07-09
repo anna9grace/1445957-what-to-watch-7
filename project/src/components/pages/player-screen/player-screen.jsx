@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useHistory} from 'react-router';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getFilms } from '../../../store/main-data/selectors';
+import VideoPlayer from '../../ui/video-player/video-player';
+import PlayButton from '../../ui/play-button/play-button';
+import PauseButton from '../../ui/pause-button/pause-button';
 
 function PlayerScreen(props) {
   const {filmId} = props;
@@ -11,11 +14,16 @@ function PlayerScreen(props) {
   const {name, backgroundImage, videoLink} = films.find((film) => film.id === +filmId);
 
   const history = useHistory();
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <div className="player">
-      <video src={videoLink} className="player__video" poster={backgroundImage}></video>
-
+      <VideoPlayer
+        src={videoLink}
+        posterUrl={backgroundImage}
+        isPlaying={isPlaying}
+        playerClass='player__video'
+      />
       <button
         type="button"
         className="player__exit"
@@ -34,12 +42,17 @@ function PlayerScreen(props) {
         </div>
 
         <div className="player__controls-row">
-          <button type="button" className="player__play">
-            <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
-            </svg>
-            <span>Play</span>
-          </button>
+
+          {
+            isPlaying
+              ? <PauseButton onPause={() => {
+                setIsPlaying(false);
+              }}/>
+              : <PlayButton onPlay={() => {
+                setIsPlaying(true);
+              }}/>
+          }
+
           <div className="player__name">{name}</div>
 
           <button type="button" className="player__full-screen">
