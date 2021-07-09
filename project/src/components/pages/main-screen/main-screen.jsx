@@ -1,18 +1,26 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
-import filmProp from '../film-screen/film.prop';
 import FilmListMain from '../../ui/film-list-main/film-list-main';
 import GenresList from '../../ui/genres-list/genres-list';
 import UserBlock from '../../ui/user-block/user-block';
 import Logo from '../../ui/logo/logo';
 import {AppRoutes} from '../../../const';
-import { ActionCreator } from '../../../store/action';
+import { resetActiveGenre, getFilmsList, resetFilmsRenderedCount } from '../../../store/action';
+import { getPromoFilm } from '../../../store/main-data/selectors';
 
-function MainScreen(props) {
-  const {promoFilm, onPageLeave} = props;
+
+function MainScreen() {
+  const promoFilm = useSelector(getPromoFilm);
+
+  const dispatch = useDispatch();
+
+  const onPageLeave = () => {
+    dispatch(resetActiveGenre());
+    dispatch(getFilmsList());
+    dispatch(resetFilmsRenderedCount());
+  };
 
   const history = useHistory();
 
@@ -91,22 +99,4 @@ function MainScreen(props) {
   );
 }
 
-MainScreen.propTypes = {
-  promoFilm: filmProp,
-  onPageLeave: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  promoFilm: state.promoFilm,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onPageLeave() {
-    dispatch(ActionCreator.resetActiveGenre());
-    dispatch(ActionCreator.getFilmsList());
-    dispatch(ActionCreator.resetFilmsRenderedCount());
-  },
-});
-
-export {MainScreen};
-export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
+export default MainScreen;

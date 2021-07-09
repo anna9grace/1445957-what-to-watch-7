@@ -1,12 +1,12 @@
-import React, {useRef, useState} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import React, { useRef, useState } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Logo from '../../ui/logo/logo';
 import FormMessage from '../../ui/form-message/form-message';
 import { login } from '../../../store/api-actions';
 import { AuthorizationStatus, AppRoutes } from '../../../const';
+import { getAuthStatus } from '../../../store/user/selectors';
 
 
 const validationRules = {
@@ -38,9 +38,15 @@ const validateFields = (formData) => {
   return errors;
 };
 
-function SignInScreen(props) {
-  const {onSubmit, authorizationStatus} = props;
+function SignInScreen() {
   const [formErrors, setFormErrors] = useState([]);
+
+  const authorizationStatus = useSelector(getAuthStatus);
+  const dispatch = useDispatch();
+
+  const onSubmit = (authData) => {
+    dispatch(login(authData));
+  };
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -110,7 +116,7 @@ function SignInScreen(props) {
       </div>
 
       <footer className="page-footer">
-        <Logo isFooter isLink/>
+        <Logo isFooter isLink />
 
         <div className="copyright">
           <p>© 2019 What to watch Ltd.</p>
@@ -120,20 +126,4 @@ function SignInScreen(props) {
   );
 }
 
-SignInScreen.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  },
-});
-
-export {SignInScreen};
-export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
+export default SignInScreen;

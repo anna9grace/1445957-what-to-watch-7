@@ -1,57 +1,72 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   LOAD_FILMS: 'data/loadFilms',
   LOAD_PROMO_FILM: 'data/loadPromoFilm',
   LOAD_FAVORITE_FILMS: 'data/loadFavoriteFilms',
+  GET_FILMS_LIST: 'data/getFilmsList',
+  LOAD_FILM: 'film/loadFilm',
+  LOAD_REVIEWS: 'film/loadReviews',
+  LOAD_SIMILAR_FILMS: 'film/loadSimilarFilms',
+  SET_IS_LOADED: 'film/setIsLoaded',
+  SET_IS_SENDING: 'film/setIsCommentSending',
   CHANGE_ACTIVE_GENRE: 'filter/changeActiveGenre',
   RESET_ACTIVE_GENRE: 'filter/resetActiveGenre',
-  GET_FILMS_LIST: 'filter/getFilmsList',
   GET_FILMS_RENDERED_COUNT: 'filter/getFilmsRenderedCount',
   RESET_FILMS_RENDERED_COUNT: 'filter/resetFilmsRenderedCount',
-  RESET_IS_DATA_LOADED: 'data/resetIsDataLoaded',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
 };
 
-export const ActionCreator = {
-  loadFilms: (films) => ({
-    type: ActionType.LOAD_FILMS,
-    payload: films,
-  }),
-  loadPromoFilm: (film) => ({
-    type: ActionType.LOAD_PROMO_FILM,
-    payload: film,
-  }),
-  loadFavoriteFilms: (films) => ({
-    type: ActionType.LOAD_FAVORITE_FILMS,
-    payload: films,
-  }),
-  changeActiveGenre: (genre) => ({
-    type: ActionType.CHANGE_ACTIVE_GENRE,
-    payload: genre,
-  }),
-  resetActiveGenre: () => ({
-    type: ActionType.RESET_ACTIVE_GENRE,
-  }),
-  getFilmsList: () => ({
-    type: ActionType.GET_FILMS_LIST,
-  }),
-  getFilmsRenderedCount: () => ({
-    type: ActionType.GET_FILMS_RENDERED_COUNT,
-  }),
-  resetFilmsRenderedCount: () => ({
-    type: ActionType.RESET_FILMS_RENDERED_COUNT,
-  }),
-  resetIsDataLoaded: () => ({
-    type: ActionType.RESET_IS_DATA_LOADED,
-  }),
-  requireAuthorization: (status, data) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: {
-      authStatus: status,
-      authInfo: data ? data : {},
-    },
-  }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-};
+
+export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
+  payload: films,
+}));
+
+export const  loadPromoFilm = createAction(ActionType.LOAD_PROMO_FILM, (film) => ({
+  payload: film,
+}));
+
+export const loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (films) => ({
+  payload: films,
+}));
+
+export const loadFilm = createAction(ActionType.LOAD_FILM, (film) => ({
+  payload: film,
+}));
+
+export const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews) => ({
+  payload: reviews,
+}));
+
+export const loadSimilarFilms = createAction(ActionType.LOAD_SIMILAR_FILMS, (films) => ({
+  payload: films,
+}));
+
+export const setIsLoaded = createAction(ActionType.SET_IS_LOADED);
+
+export const setCommentIsSending = createAction(ActionType.SET_IS_SENDING, (isSending) => ({
+  payload: isSending,
+}));
+
+export const changeActiveGenre = createAction(ActionType.CHANGE_ACTIVE_GENRE, (genre) => ({
+  payload: genre,
+}));
+
+export const resetActiveGenre = createAction(ActionType.RESET_ACTIVE_GENRE);
+
+export const getFilmsList = createAction(ActionType.GET_FILMS_LIST);
+
+export const getFilmsRenderedCount = createAction(ActionType.GET_FILMS_RENDERED_COUNT);
+
+export const resetFilmsRenderedCount = createAction(ActionType.RESET_FILMS_RENDERED_COUNT);
+
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status, data) => ({
+  payload: {
+    authStatus: status,
+    authInfo: data ? data : {},
+  },
+}));
+
+export const logout = createAction(ActionType.LOGOUT);
+

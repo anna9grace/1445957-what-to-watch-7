@@ -15,8 +15,11 @@ import LoadingScreen from '../pages/loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoutes } from '../../const';
 import { isCheckedAuth } from '../../utils/utils';
-import 'react-toastify/dist/ReactToastify.css';
+import { getDataStatus, getPromoDataStatus } from '../../store/main-data/selectors';
+import { getAuthStatus } from '../../store/user/selectors';
 
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const renderLoadingScreen = () => <LoadingScreen />;
 
@@ -91,9 +94,9 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  isDataLoaded: state.isDataLoaded,
-  isPromoDataLoaded: state.isPromoDataLoaded,
-  authorizationStatus: state.authorizationStatus,
+  isDataLoaded: getDataStatus(state),
+  isPromoDataLoaded: getPromoDataStatus(state),
+  authorizationStatus: getAuthStatus(state),
 });
 
 export { App };

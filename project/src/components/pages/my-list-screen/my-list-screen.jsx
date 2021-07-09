@@ -1,14 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
-import filmProp from '../film-screen/film.prop';
 import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
 import UserBlock from '../../ui/user-block/user-block';
+import { getFavoriteFilms } from '../../../store/main-data/selectors';
 
-function MyListScreen(props) {
-  const {favoriteFilms} = props;
+function MyListScreen() {
+  const favoriteFilms = useSelector(getFavoriteFilms);
 
   return (
     <div className="user-page">
@@ -38,13 +37,4 @@ function MyListScreen(props) {
   );
 }
 
-MyListScreen.propTypes = {
-  favoriteFilms: PropTypes.arrayOf(filmProp).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  favoriteFilms: state.favoriteFilms,
-});
-
-export {MyListScreen};
-export default connect(mapStateToProps, null)(MyListScreen);
+export default MyListScreen;
