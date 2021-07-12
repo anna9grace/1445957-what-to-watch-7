@@ -21,29 +21,27 @@ function PlayerScreen(props) {
 
   const [playingStatus, setPlayingStatus] = useState(VideoStatus.STOPPED);
   const [isFullMode, setIsFullMode] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
   const [videoDuration, setVideoDuration] = useState(runTime * 60);
   const [currentTime, setCurrentTime] = useState(0);
 
+  const onVideoPlaying = () => playingStatus !== VideoStatus.PLAYING && isVideoReady && setPlayingStatus(VideoStatus.PLAYING);
+  const onVideoPause = () => playingStatus !== VideoStatus.PAUSED && isVideoReady && setPlayingStatus(VideoStatus.PAUSED);
 
   return (
     <div className="player">
       <VideoPlayerFull
-        autoPlay
         src={videoLink}
         posterUrl={backgroundImage}
         playingStatus={playingStatus}
         isFullMode={isFullMode}
-        onFullModeEnter={() => {
-          setIsFullMode(false);
-        }}
-        onPlaying={() => {
-          playingStatus !== VideoStatus.PLAYING && setPlayingStatus(VideoStatus.PLAYING);
-        }}
-        onPause={() => {
-          playingStatus !== VideoStatus.PAUSED && setPlayingStatus(VideoStatus.PAUSED);
-        }}
+        isVideoReady={isVideoReady}
+        onPlaying={onVideoPlaying}
+        onPause={onVideoPause}
+        onFullModeEnter={() => setIsFullMode(false)}
+        onStart={(duration) => setVideoDuration(duration)}
         onProgress={(time) => setCurrentTime(time)}
-        onPlayStart={(duration) => setVideoDuration(duration)}
+        onReadyStatusChange={() => setIsVideoReady(true)}
       />
       <button
         type="button"
@@ -54,13 +52,12 @@ function PlayerScreen(props) {
       </button>
 
       <div className="player__controls">
-
         <div className="player__controls-row">
           <div className="player__time">
             <progress
               className="player__progress"
-              value={getProgressLevel(videoDuration, currentTime)}
               max="100"
+              value={getProgressLevel(videoDuration, currentTime)}
             />
             <div
               className="player__toggler"
@@ -71,13 +68,12 @@ function PlayerScreen(props) {
           </div>
           <div className="player__time-value">{tranformDuration(videoDuration - currentTime)}</div>
         </div>
-
         <div className="player__controls-row">
 
           {
             playingStatus === VideoStatus.PLAYING
-              ? <PauseButton onPause={() => setPlayingStatus(VideoStatus.PAUSED)} />
-              : <PlayButton onPlay={() => setPlayingStatus(VideoStatus.PLAYING)} />
+              ? <PauseButton onPause={() => isVideoReady && setPlayingStatus(VideoStatus.PAUSED)} />
+              : <PlayButton onPlay={() => isVideoReady && setPlayingStatus(VideoStatus.PLAYING)} />
           }
 
           <div className="player__name">{name}</div>
@@ -85,9 +81,7 @@ function PlayerScreen(props) {
           <button
             type="button"
             className="player__full-screen"
-            onClick={() => {
-              setIsFullMode(true);
-            }}
+            onClick={() => setIsFullMode(true)}
           >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>

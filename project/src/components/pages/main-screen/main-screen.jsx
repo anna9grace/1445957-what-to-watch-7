@@ -6,13 +6,17 @@ import FilmListMain from '../../ui/film-list-main/film-list-main';
 import GenresList from '../../ui/genres-list/genres-list';
 import UserBlock from '../../ui/user-block/user-block';
 import Logo from '../../ui/logo/logo';
-import {AppRoutes} from '../../../const';
+import MyListButton from '../../ui/my-list-button/my-list-button';
+import {AppRoutes, AuthorizationStatus} from '../../../const';
 import { resetActiveGenre, getFilmsList, resetFilmsRenderedCount } from '../../../store/action';
 import { getPromoFilm } from '../../../store/main-data/selectors';
+import { getAuthStatus } from '../../../store/user/selectors';
 
 
 function MainScreen() {
   const promoFilm = useSelector(getPromoFilm);
+  const authorizationStatus = useSelector(getAuthStatus);
+  const {backgroundImage, name, posterImage, genre, released, id} = promoFilm;
 
   const dispatch = useDispatch();
 
@@ -30,7 +34,7 @@ function MainScreen() {
     <React.Fragment>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -44,33 +48,31 @@ function MainScreen() {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={promoFilm.posterImage} alt={`${promoFilm.posterImage} poster`} width="218" height="327" />
+              <img src={posterImage} alt={`${posterImage} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promoFilm.name}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promoFilm.genre}</span>
-                <span className="film-card__year">{promoFilm.released}</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => history.push(`${AppRoutes.PLAYER}/${promoFilm.id}`)}
+                  onClick={() => history.push(`${AppRoutes.PLAYER}/${id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                {
+                  authorizationStatus === AuthorizationStatus.AUTH
+                  && <MyListButton filmId={`${id}`} />
+                }
               </div>
             </div>
           </div>

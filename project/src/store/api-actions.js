@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-import { loadFilms, loadPromoFilm, loadFavoriteFilms, requireAuthorization, logout, loadFilm, loadSimilarFilms, loadReviews, setIsLoaded, setCommentIsSending } from './action';
+import { loadFilms, loadPromoFilm, loadFavoriteFilms, requireAuthorization, logout, loadFilm, loadSimilarFilms, loadReviews, setIsLoaded, setCommentIsSending, updateFilm, updatePromoFilm } from './action';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { adaptFilmsToClient, adaptFilmToClient, adaptReviewsToClient } from '../services/adaptors';
 import { ToastIDs, MAX_SIMILAR_FILMS_COUNT, ResponseCode } from '../const';
@@ -93,3 +93,16 @@ export const postComment = (filmId, comment, onSuccess) => (dispatch, _getState,
       toast(error.message);
     })
 );
+
+export const updateIsFavoriteStatus = (filmId, isCurrent, isPromo, status) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITE}/${filmId}/${status}`)
+    .then(() => {
+      isCurrent && dispatch(updateFilm());
+      isPromo && dispatch(updatePromoFilm());
+    })
+    .catch((error) => {
+      toast(error.message);
+    })
+);
+
+

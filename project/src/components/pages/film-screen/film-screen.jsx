@@ -10,10 +10,13 @@ import FilmTabs from '../../ui/film-tabs/film-tabs';
 import UserBlock from '../../ui/user-block/user-block';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
+import MyListButton from '../../ui/my-list-button/my-list-button';
 import { AppRoutes, AuthorizationStatus } from '../../../const';
 import { getAuthStatus } from '../../../store/user/selectors';
 import { fetchFilmInfo, fetchSimilarFilms, fetchReviews } from '../../../store/api-actions';
+import { clearFilm } from '../../../store/action';
 import { getCurrentFilm, getReviews, getSimilarFilms, getFilmDataStatus } from '../../../store/film-data/selectors';
+
 
 function FilmScreen(props) {
   const { filmId } = props;
@@ -26,6 +29,10 @@ function FilmScreen(props) {
     dispatch(fetchFilmInfo(filmId));
     dispatch(fetchSimilarFilms(filmId));
     dispatch(fetchReviews(filmId));
+
+    return () => {
+      dispatch(clearFilm());
+    };
   }, [filmId]);
 
   const authorizationStatus = useSelector(getAuthStatus);
@@ -79,12 +86,13 @@ function FilmScreen(props) {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+
+                {
+                  authorizationStatus === AuthorizationStatus.AUTH
+                  && <MyListButton filmId={filmId} />
+                }
+
+
                 {
                   authorizationStatus === AuthorizationStatus.AUTH
                   && <Link className="btn film-card__button" to={`${AppRoutes.FILM}/${currentFilm.id}/review`}>Add review</Link>

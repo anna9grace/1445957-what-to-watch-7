@@ -14,6 +14,7 @@ export const APIRoute = {
   LOGOUT: '/logout',
   SIMILAR_FILMS: '/similar',
   REVIEWS: '/comments',
+  FAVORITE: '/favorite',
 };
 
 export const PreviewVideoSizes = {

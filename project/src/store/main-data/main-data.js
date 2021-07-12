@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 
-import { loadFilms, changeActiveGenre, resetActiveGenre, getFilmsList, getFilmsRenderedCount, resetFilmsRenderedCount,loadFavoriteFilms, loadPromoFilm } from '../action';
+import { loadFilms, changeActiveGenre, resetActiveGenre, getFilmsList, getFilmsRenderedCount, resetFilmsRenderedCount,loadFavoriteFilms, loadPromoFilm, updatePromoFilm } from '../action';
 import { INITIAL_GENRE, MAX_FILMS_COUNT } from '../../const';
 
 const initialState = {
@@ -48,6 +48,9 @@ const mainData = createReducer(initialState, (builder) => {
     .addCase(loadPromoFilm, (state, action) => {
       state.promoFilm = action.payload;
       state.isPromoDataLoaded = true;
+    })
+    .addCase(updatePromoFilm, (state) => {
+      state.promoFilm = {...state.promoFilm, isFavorite: !state.promoFilm.isFavorite};
     });
 });
 

@@ -1,58 +1,58 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { PreviewVideoSizes, VideoStatus } from '../../../const';
+import { VideoStatus } from '../../../const';
 
 
-function VideoPlayerFull({ src, posterUrl, playingStatus, isFullMode, onFullModeEnter, onPlaying, onPause, onProgress, onPlayStart }) {
+function VideoPlayerFull({ src, posterUrl, playingStatus, isFullMode, isVideoReady, onFullModeEnter, onPlaying, onPause, onProgress, onStart, onReadyStatusChange }) {
   let timerId = null;
   let videoDuration = null;
+
+  const videoRef = useRef();
 
   const startProgressWatch = () => {
     timerId = setInterval(() => onProgress(videoRef.current.currentTime), 1000);
   };
 
-  const videoRef = useRef();
 
   useEffect(() => {
-    videoRef.current.addEventListener('playing', () => {
-      onPlaying();
-    });
+    const video = videoRef.current;
 
-    videoRef.current.addEventListener('pause', () => {
-      onPause();
-    });
-  }, []);
+    video.addEventListener('loadeddata', () => video.readyState >= 3 && onReadyStatusChange());
 
-  useEffect(() => {
-    const currentPlayer = videoRef.current;
-    timerId && clearInterval(timerId);
-
-    if (!currentPlayer) {
+    if (!isVideoReady) {
       return;
     }
+    video.addEventListener('playing', onPlaying);
+    video.addEventListener('pause', onPause);
+
+    return () => {
+      video.removeEventListener('playing', onPlaying);
+      video.removeEventListener('pause', onPause);
+    };
+  }, [isVideoReady]);
+
+
+  useEffect(() => {
+    const video = videoRef.current;
 
     if (playingStatus === VideoStatus.PLAYING) {
-
       if (!videoDuration) {
-        videoDuration = videoRef.current.duration;
-        onPlayStart(videoDuration);
+        videoDuration = video.duration;
+        onStart(videoDuration);
       }
-      currentPlayer.play();
+      video.play();
       startProgressWatch();
     }
 
-    if (playingStatus === VideoStatus.PAUSED) {
-      currentPlayer.pause();
-    }
+    playingStatus === VideoStatus.PAUSED && video.pause();
 
     return () => timerId && clearInterval(timerId);
-
   }, [playingStatus]);
 
 
   useEffect(() => {
-    if (isFullMode && onFullModeEnter) {
+    if (isFullMode) {
       videoRef.current.requestFullscreen();
       onFullModeEnter();
     }
@@ -64,9 +64,6 @@ function VideoPlayerFull({ src, posterUrl, playingStatus, isFullMode, onFullMode
       src={src}
       poster={posterUrl}
       ref={videoRef}
-      muted
-      width={PreviewVideoSizes.WIDTH}
-      height={PreviewVideoSizes.HEIGHT}
       className='player__video'
     />
   );
@@ -77,11 +74,13 @@ VideoPlayerFull.propTypes = {
   posterUrl: PropTypes.string.isRequired,
   playingStatus: PropTypes.string.isRequired,
   isFullMode: PropTypes.bool.isRequired,
+  isVideoReady: PropTypes.bool.isRequired,
   onFullModeEnter: PropTypes.func.isRequired,
   onPlaying: PropTypes.func.isRequired,
   onPause: PropTypes.func.isRequired,
   onProgress: PropTypes.func.isRequired,
-  onPlayStart: PropTypes.func.isRequired,
+  onStart: PropTypes.func.isRequired,
+  onReadyStatusChange: PropTypes.func.isRequired,
 };
 
 
