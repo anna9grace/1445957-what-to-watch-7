@@ -1,6 +1,7 @@
 import React from 'react';
 
 import filmProp from '../../pages/film-screen/film.prop';
+import { humanizeDuration } from '../../../utils/utils';
 
 const renderActors = (actors) => (
   actors.map((actor, index) => {
@@ -36,7 +37,7 @@ function FilmTabDetails(props) {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{runTime}</span>
+          <span className="film-card__details-value">{humanizeDuration(runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

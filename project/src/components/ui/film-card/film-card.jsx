@@ -23,7 +23,6 @@ function FilmCard(props) {
             src={previewVideoLink}
             posterUrl={previewImage}
             playingStatus={playingStatus}
-            isPreview
           />
         </div>
       </Link>

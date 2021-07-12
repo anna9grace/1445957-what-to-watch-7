@@ -1,4 +1,4 @@
-import { humanizeDuration } from '../utils/utils';
+
 
 const adaptReviewToClient = (reviewData) => (
   {
@@ -26,7 +26,7 @@ export const adaptFilmToClient = (filmData) => (
     scoresCount: filmData.scores_count,
     director: filmData.director,
     starring: filmData.starring,
-    runTime: humanizeDuration(filmData.run_time),
+    runTime: filmData.run_time,
     genre: filmData.genre,
     released: filmData.released,
     isFavorite: filmData.is_favorite,
