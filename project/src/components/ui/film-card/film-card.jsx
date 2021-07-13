@@ -8,7 +8,7 @@ import {AppRoutes} from '../../../const';
 
 
 function FilmCard(props) {
-  const {film, mouseEnterHandler, mouseLeaveHandler, isActive} = props;
+  const {film, mouseEnterHandler, mouseLeaveHandler, playingStatus} = props;
   const {name, previewImage, id, previewVideoLink} = film;
 
   return (
@@ -22,7 +22,7 @@ function FilmCard(props) {
           <VideoPlayer
             src={previewVideoLink}
             posterUrl={previewImage}
-            isPlaying={isActive}
+            playingStatus={playingStatus}
           />
         </div>
       </Link>
@@ -37,7 +37,7 @@ FilmCard.propTypes = {
   film: filmProp,
   mouseEnterHandler: PropTypes.func.isRequired,
   mouseLeaveHandler: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
+  playingStatus: PropTypes.string.isRequired,
 };
 
 export default FilmCard;

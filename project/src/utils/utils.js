@@ -9,6 +9,14 @@ export const humanizeDuration = (minutes) => {
   return `${durationInHours} ${durationData.get('minutes')}m`;
 };
 
+export const tranformDuration = (seconds) => {
+  const durationData = dayjs.duration(seconds, 'seconds');
+  const newDuration = durationData.get('hours') !== 0
+    ? durationData.format('-HH:mm:ss')
+    : durationData.format('-mm:ss');
+  return newDuration;
+};
+
 export const humanizeDate = (date, format) => dayjs(date).format(format);
 
 export const transformRating = (rating) => {

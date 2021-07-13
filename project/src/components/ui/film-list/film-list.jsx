@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import FilmCard from '../film-card/film-card';
 import filmProp from '../../pages/film-screen/film.prop';
+import { VideoStatus } from '../../../const';
 
 function FilmList(props) {
   const {films} = props;
@@ -24,7 +25,7 @@ function FilmList(props) {
               mouseLeaveHandler={() => {
                 setActiveCardId(null);
               }}
-              isActive={film.id === activeCardId}
+              playingStatus={film.id === activeCardId ? VideoStatus.PLAYING : VideoStatus.STOPPED}
             />
           );
         })

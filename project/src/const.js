@@ -14,6 +14,7 @@ export const APIRoute = {
   LOGOUT: '/logout',
   SIMILAR_FILMS: '/similar',
   REVIEWS: '/comments',
+  FAVORITE: '/favorite',
 };
 
 export const PreviewVideoSizes = {
@@ -54,6 +55,12 @@ export const ResponseCode = {
   UNAUTHORIZED: 401,
   BAD_REQUEST: 400,
   NOT_FOUND: 404,
+};
+
+export const VideoStatus = {
+  PLAYING: 'playing',
+  PAUSED: 'paused',
+  STOPPED: 'stopped',
 };
 
 export const MAX_ACTORS_COUNT = 4;

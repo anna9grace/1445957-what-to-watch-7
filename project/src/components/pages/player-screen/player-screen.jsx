@@ -1,21 +1,48 @@
-import React from 'react';
-import {useHistory} from 'react-router';
-import {useSelector} from 'react-redux';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getFilms } from '../../../store/main-data/selectors';
+import VideoPlayerFull from '../../ui/video-player-full/video-player-full';
+import PlayButton from '../../ui/play-button/play-button';
+import PauseButton from '../../ui/pause-button/pause-button';
+import { VideoStatus } from '../../../const';
+import { tranformDuration } from '../../../utils/utils';
+
+const getProgressLevel = (max, current) => current / max * 100;
 
 function PlayerScreen(props) {
-  const {filmId} = props;
+  const { filmId } = props;
   const films = useSelector(getFilms);
-  const {name, backgroundImage, videoLink} = films.find((film) => film.id === +filmId);
+  const { name, backgroundImage, videoLink, runTime } = films.find((film) => film.id === +filmId);
 
   const history = useHistory();
 
+  const [playingStatus, setPlayingStatus] = useState(VideoStatus.STOPPED);
+  const [isFullMode, setIsFullMode] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+  const [videoDuration, setVideoDuration] = useState(runTime * 60);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const onVideoPlaying = () => playingStatus !== VideoStatus.PLAYING && isVideoReady && setPlayingStatus(VideoStatus.PLAYING);
+  const onVideoPause = () => playingStatus !== VideoStatus.PAUSED && isVideoReady && setPlayingStatus(VideoStatus.PAUSED);
+
   return (
     <div className="player">
-      <video src={videoLink} className="player__video" poster={backgroundImage}></video>
-
+      <VideoPlayerFull
+        src={videoLink}
+        posterUrl={backgroundImage}
+        playingStatus={playingStatus}
+        isFullMode={isFullMode}
+        isVideoReady={isVideoReady}
+        onPlaying={onVideoPlaying}
+        onPause={onVideoPause}
+        onFullModeEnter={() => setIsFullMode(false)}
+        onStart={(duration) => setVideoDuration(duration)}
+        onProgress={(time) => setCurrentTime(time)}
+        onReadyStatusChange={() => setIsVideoReady(true)}
+      />
       <button
         type="button"
         className="player__exit"
@@ -27,22 +54,35 @@ function PlayerScreen(props) {
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
+            <progress
+              className="player__progress"
+              max="100"
+              value={getProgressLevel(videoDuration, currentTime)}
+            />
+            <div
+              className="player__toggler"
+              style={{ left: `${getProgressLevel(videoDuration, currentTime)}%`}}
+            >
+              Toggler
+            </div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{tranformDuration(videoDuration - currentTime)}</div>
         </div>
-
         <div className="player__controls-row">
-          <button type="button" className="player__play">
-            <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
-            </svg>
-            <span>Play</span>
-          </button>
+
+          {
+            playingStatus === VideoStatus.PLAYING
+              ? <PauseButton onPause={() => isVideoReady && setPlayingStatus(VideoStatus.PAUSED)} />
+              : <PlayButton onPlay={() => isVideoReady && setPlayingStatus(VideoStatus.PLAYING)} />
+          }
+
           <div className="player__name">{name}</div>
 
-          <button type="button" className="player__full-screen">
+          <button
+            type="button"
+            className="player__full-screen"
+            onClick={() => setIsFullMode(true)}
+          >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>

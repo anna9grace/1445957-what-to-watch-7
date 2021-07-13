@@ -4,15 +4,13 @@ import { ResponseCode } from '../const';
 const BACKEND_URL = 'https://7.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
 
-const token = localStorage.getItem('token') ?? '';
+
+let token = '';
 
 export const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
-    headers: {
-      'x-token': token,
-    },
   });
 
   const onSuccess = (response) => response;
@@ -26,6 +24,12 @@ export const createAPI = (onUnauthorized) => {
 
     throw err;
   };
+
+  api.interceptors.request.use((config) => {
+    token = localStorage.getItem('token') ?? '';
+    config.headers.common['x-token'] = token;
+    return config;
+  });
 
   api.interceptors.response.use(onSuccess, onFail);
 

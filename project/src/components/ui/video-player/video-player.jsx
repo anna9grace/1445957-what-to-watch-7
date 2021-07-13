@@ -1,17 +1,16 @@
 import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 
-import { PreviewVideoSizes, PREVIEW_VIDEO_DELAY } from '../../../const';
+import { PreviewVideoSizes, PREVIEW_VIDEO_DELAY, VideoStatus } from '../../../const';
 
-
-function VideoPlayer({src, posterUrl, isPlaying}) {
+function VideoPlayer({src, posterUrl, playingStatus}) {
   const videoRef = useRef();
 
   useEffect(() => {
     const currentPlayer = videoRef.current;
     let playTimeout = null;
 
-    if (currentPlayer && isPlaying) {
+    if (currentPlayer && playingStatus === VideoStatus.PLAYING ) {
       playTimeout = setTimeout(() => {
         currentPlayer.play();
       }, PREVIEW_VIDEO_DELAY);
@@ -22,7 +21,7 @@ function VideoPlayer({src, posterUrl, isPlaying}) {
       currentPlayer.load();
     });
 
-  }, [isPlaying]);
+  }, [playingStatus]);
 
   return (
     <video
@@ -39,7 +38,7 @@ function VideoPlayer({src, posterUrl, isPlaying}) {
 VideoPlayer.propTypes = {
   src: PropTypes.string.isRequired,
   posterUrl: PropTypes.string.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
+  playingStatus: PropTypes.string.isRequired,
 };
 
 

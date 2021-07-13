@@ -16,6 +16,9 @@ export const ActionType = {
   RESET_FILMS_RENDERED_COUNT: 'filter/resetFilmsRenderedCount',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
+  UPDATE_FILM: 'film/updateFilm',
+  CLEAR_FILM: 'film/clearFilm',
+  UPDATE_PROMO_FILM: 'data/updatePromoFilm',
 };
 
 
@@ -69,4 +72,10 @@ export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATI
 }));
 
 export const logout = createAction(ActionType.LOGOUT);
+
+export const updateFilm = createAction(ActionType.UPDATE_FILM);
+
+export const clearFilm = createAction(ActionType.CLEAR_FILM);
+
+export const updatePromoFilm = createAction(ActionType.UPDATE_PROMO_FILM);
 

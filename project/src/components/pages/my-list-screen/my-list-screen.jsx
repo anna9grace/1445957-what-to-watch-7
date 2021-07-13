@@ -1,13 +1,19 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 import FilmList from '../../ui/film-list/film-list';
 import Logo from '../../ui/logo/logo';
 import UserBlock from '../../ui/user-block/user-block';
 import { getFavoriteFilms } from '../../../store/main-data/selectors';
+import { fetchFavoriteFilmsList } from '../../../store/api-actions';
 
 function MyListScreen() {
   const favoriteFilms = useSelector(getFavoriteFilms);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchFavoriteFilmsList());
+  }, []);
 
   return (
     <div className="user-page">
