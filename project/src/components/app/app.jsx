@@ -73,7 +73,6 @@ const renderAppScreen = () => (
 
 function App(props) {
   const { authorizationStatus, isDataLoaded, isPromoDataLoaded } = props;
-
   const isPageSuccess = isCheckedAuth(authorizationStatus) && isDataLoaded && isPromoDataLoaded;
 
   return (

@@ -17,7 +17,6 @@ function MainScreen() {
   const promoFilm = useSelector(getPromoFilm);
   const authorizationStatus = useSelector(getAuthStatus);
   const {backgroundImage, name, posterImage, genre, released, id} = promoFilm;
-
   const dispatch = useDispatch();
 
   const onPageLeave = () => {
