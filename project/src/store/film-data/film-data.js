@@ -29,6 +29,7 @@ const filmData = createReducer(initialState, (builder) => {
       state.similarFilms = action.payload;
     })
     .addCase(loadReviews, (state, action) => {
+      console.log(action.payload)
       state.reviews = action.payload;
     })
     .addCase(setIsLoaded, (state) => {
