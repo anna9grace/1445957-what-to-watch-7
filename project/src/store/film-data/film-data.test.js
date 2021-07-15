@@ -111,7 +111,7 @@ const comments = [
   },
 ];
 
-describe('Reducer: mainData', () => {
+describe('Reducer: filmData', () => {
   it('without additional parameters should return initial state', () => {
     expect(filmData(undefined, {}))
       .toEqual(initialState);

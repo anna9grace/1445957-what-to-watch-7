@@ -22,7 +22,7 @@ const films = [
     director: 'Sally Potter',
     genre: 'Action',
     id: 1,
-    isFavorite: true,
+    isFavorite: false,
     name: 'Orlando',
     posterImage: 'https://7.react.pages.academy/static/film/poster/Orlando.jpg',
     previewImage: 'https://7.react.pages.academy/static/film/preview/orlando.jpg',
@@ -92,6 +92,7 @@ const films = [
     videoLink: 'http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4',
   },
 ];
+
 
 describe('Reducer: mainData', () => {
   it('without additional parameters should return initial state', () => {
