@@ -25,7 +25,7 @@ function FilmTabOverview(props) {
 
   return (
     <React.Fragment>
-      <div className="film-rating">
+      <div className="film-rating" data-testid="film-tabs">
         <div className="film-rating__score">{transformRating(rating)}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">{getRatingLevel(rating)}</span>

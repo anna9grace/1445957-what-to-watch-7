@@ -7,7 +7,7 @@ function FilmTabsList(props) {
   const {activeTab, tabClickHandler} = props;
 
   return (
-    <ul className="film-nav__list">
+    <ul className="film-nav__list" data-testid="film-tabs-list">
       {
         Object.keys(FilmTabsNames).map((button) => {
           const currentTab = FilmTabsNames[button];
