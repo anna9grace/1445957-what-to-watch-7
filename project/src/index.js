@@ -6,7 +6,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import App from './components/app/app';
 import rootReducer from './store/root-reducer';
 import { createAPI } from './services/api';
-import { fetchFilmsList, fetchPromoFilm, chekAuth } from './store/api-actions';
+import { fetchFilmsList, fetchPromoFilm, checkAuth } from './store/api-actions';
 import { AuthorizationStatus } from './const';
 import { requireAuthorization } from './store/action';
 
@@ -24,7 +24,7 @@ const store = configureStore({
     }),
 });
 
-store.dispatch(chekAuth(true));
+store.dispatch(checkAuth(true));
 store.dispatch(fetchFilmsList());
 store.dispatch(fetchPromoFilm());
 
