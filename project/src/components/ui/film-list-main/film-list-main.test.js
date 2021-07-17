@@ -9,7 +9,6 @@ import FilmListMain from './film-list-main';
 
 import { MAX_FILMS_COUNT } from '../../../const';
 
-
 const initialState = {
   DATA: {
     filteredFilms: [

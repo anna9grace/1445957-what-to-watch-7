@@ -29,9 +29,9 @@ const renderAppScreen = () => (
       <MainScreen />
     </Route>
 
-    <Route exact path={AppRoutes.SIGN_IN}>
-      <SignInScreen />
-    </Route>
+    <Route exact path={AppRoutes.SIGN_IN}
+      render={() => <SignInScreen />}
+    />
 
     <PrivateRoute exact path={AppRoutes.MY_LIST}
       render={() => <MyListScreen />}

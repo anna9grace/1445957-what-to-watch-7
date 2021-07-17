@@ -24,6 +24,7 @@ const reviewsData = [
   },
 ];
 
+
 describe('Component: FilmTabReviews', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();

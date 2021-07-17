@@ -46,6 +46,7 @@ const filmsData = [
   },
 ];
 
+
 describe('Component: FilmList', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();

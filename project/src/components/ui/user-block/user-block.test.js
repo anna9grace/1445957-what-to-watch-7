@@ -11,6 +11,7 @@ import { AuthorizationStatus } from '../../../const';
 
 const mockStore = configureStore({});
 
+
 describe('Component: UserBlock', () => {
   it('should render correctly if user is authorized', () => {
     const history = createMemoryHistory();

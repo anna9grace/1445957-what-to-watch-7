@@ -12,7 +12,9 @@ function MyListScreen() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchFavoriteFilmsList());
+    if (favoriteFilms.length < 1) {
+      dispatch(fetchFavoriteFilmsList());
+    }
   }, []);
 
   return (

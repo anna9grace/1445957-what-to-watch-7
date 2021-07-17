@@ -5,7 +5,6 @@ import {createMemoryHistory} from 'history';
 
 import LoadingScreen from './loading-screen';
 
-
 describe('Component: LoadingScreen', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();

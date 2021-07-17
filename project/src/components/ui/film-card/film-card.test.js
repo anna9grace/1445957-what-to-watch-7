@@ -6,7 +6,6 @@ import {createMemoryHistory} from 'history';
 import { VideoStatus } from '../../../const';
 import FilmCard from './film-card';
 
-
 const filmData = {
   backgroundColor: '#D8D3BD',
   backgroundImage: 'https://7.react.pages.academy/static/film/background/Orlando.jpg',

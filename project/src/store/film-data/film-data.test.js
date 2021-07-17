@@ -31,7 +31,6 @@ const film = {
   videoLink: 'http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4',
 };
 
-
 const films = [
   {
     backgroundColor: '#C6CADF',

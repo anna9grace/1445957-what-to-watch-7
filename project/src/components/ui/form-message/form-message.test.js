@@ -16,6 +16,7 @@ const errorsData = [
   },
 ];
 
+
 describe('Component: FormMessage', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();

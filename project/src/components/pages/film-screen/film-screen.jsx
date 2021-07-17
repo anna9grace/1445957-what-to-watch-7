@@ -23,23 +23,26 @@ function FilmScreen(props) {
 
   const history = useHistory();
 
+  const authorizationStatus = useSelector(getAuthStatus);
+  const currentFilm = useSelector(getCurrentFilm);
+  const reviews = useSelector(getReviews);
+  const similarFilms = useSelector(getSimilarFilms);
+  const isFilmDataLoaded = useSelector(getFilmDataStatus);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchFilmInfo(filmId));
-    dispatch(fetchSimilarFilms(filmId));
-    dispatch(fetchReviews(filmId));
+    if (!currentFilm && !similarFilms && reviews.length < 1) {
+      dispatch(fetchFilmInfo(filmId));
+      dispatch(fetchSimilarFilms(filmId));
+      dispatch(fetchReviews(filmId));
+    }
 
     return () => {
       dispatch(clearFilm());
     };
   }, [filmId]);
 
-  const authorizationStatus = useSelector(getAuthStatus);
-  const currentFilm = useSelector(getCurrentFilm);
-  const reviews = useSelector(getReviews);
-  const similarFilms = useSelector(getSimilarFilms);
-  const isFilmDataLoaded = useSelector(getFilmDataStatus);
 
   if (!isFilmDataLoaded) {
     return <LoadingScreen />;

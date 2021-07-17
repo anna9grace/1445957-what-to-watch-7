@@ -49,8 +49,9 @@ const initialState = {
       starring: ['Brad Pitt', 'David Thewlis', 'BD Wong'],
       videoLink: 'http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4',
     },
-  }
+  },
 };
+
 
 const mockStore = configureStore({});
 

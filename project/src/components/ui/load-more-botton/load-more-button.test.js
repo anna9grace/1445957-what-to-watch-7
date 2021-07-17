@@ -10,6 +10,7 @@ import LoadMoreButton from './load-more-button';
 const initialState = {};
 const mockStore = configureStore({});
 
+
 describe('Component: LoadMoreButton', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();

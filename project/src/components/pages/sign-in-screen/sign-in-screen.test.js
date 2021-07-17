@@ -13,6 +13,7 @@ const initialState = {
   USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
 };
 
+
 const mockStore = configureStore({});
 
 describe('Component: SignInScreen', () => {

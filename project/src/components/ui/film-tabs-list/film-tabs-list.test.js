@@ -6,7 +6,6 @@ import {createMemoryHistory} from 'history';
 import FilmTabsList from './film-tabs-list';
 import { FilmTabsNames } from '../../../const';
 
-
 describe('Component: FilmTabList', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();

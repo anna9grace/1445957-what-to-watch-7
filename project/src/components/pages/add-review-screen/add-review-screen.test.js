@@ -68,6 +68,7 @@ const initialState = {
   },
 };
 
+
 const mockStore = configureStore({});
 
 describe('Component: AddReviewScreen', () => {

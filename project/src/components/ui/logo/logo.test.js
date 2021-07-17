@@ -5,7 +5,6 @@ import {createMemoryHistory} from 'history';
 
 import Logo from './logo';
 
-
 describe('Component: Logo', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();

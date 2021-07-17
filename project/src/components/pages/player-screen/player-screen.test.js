@@ -57,6 +57,7 @@ const mockStore = configureStore({});
 describe('Component: PlayerScreen', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
+
     history.push('/films/2/review');
 
     render(

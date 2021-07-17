@@ -25,6 +25,7 @@ const filmData = {
   videoLink: 'http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4',
 };
 
+
 describe('Component: FilmTabDetails', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
