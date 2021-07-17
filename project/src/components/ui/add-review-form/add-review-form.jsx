@@ -55,7 +55,7 @@ function AddReviewForm(props) {
 
 
   return (
-    <div className="add-review">
+    <div className="add-review" data-testid="add-review-form">
       <form
         action="#"
         className="add-review__form"

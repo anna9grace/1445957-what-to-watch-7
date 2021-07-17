@@ -18,7 +18,6 @@ const initialState = {
 const mainData = createReducer(initialState, (builder) => {
   builder
     .addCase(loadFilms, (state, action) => {
-      state.favoriteFilms = action.payload;
       state.isFavoriteDataLoaded = true;
       state.films = action.payload;
       state.filteredFilms = action.payload;

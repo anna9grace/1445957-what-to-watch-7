@@ -4,7 +4,7 @@ import './loading-screen.css';
 
 function LoadingScreen() {
   return (
-    <div className='loader'>
+    <div className='loader' data-testid='loader'>
       <div className='loader__spinner'>
         <div />
         <div />

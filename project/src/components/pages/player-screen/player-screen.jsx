@@ -8,7 +8,7 @@ import VideoPlayerFull from '../../ui/video-player-full/video-player-full';
 import PlayButton from '../../ui/play-button/play-button';
 import PauseButton from '../../ui/pause-button/pause-button';
 import { VideoStatus } from '../../../const';
-import { tranformDuration } from '../../../utils/utils';
+import { transformDuration } from '../../../utils/utils';
 
 const getProgressLevel = (max, current) => current / max * 100;
 
@@ -61,12 +61,12 @@ function PlayerScreen(props) {
             />
             <div
               className="player__toggler"
-              style={{ left: `${getProgressLevel(videoDuration, currentTime)}%`}}
+              style={{ left: `${getProgressLevel(videoDuration, currentTime)}%` }}
             >
               Toggler
             </div>
           </div>
-          <div className="player__time-value">{tranformDuration(videoDuration - currentTime)}</div>
+          <div className="player__time-value">{transformDuration(videoDuration - currentTime)}</div>
         </div>
         <div className="player__controls-row">
 

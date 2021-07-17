@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import {Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -24,50 +24,48 @@ import 'react-toastify/dist/ReactToastify.css';
 const renderLoadingScreen = () => <LoadingScreen />;
 
 const renderAppScreen = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path={AppRoutes.ROOT}>
-        <MainScreen />
-      </Route>
+  <Switch>
+    <Route exact path={AppRoutes.ROOT}>
+      <MainScreen />
+    </Route>
 
-      <Route exact path={AppRoutes.SIGN_IN}>
-        <SignInScreen />
-      </Route>
+    <Route exact path={AppRoutes.SIGN_IN}
+      render={() => <SignInScreen />}
+    />
 
-      <PrivateRoute exact path={AppRoutes.MY_LIST}
-        render={() => <MyListScreen />}
-      />
+    <PrivateRoute exact path={AppRoutes.MY_LIST}
+      render={() => <MyListScreen />}
+    />
 
-      <Route
-        exact path={`${AppRoutes.FILM}/:id`}
-        render={(data) => (
-          <FilmScreen
-            filmId={data.match.params.id}
-          />)}
-      />
+    <Route
+      exact path={`${AppRoutes.FILM}/:id`}
+      render={(data) => (
+        <FilmScreen
+          filmId={data.match.params.id}
+        />)}
+    />
 
-      <PrivateRoute
-        exact path={`${AppRoutes.FILM}/:id/review`}
-        render={(data) => (
-          <AddReviewScreen
-            filmId={data.match.params.id}
-          />)}
-      />
+    <PrivateRoute
+      exact path={`${AppRoutes.FILM}/:id/review`}
+      render={(data) => (
+        <AddReviewScreen
+          filmId={data.match.params.id}
+        />)}
+    />
 
-      <Route
-        exact path={`${AppRoutes.PLAYER}/:id`}
-        render={(data) => (
-          <PlayerScreen
-            filmId={data.match.params.id}
-          />
-        )}
-      />
+    <Route
+      exact path={`${AppRoutes.PLAYER}/:id`}
+      render={(data) => (
+        <PlayerScreen
+          filmId={data.match.params.id}
+        />
+      )}
+    />
 
-      <Route>
-        <NotFoundScreen />
-      </Route>
-    </Switch>
-  </BrowserRouter>
+    <Route>
+      <NotFoundScreen />
+    </Route>
+  </Switch>
 );
 
 

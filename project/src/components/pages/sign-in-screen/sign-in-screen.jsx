@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Logo from '../../ui/logo/logo';
@@ -94,6 +94,7 @@ function SignInScreen() {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
+                data-testid="email"
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
@@ -105,6 +106,7 @@ function SignInScreen() {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                data-testid="password"
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>

@@ -65,6 +65,7 @@ function VideoPlayerFull({ src, posterUrl, playingStatus, isFullMode, isVideoRea
       poster={posterUrl}
       ref={videoRef}
       className='player__video'
+      data-testid='player'
     />
   );
 }

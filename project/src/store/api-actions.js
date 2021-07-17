@@ -27,7 +27,7 @@ export const fetchFavoriteFilmsList = () => (dispatch, _getState, api) => (
     .catch((error) => toast(error.message))
 );
 
-export const chekAuth = (isInitial) => (dispatch, _getState, api) => (
+export const checkAuth = (isInitial) => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({ data }) => dispatch(requireAuthorization(AuthorizationStatus.AUTH, data)))
     .catch((error) => {
