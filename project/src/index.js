@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import {BrowserRouter} from 'react-router-dom';
 
 import App from './components/app/app';
 import rootReducer from './store/root-reducer';
@@ -31,7 +32,9 @@ store.dispatch(fetchPromoFilm());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

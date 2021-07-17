@@ -10,7 +10,7 @@ function FilmList(props) {
   const [activeCardId, setActiveCardId] = useState(null);
 
   return (
-    <div className='catalog__films-list'>
+    <div className='catalog__films-list' data-testid="films-list">
       {
         films.map((film) => {
           const filmId = film.id;

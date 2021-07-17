@@ -9,7 +9,7 @@ import { getAuthInfo, getAuthStatus } from '../../../store/user/selectors';
 
 const renderUserBlockAuthorized = (history, userData, onLogout) => (
   <React.Fragment>
-    <li className="user-block__item">
+    <li className="user-block__item" data-testid="user-block">
       <div
         className="user-block__avatar"
         onClick={() => history.push(`${AppRoutes.MY_LIST}`)}
