@@ -4,46 +4,15 @@ import { createAPI } from '../services/api';
 import { ActionType } from './action';
 import { checkAuth, login, systemLogout, fetchFilmsList, fetchPromoFilm, fetchFavoriteFilmsList, fetchFilmInfo, fetchSimilarFilms, fetchReviews, postComment, updateIsFavoriteStatus } from './api-actions';
 import { adaptFilmsToClient, adaptFilmToClient, adaptReviewsToClient } from '../services/adaptors';
+import { mockFilm, mockReviewResponse, mockReviewRequest } from '../utils/mock';
 import { APIRoute, AuthorizationStatus } from '../const';
 
 
 let api = null;
 
-const filmData = {
-  'id': 1,
-  'name': 'The Grand Budapest Hotel',
-  'poster_image': 'img/the-grand-budapest-hotel-poster.jpg',
-  'preview_image': 'img/the-grand-budapest-hotel.jpg',
-  'background_image': 'img/the-grand-budapest-hotel-bg.jpg',
-  'background_color': '#ffffff',
-  'video_link': 'https://some-link',
-  'preview_video_link': 'https://some-link',
-  'description': 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustaves friend and protege.',
-  'rating': 8.9,
-  'scores_count': 240,
-  'director': 'Wes Andreson',
-  'starring': ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
-  'run_time': 99,
-  'genre': 'Comedy',
-  'released': 2014,
-  'is_favorite': false,
-};
-
-const reviewData = {
-  'id': 1,
-  'user': {
-    'id': 4,
-    'name': 'Kate Muir',
-  },
-  'rating': 8.9,
-  'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the directors funniest and most exquisitely designed movies in years.',
-  'date': '2019-05-08T14:13:56.569Z',
-};
-
-const reviewPostData = {
-  'rating': 8,
-  'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the directors funniest and most exquisitely designed movies in years.',
-};
+const filmData = mockFilm;
+const reviewData = mockReviewResponse;
+const reviewPostData = mockReviewRequest;
 
 describe('Async operations', () => {
   beforeAll(() => {
