@@ -77,6 +77,7 @@ function AddReviewForm(props) {
                     checked={value === +rating}
                     onChange={ratingChangeHandler}
                     disabled={isCommentSending}
+                    data-testid="rating-input"
                   />
                   <label className="rating__label" htmlFor={`star-${value}`}>Rating {value}</label>
                 </React.Fragment>
@@ -95,6 +96,7 @@ function AddReviewForm(props) {
             value={comment}
             onChange={textChangeHandler}
             disabled={isCommentSending}
+            data-testid="review-textarea"
           />
 
           <div className="add-review__submit">

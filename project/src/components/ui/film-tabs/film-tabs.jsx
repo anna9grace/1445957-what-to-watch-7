@@ -39,7 +39,7 @@ function FilmTabs(props) {
   const {film, reviews}  = props;
 
   return (
-    <div className="film-card__desc">
+    <div className="film-card__desc" data-testid="film-tabs-block">
       <nav className="film-nav film-card__nav">
 
         <FilmTabsList
