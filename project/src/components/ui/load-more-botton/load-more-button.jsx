@@ -1,13 +1,9 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { getFilmsRenderedCount } from '../../../store/action';
 
-function LoadMoreButton() {
-  const dispatch = useDispatch();
-  const onShowMoreClick = () => {
-    dispatch(getFilmsRenderedCount());
-  };
+function LoadMoreButton(props) {
+  const {onShowMoreClick} = props;
 
   return (
     <div className="catalog__more">
@@ -21,5 +17,9 @@ function LoadMoreButton() {
     </div>
   );
 }
+
+LoadMoreButton.propTypes = {
+  onShowMoreClick: PropTypes.func.isRequired,
+};
 
 export default LoadMoreButton;

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import { makeItemsUnique } from '../../../utils/utils';
 import { INITIAL_GENRE } from '../../../const';
 import { changeActiveGenre, getFilmsList, resetFilmsRenderedCount } from '../../../store/action';
-import { getActiveGenre, getFilms } from '../../../store/main-data/selectors';
+import { getFilms } from '../../../store/main-data/selectors';
 
 export const getUniqueGenres = (films) => {
   const genres = films.map((film) => film.genre);
@@ -13,11 +13,12 @@ export const getUniqueGenres = (films) => {
 
 
 function GenresList() {
-  const activeGenre = useSelector(getActiveGenre);
   const films = useSelector(getFilms);
+  const [activeGenre, setActiveGenre] = useState(INITIAL_GENRE);
 
   const dispatch = useDispatch();
   const onGenreChange = (genre) => {
+    setActiveGenre(genre);
     dispatch(changeActiveGenre(genre));
     dispatch(getFilmsList());
     dispatch(resetFilmsRenderedCount());

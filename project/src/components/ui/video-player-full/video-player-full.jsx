@@ -52,7 +52,7 @@ function VideoPlayerFull({ src, posterUrl, playingStatus, isFullMode, isVideoRea
 
 
   useEffect(() => {
-    if (isFullMode) {
+    if (isFullMode && document.fullscreenEnabled) {
       videoRef.current.requestFullscreen();
       onFullModeEnter();
     }

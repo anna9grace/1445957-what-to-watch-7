@@ -73,7 +73,7 @@ function PlayerScreen(props) {
           {
             playingStatus === VideoStatus.PLAYING
               ? <PauseButton onPause={() => isVideoReady && setPlayingStatus(VideoStatus.PAUSED)} />
-              : <PlayButton onPlay={() => isVideoReady && setPlayingStatus(VideoStatus.PLAYING)} />
+              : <PlayButton disabled onPlay={() => isVideoReady && setPlayingStatus(VideoStatus.PLAYING)} />
           }
 
           <div className="player__name">{name}</div>

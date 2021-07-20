@@ -5,15 +5,11 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
-import AddReviewScreen from './add-review-screen';
-import { mockFilms } from '../../../utils/mock';
-import { AuthorizationStatus } from '../../../const';
-
+import MainScreen from './main-screen';
+import { mockFilm, mockFilms } from '../../../utils/mock';
+import { AuthorizationStatus, INITIAL_GENRE } from '../../../const';
 
 const initialState = {
-  DATA: {
-    films: mockFilms,
-  },
   USER: {
     authorizationStatus: AuthorizationStatus.AUTH,
     authInfo: {
@@ -25,29 +21,34 @@ const initialState = {
     },
   },
   FILM: {
-    isCommentSending: false,
+    currentFilm: mockFilm,
+  },
+  DATA: {
+    films: mockFilms,
+    filteredFilms: mockFilms,
+    promoFilm: mockFilm,
   },
 };
 
-
 const mockStore = configureStore({});
 
-describe('Component: AddReviewScreen', () => {
+describe('Component: MainScreen', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
-    history.push('/films/2/review');
+    history.push('/');
 
     render(
       <Provider store={mockStore(initialState)}>
         <Router history={history}>
-          <AddReviewScreen filmId='2'/>
+          <MainScreen />
         </Router>
       </Provider>,
     );
 
-    expect(screen.getByText(/Add review/i)).toBeInTheDocument();
-    expect(screen.getByText(`${initialState.DATA.films[1].name}`)).toBeInTheDocument();
-    expect(screen.getByTestId('user-block')).toBeInTheDocument();
-    expect(screen.getByTestId('add-review-form')).toBeInTheDocument();
+    expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
+    expect(screen.getByText(/My list/i)).toBeInTheDocument();
+    expect(screen.getByText(/Play/i)).toBeInTheDocument();
+    expect(screen.getByText(`${INITIAL_GENRE}`)).toBeInTheDocument();
+    expect(screen.getByTestId('films-list')).toBeInTheDocument();
   });
 });

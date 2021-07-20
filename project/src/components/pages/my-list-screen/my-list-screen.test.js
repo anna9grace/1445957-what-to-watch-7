@@ -5,31 +5,43 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
-import FilmListMain from './film-list-main';
+import MyListScreen from './my-list-screen';
 import { mockFilms } from '../../../utils/mock';
-import { MAX_FILMS_COUNT } from '../../../const';
+import { AuthorizationStatus } from '../../../const';
 
 const initialState = {
+  USER: {
+    authorizationStatus: AuthorizationStatus.AUTH,
+    authInfo: {
+      'id': 1,
+      'email': 'Oliver.conner@gmail.com',
+      'name': 'Oliver.conner',
+      'avatar_url': 'img/1.png',
+      'token': 'T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=',
+    },
+  },
   DATA: {
-    filteredFilms: mockFilms,
-    renderedFilmsCount: MAX_FILMS_COUNT,
+    favoriteFilms: mockFilms,
   },
 };
 
 const mockStore = configureStore({});
 
-describe('Component: FilmListMain', () => {
+describe('Component: MyListScreen', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
+    history.push('/mylist');
 
     render(
       <Provider store={mockStore(initialState)}>
         <Router history={history}>
-          <FilmListMain />
+          <MyListScreen />
         </Router>
       </Provider>,
     );
 
+    expect(screen.getByText(/My list/i)).toBeInTheDocument();
+    expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
     expect(screen.getByTestId('films-list')).toBeInTheDocument();
   });
 });
