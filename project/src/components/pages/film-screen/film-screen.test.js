@@ -1,13 +1,16 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
+import { render, screen } from '@testing-library/react';
+import { Router, Switch, Route } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import userEvent from '@testing-library/user-event';
 
 import FilmScreen from './film-screen';
 import { mockFilm, mockFilms, mockReviews } from '../../../utils/mock';
 import { AuthorizationStatus } from '../../../const';
+
+let history;
 
 const initialState = {
   USER: {
@@ -34,14 +37,16 @@ const initialState = {
 const mockStore = configureStore({});
 
 describe('Component: FilmScreen', () => {
-  it('should render correctly', () => {
-    const history = createMemoryHistory();
+  beforeEach(() => {
+    history = createMemoryHistory();
     history.push('/films/2');
+  });
 
+  it('should render correctly', () => {
     render(
       <Provider store={mockStore(initialState)}>
         <Router history={history}>
-          <FilmScreen filmId='2'/>
+          <FilmScreen filmId='2' />
         </Router>
       </Provider>,
     );
@@ -51,5 +56,55 @@ describe('Component: FilmScreen', () => {
     expect(screen.getByText(/Add review/i)).toBeInTheDocument();
     expect(screen.getByTestId('film-tabs-block')).toBeInTheDocument();
     expect(screen.getByTestId('films-list')).toBeInTheDocument();
+  });
+
+
+  it('should render loading screen if data is not loaded yet', () => {
+    render(
+      <Provider store={mockStore({ ...initialState, FILM: { ...initialState.FILM, isFilmDataLoaded: false } })}>
+        <Router history={history}>
+          <FilmScreen filmId='2' />
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.getByTestId('loader')).toBeInTheDocument();
+  });
+
+
+  it('should render not found screen if film is not exist', () => {
+    render(
+      <Provider store={mockStore({ ...initialState, FILM: { ...initialState.FILM, currentFilm: null } })}>
+        <Router history={history}>
+          <FilmScreen filmId='2' />
+        </Router>
+      </Provider>,
+    );
+
+
+    expect(screen.getByText('404. Page not found')).toBeInTheDocument();
+    expect(screen.getByText('Go to main page')).toBeInTheDocument();
+  });
+
+
+  it('should redirect to player screen on play button click', () => {
+    render(
+      <Provider store={mockStore(initialState)}>
+        <Router history={history}>
+          <Switch>
+            <Route path="/player/2" exact>
+              <h1>This is player screen</h1>
+            </Route>
+            <Route>
+              <FilmScreen filmId='2' />
+            </Route>
+          </Switch>
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.queryByText(/This is player screen/i)).not.toBeInTheDocument();
+    userEvent.click(document.querySelector('.film-card__button'));
+    expect(screen.queryByText(/This is player screen/i)).toBeInTheDocument();
   });
 });

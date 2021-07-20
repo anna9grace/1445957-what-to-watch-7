@@ -1,13 +1,16 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import FilmList from '../film-list/film-list';
 import LoadMoreButton from '../load-more-botton/load-more-button';
 import { getFilteredFilms, getFilmsCount } from '../../../store/main-data/selectors';
+import { getFilmsRenderedCount } from '../../../store/action';
 
 function FilmListMain() {
   const filteredFilms = useSelector(getFilteredFilms);
   const renderedFilmsCount = useSelector(getFilmsCount);
+  const dispatch = useDispatch();
+  const handleShowMoreClick = () => dispatch(getFilmsRenderedCount());
 
   const filmsToShow = filteredFilms.slice(0, Math.min(filteredFilms.length, renderedFilmsCount));
 
@@ -17,7 +20,10 @@ function FilmListMain() {
         films={filmsToShow}
       />
 
-      {filteredFilms.length > renderedFilmsCount && <LoadMoreButton />}
+      {
+        filteredFilms.length > renderedFilmsCount
+        && <LoadMoreButton onShowMoreClick={handleShowMoreClick}/>
+      }
     </React.Fragment>
   );
 }
