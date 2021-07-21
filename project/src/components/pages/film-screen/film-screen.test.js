@@ -59,19 +59,6 @@ describe('Component: FilmScreen', () => {
   });
 
 
-  it('should render loading screen if data is not loaded yet', () => {
-    render(
-      <Provider store={mockStore({ ...initialState, FILM: { ...initialState.FILM, isFilmDataLoaded: false } })}>
-        <Router history={history}>
-          <FilmScreen filmId='2' />
-        </Router>
-      </Provider>,
-    );
-
-    expect(screen.getByTestId('loader')).toBeInTheDocument();
-  });
-
-
   it('should render not found screen if film is not exist', () => {
     render(
       <Provider store={mockStore({ ...initialState, FILM: { ...initialState.FILM, currentFilm: null } })}>

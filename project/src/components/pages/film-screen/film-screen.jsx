@@ -42,7 +42,7 @@ function FilmScreen(props) {
       if (isFilmDataLoaded) {
         dispatch(clearFilm());
       }
-    }
+    };
   }, [filmId, isFilmDataLoaded]);
 
 
