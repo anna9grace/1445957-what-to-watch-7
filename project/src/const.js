@@ -69,6 +69,8 @@ export const MAX_SIMILAR_FILMS_COUNT = 4;
 
 export const MAX_FILMS_COUNT = 8;
 
+export const MAX_GENRES_COUNT = 9;
+
 export const MAX_RATING = 10;
 
 export const PREVIEW_VIDEO_DELAY = 1000;

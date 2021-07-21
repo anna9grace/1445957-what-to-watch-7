@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import { makeItemsUnique } from '../../../utils/utils';
-import { INITIAL_GENRE } from '../../../const';
+import { INITIAL_GENRE, MAX_GENRES_COUNT } from '../../../const';
 import { changeActiveGenre, getFilmsList, resetFilmsRenderedCount } from '../../../store/action';
 import { getFilms } from '../../../store/main-data/selectors';
 
@@ -14,6 +14,7 @@ export const getUniqueGenres = (films) => {
 
 function GenresList() {
   const films = useSelector(getFilms);
+  const uniqueGenres = getUniqueGenres(films).slice(0, MAX_GENRES_COUNT);
   const [activeGenre, setActiveGenre] = useState(INITIAL_GENRE);
 
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function GenresList() {
     dispatch(resetFilmsRenderedCount());
   };
 
-  const genres = [INITIAL_GENRE, ...getUniqueGenres(films)];
+  const genres = [INITIAL_GENRE, ...uniqueGenres];
 
   return (
     <ul className="catalog__genres-list">
