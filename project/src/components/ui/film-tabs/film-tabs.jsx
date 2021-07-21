@@ -44,7 +44,7 @@ function FilmTabs(props) {
 
         <FilmTabsList
           activeTab={activeTab}
-          tabClickHandler={(tab) => {
+          onTabClick={(tab) => {
             setAtiveTab(tab);
           }}
         />

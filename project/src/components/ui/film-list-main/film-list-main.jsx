@@ -10,7 +10,7 @@ function FilmListMain() {
   const filteredFilms = useSelector(getFilteredFilms);
   const renderedFilmsCount = useSelector(getFilmsCount);
   const dispatch = useDispatch();
-  const handleShowMoreClick = () => dispatch(getFilmsRenderedCount());
+  const onShowMoreClick = () => dispatch(getFilmsRenderedCount());
 
   const filmsToShow = filteredFilms.slice(0, Math.min(filteredFilms.length, renderedFilmsCount));
 
@@ -22,7 +22,7 @@ function FilmListMain() {
 
       {
         filteredFilms.length > renderedFilmsCount
-        && <LoadMoreButton onShowMoreClick={handleShowMoreClick}/>
+        && <LoadMoreButton onShowMoreClick={onShowMoreClick}/>
       }
     </React.Fragment>
   );

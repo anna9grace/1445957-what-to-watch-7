@@ -10,6 +10,7 @@ import PauseButton from '../../ui/pause-button/pause-button';
 import { VideoStatus } from '../../../const';
 import { transformDuration } from '../../../utils/utils';
 
+const SECONDS_IN_MINUTE = 60;
 const getProgressLevel = (max, current) => current / max * 100;
 
 function PlayerScreen(props) {
@@ -22,7 +23,7 @@ function PlayerScreen(props) {
   const [playingStatus, setPlayingStatus] = useState(VideoStatus.STOPPED);
   const [isFullMode, setIsFullMode] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
-  const [videoDuration, setVideoDuration] = useState(runTime * 60);
+  const [videoDuration, setVideoDuration] = useState(runTime * SECONDS_IN_MINUTE);
   const [currentTime, setCurrentTime] = useState(0);
 
   const onVideoPlaying = () => playingStatus !== VideoStatus.PLAYING && isVideoReady && setPlayingStatus(VideoStatus.PLAYING);

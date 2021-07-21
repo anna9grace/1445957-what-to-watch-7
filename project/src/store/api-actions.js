@@ -44,7 +44,7 @@ export const login = (authData) => (dispatch, _getState, api) => (
       return data;
     })
     .then((data) => dispatch(requireAuthorization(AuthorizationStatus.AUTH, data)))
-    .catch((err) => toast(err))
+    .catch((error) => toast(error.message))
 );
 
 export const systemLogout = () => (dispatch, _getState, api) => (

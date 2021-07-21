@@ -19,10 +19,10 @@ function FilmList(props) {
             <FilmCard
               key={filmId}
               film={film}
-              mouseEnterHandler={() => {
+              onMouseEnter={() => {
                 setActiveCardId(filmId);
               }}
-              mouseLeaveHandler={() => {
+              onMouseLeave={() => {
                 setActiveCardId(null);
               }}
               playingStatus={film.id === activeCardId ? VideoStatus.PLAYING : VideoStatus.STOPPED}

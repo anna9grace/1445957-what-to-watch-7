@@ -18,7 +18,6 @@ import { isCheckedAuth } from '../../utils/utils';
 import { getDataStatus, getPromoDataStatus } from '../../store/main-data/selectors';
 import { getAuthStatus } from '../../store/user/selectors';
 
-
 import 'react-toastify/dist/ReactToastify.css';
 
 const renderLoadingScreen = () => <LoadingScreen />;

@@ -8,14 +8,14 @@ import {AppRoutes} from '../../../const';
 
 
 function FilmCard(props) {
-  const {film, mouseEnterHandler, mouseLeaveHandler, playingStatus} = props;
+  const {film, onMouseEnter, onMouseLeave, playingStatus} = props;
   const {name, previewImage, id, previewVideoLink} = film;
 
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseEnter={mouseEnterHandler}
-      onMouseLeave={mouseLeaveHandler}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <Link to={`${AppRoutes.FILM}/${film.id}`}>
         <div className="small-film-card__image">
@@ -35,8 +35,8 @@ function FilmCard(props) {
 
 FilmCard.propTypes = {
   film: filmProp,
-  mouseEnterHandler: PropTypes.func.isRequired,
-  mouseLeaveHandler: PropTypes.func.isRequired,
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
   playingStatus: PropTypes.string.isRequired,
 };
 

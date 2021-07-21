@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FilmTabsNames } from '../../../const';
 
 function FilmTabsList(props) {
-  const {activeTab, tabClickHandler} = props;
+  const {activeTab, onTabClick} = props;
 
   return (
     <ul className="film-nav__list" data-testid="film-tabs-list">
@@ -22,7 +22,7 @@ function FilmTabsList(props) {
                 className="film-nav__link"
                 onClick={(evt) => {
                   evt.preventDefault();
-                  tabClickHandler(currentTab);
+                  onTabClick(currentTab);
                 }}
               >
                 {currentTab}
@@ -37,7 +37,7 @@ function FilmTabsList(props) {
 
 FilmTabsList.propTypes = {
   activeTab: PropTypes.string.isRequired,
-  tabClickHandler: PropTypes.func.isRequired,
+  onTabClick: PropTypes.func.isRequired,
 };
 
 export default FilmTabsList;

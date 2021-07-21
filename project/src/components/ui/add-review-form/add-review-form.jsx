@@ -29,14 +29,14 @@ function AddReviewForm(props) {
     rating && comment.trim().length > ReviewLength.MIN && comment.trim().length < ReviewLength.MAX,
   ), [comment, rating]);
 
-  const textChangeHandler = (evt) => {
+  const onTextChange = (evt) => {
     setReview({
       ...review,
       comment: evt.target.value,
     });
   };
 
-  const ratingChangeHandler = (evt) => {
+  const onRatingChange = (evt) => {
     setReview({
       ...review,
       rating: evt.target.value,
@@ -75,7 +75,7 @@ function AddReviewForm(props) {
                     name="rating"
                     value={`${value}`}
                     checked={value === +rating}
-                    onChange={ratingChangeHandler}
+                    onChange={onRatingChange}
                     disabled={isCommentSending}
                     data-testid="rating-input"
                   />
@@ -94,7 +94,7 @@ function AddReviewForm(props) {
             id="review-text"
             placeholder="Review text"
             value={comment}
-            onChange={textChangeHandler}
+            onChange={onTextChange}
             disabled={isCommentSending}
             data-testid="review-textarea"
           />

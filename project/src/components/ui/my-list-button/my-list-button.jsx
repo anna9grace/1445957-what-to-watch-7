@@ -5,6 +5,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { updateIsFavoriteStatus } from '../../../store/api-actions';
 import { getPromoFilm } from '../../../store/main-data/selectors';
 import { getCurrentFilm } from '../../../store/film-data/selectors';
+import { FavoriteStatus } from '../../../const';
 
 const renderInListIcon = () => (
   <svg viewBox="0 0 18 14" width="18" height="14" data-testid="in-list-icon">
@@ -32,7 +33,11 @@ function MyListButton(props) {
     : currentFilm.isFavorite;
 
   const onMyListClick = () => {
-    dispatch(updateIsFavoriteStatus(filmId, isCurrent, isPromo, isFavorite ? 0 : 1));
+    dispatch(updateIsFavoriteStatus(
+      filmId,
+      isCurrent,
+      isPromo,
+      isFavorite ? FavoriteStatus.NOT_FAVORITE : FavoriteStatus.FAVORITE));
   };
 
   return (

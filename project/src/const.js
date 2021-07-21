@@ -63,6 +63,11 @@ export const VideoStatus = {
   STOPPED: 'stopped',
 };
 
+export const FavoriteStatus = {
+  FAVORITE: 1,
+  NOT_FAVORITE: 0,
+};
+
 export const MAX_ACTORS_COUNT = 4;
 
 export const MAX_SIMILAR_FILMS_COUNT = 4;
