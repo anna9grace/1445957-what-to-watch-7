@@ -25,7 +25,7 @@ function VideoPlayer({src, posterUrl, playingStatus}) {
 
   return (
     <video
-      src={src}
+      src={playingStatus !== VideoStatus.STOPPED ? src : ''}
       poster={posterUrl}
       ref={videoRef}
       muted

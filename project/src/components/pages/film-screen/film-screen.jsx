@@ -32,16 +32,18 @@ function FilmScreen(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!currentFilm && !similarFilms && reviews.length < 1) {
+    if (!isFilmDataLoaded) {
       dispatch(fetchFilmInfo(filmId));
       dispatch(fetchSimilarFilms(filmId));
       dispatch(fetchReviews(filmId));
     }
 
     return () => {
-      dispatch(clearFilm());
-    };
-  }, [filmId]);
+      if (isFilmDataLoaded) {
+        dispatch(clearFilm());
+      }
+    }
+  }, [filmId, isFilmDataLoaded]);
 
 
   if (!isFilmDataLoaded) {

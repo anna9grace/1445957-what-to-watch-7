@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux';
 
-import { updateIsFavoriteStatus } from '../../../store/api-actions';
+import { fetchFavoriteFilmsList, updateIsFavoriteStatus } from '../../../store/api-actions';
 import { getPromoFilm } from '../../../store/main-data/selectors';
 import { getCurrentFilm } from '../../../store/film-data/selectors';
 import { FavoriteStatus } from '../../../const';
@@ -38,6 +38,7 @@ function MyListButton(props) {
       isCurrent,
       isPromo,
       isFavorite ? FavoriteStatus.NOT_FAVORITE : FavoriteStatus.FAVORITE));
+    dispatch(fetchFavoriteFilmsList());
   };
 
   return (

@@ -20,9 +20,9 @@ const renderLogoActive = (isFooter) => (
 
 const renderLogoInactive = (isFooter) => (
   <div className="logo">
-    <a className={`logo__link ${isFooter ? 'logo__link--light' : ''}`}>
+    <p className={`logo__link ${isFooter ? 'logo__link--light' : ''}`}>
       {renderLogoLetters()}
-    </a>
+    </p>
   </div>
 );
 

@@ -13,7 +13,7 @@ export default PropTypes.shape({
   rating: PropTypes.number.isRequired,
   scoresCount: PropTypes.number.isRequired,
   director: PropTypes.string.isRequired,
-  starring: PropTypes.array.isRequired,
+  starring: PropTypes.arrayOf(PropTypes.string).isRequired,
   runTime: PropTypes.number.isRequired,
   genre: PropTypes.string.isRequired,
   released: PropTypes.number.isRequired,

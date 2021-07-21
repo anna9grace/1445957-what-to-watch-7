@@ -35,7 +35,7 @@ function AddReviewScreen(props) {
                 <Link className="breadcrumbs__link" to={`${AppRoutes.FILM}/${film.id}`}>{name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <span className="breadcrumbs__link">Add review</span>
               </li>
             </ul>
           </nav>

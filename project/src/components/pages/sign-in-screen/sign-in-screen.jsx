@@ -8,10 +8,11 @@ import { login } from '../../../store/api-actions';
 import { AuthorizationStatus, AppRoutes } from '../../../const';
 import { getAuthStatus } from '../../../store/user/selectors';
 
+const EMAIL_FORMAT = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
 
 const validationRules = {
   email: {
-    validate: (value) => value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i),
+    validate: (value) => value.match(EMAIL_FORMAT),
     message: 'Please enter a valid email address',
   },
 

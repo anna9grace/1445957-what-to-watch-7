@@ -18,8 +18,8 @@ describe('Component: FilmCard', () => {
       <Router history={history}>
         <FilmCard
           film={filmData}
-          mouseEnterHandler={() => {}}
-          mouseLeaveHandler={() => {}}
+          onMouseEnter={() => {}}
+          onMouseLeave={() => {}}
           playingStatus={VideoStatus.STOPPED}
         />
       </Router>,
