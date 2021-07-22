@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { VideoStatus } from '../../../const';
 
+const VIDEO_TIME_CHECK_TIMEOUT = 1000;
 
 function VideoPlayerFull({ src, posterUrl, playingStatus, isFullMode, isVideoReady, onFullModeEnter, onPlaying, onPause, onProgress, onStart, onReadyStatusChange }) {
   let timerId = null;
@@ -11,7 +12,7 @@ function VideoPlayerFull({ src, posterUrl, playingStatus, isFullMode, isVideoRea
   const videoRef = useRef();
 
   const startProgressWatch = () => {
-    timerId = setInterval(() => onProgress(videoRef.current.currentTime), 1000);
+    timerId = setInterval(() => onProgress(videoRef.current.currentTime), VIDEO_TIME_CHECK_TIMEOUT);
   };
 
 

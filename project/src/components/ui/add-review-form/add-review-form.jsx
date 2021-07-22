@@ -60,7 +60,6 @@ function AddReviewForm(props) {
         action="#"
         className="add-review__form"
         onSubmit={onFormSubmit}
-        disabled
       >
         <div className="rating">
           <div className="rating__stars">
